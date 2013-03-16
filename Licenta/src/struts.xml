@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+  "-//Apache Software Foundation//DTD Struts 
+  Configuration 2.0//EN"
+  "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+<constant name="struts.devMode" value="false" />
+<constant name="struts.ui.theme" value="simple" />
+
+	<package name="default" extends="struts-default">
+		<action name="fetchBooks" class="book.operation.ViewBooks">
+			<result>/pages/successBooks.jsp</result>
+		</action>
+		
+		<action name="fetchPublisher" class="forFields.FieldPublisher">
+			<result>/pages/bookInsert.jsp</result>
+		</action>
+		<action name="bookInsert" class="book.operation.InsertBook">
+			<result name="success" type="redirect">fetchBooks</result>
+			<result name="input">/pages/bookInsert.jsp</result>
+			<result name="cancel" type="redirect">fetchBooks</result>
+			<result name="publisher">/pages/insertPublisher.jsp</result>
+		</action>
+		
+		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher -->
+<!-- 		<action name="gotoAddPublisher" class="book.operation.InsertPublisher" method="gotoPublisher"> -->
+<!-- 			<result name="success">/pages/insertPublisher.jsp</result> -->
+<!-- 		</action> -->
+		<action name="addPublisher" class="book.operation.InsertPublisher">
+			<result name="success" type="redirect">bookInsert</result>
+ 			<result name="input">/pages/insertPublisher.jsp</result>
+ 		</action>
+	</package>
+</struts>
