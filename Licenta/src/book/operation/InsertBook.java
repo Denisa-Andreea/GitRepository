@@ -30,9 +30,14 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	private String authorLN4;
 	private String authorFN5;
 	private String authorLN5;
-	private String publisher;
-	private int volume;
-	private int year;
+	private int publisher;
+	private int volume = 0;
+	private int year =0;
+	private String series;
+	private String edition;
+	private String month;
+	private String note;
+	private int publisherSelected;
 
 	FunctionBookAuthor function = new FunctionBookAuthor();
 	FunctionPublisher pub = new FunctionPublisher();
@@ -43,12 +48,13 @@ public class InsertBook extends ActionSupport implements SessionAware {
 
 	public InsertBook() {
 		listPublisher = pub.fetchPublisher();
-		//getAuthorList();
+		// getAuthorList();
 	}
 
 	public String browse() {
 		System.out.println("addPublisher");
 		setSession(sessionBook());
+		setPublisher(0);
 		return "publisher";
 	}
 
@@ -58,25 +64,36 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	}
 
 	public String execute() {
+		System.out.println("execute");
 		sessionBookUnset();
-		function.insertBook(getTitle(), getAuthorList(), Integer.parseInt(getPublisher()),
+		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
 				getVolume(), getYear());
 		return SUCCESS;
 
 	}
 
+	/**
+	 * validare la nivel de server ..este facuta provizoriu ...TREBUIE FACUTA 
+	 */
 	public void validate() {
-		if(session.isEmpty()){
+		setPublisherSelected(getPublisher());
+		if (session.isEmpty()) {
+			System.out.println("publisherSelected " + publisherSelected);
 			if (StringUtils.isBlank(getTitle())) {
 				addFieldError("title", "Please insert the title");
 			}
-			if (getPublisher().equals("-Select a Publisher-")) {
-				addFieldError("publisher", "Please insert the publisher");
+			if (getPublisher() == 0) {
+				addFieldError("publisher", "Please select the publisher");
 			}
-		}else if(StringUtils.isBlank((String) session.get("title"))){
-			addFieldError("title", "Please insert the title session");
+			
+		} else{
+			if (StringUtils.isBlank((String) session.get("title"))) {		
+				addFieldError("title", "Please insert the title session");
+			}
+			if(getPublisher() == 0){
+				addFieldError("publisher", "Select the Publisher Session");
+			}
 		}
-	
 	}
 
 	/**
@@ -142,11 +159,15 @@ public class InsertBook extends ActionSupport implements SessionAware {
 		session.put("volume", getVolume());
 		System.out.println(session.get("title") + " " + session.get("year")
 				+ " " + session.get("volume"));
-		session.put("authorList", getAuthorList());			
+		session.put("authorList", getAuthorList());
+		session.put("series",getSeries());
+		session.put("edition",getSeries());
+		session.put("month", getMonth());
+		session.put("note", getNote());
 		return session;
 	}
-	
-	public void sessionBookUnset(){
+
+	public void sessionBookUnset() {
 		System.out.println("unset session");
 		session.remove("title");
 		session.remove("year");
@@ -274,11 +295,11 @@ public class InsertBook extends ActionSupport implements SessionAware {
 		this.authorFN5 = authorFN5;
 	}
 
-	public String getPublisher() {
+	public int getPublisher() {
 		return publisher;
 	}
 
-	public void setPublisher(String publisher) {
+	public void setPublisher(int publisher) {
 		this.publisher = publisher;
 	}
 
@@ -296,5 +317,45 @@ public class InsertBook extends ActionSupport implements SessionAware {
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;
+	}
+
+	public int getPublisherSelected() {
+		return publisherSelected;
+	}
+
+	public void setPublisherSelected(int publisherSelected) {
+		this.publisherSelected = publisherSelected;
+	}
+
+	public String getSeries() {
+		return series;
+	}
+
+	public void setSeries(String series) {
+		this.series = series;
+	}
+
+	public String getEdition() {
+		return edition;
+	}
+
+	public void setEdition(String edition) {
+		this.edition = edition;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
 	}
 }

@@ -8,6 +8,6 @@
 </head>
 <body>
 	<a href="fetchBooks">Books</a><br/>
-
+	<a href="viewPublisher">Publishers</a>
 </body>
 </html>

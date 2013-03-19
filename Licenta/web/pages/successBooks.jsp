@@ -4,7 +4,7 @@
 		<table class="tabel">
 			<tr class="headrow"><th>Title</th><th>Author(s)</th><th>Publisher</th><th>Address</th><th>Year</th><th>Volume</th><th>Series</th><th>Edition</th><th>Month</th><th>Note</th></tr>
 			<s:iterator value="listBook" var="bookAuthor">
-				<tr><td><s:property value="title"/>
+				<tr><td><s:property value="title"/></td>
 					<td><s:property value="autors"/></td>					
 					<td><s:property value="publisher"/></td>
 					<td><s:property value="address"/></td>

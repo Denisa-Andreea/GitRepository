@@ -7,7 +7,7 @@
 <constant name="struts.devMode" value="false" />
 <constant name="struts.ui.theme" value="simple" />
 
-	<package name="default" extends="struts-default">
+	<package name="default" extends="struts-default" >
 		<action name="fetchBooks" class="book.operation.ViewBooks">
 			<result>/pages/successBooks.jsp</result>
 		</action>
@@ -22,13 +22,22 @@
 			<result name="publisher">/pages/insertPublisher.jsp</result>
 		</action>
 		
-		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher -->
+		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher, precum si petru afisarea unui tabel cu publicatiile disponibile -->
 <!-- 		<action name="gotoAddPublisher" class="book.operation.InsertPublisher" method="gotoPublisher"> -->
 <!-- 			<result name="success">/pages/insertPublisher.jsp</result> -->
 <!-- 		</action> -->
 		<action name="addPublisher" class="book.operation.InsertPublisher">
 			<result name="success" type="redirect">bookInsert</result>
  			<result name="input">/pages/insertPublisher.jsp</result>
+ 			<result name="fetch" type="redirect">viewPublisher</result>
+ 		</action>
+ 		
+ 		<action name="viewPublisher" class="book.operation.ViewPublisher">
+ 			<result>/pages/successPublisher.jsp</result>
+ 		</action>
+ 		
+ 		<action name="addPublisherDirectly">
+ 			<result>/pages/insertPublisher.jsp</result>
  		</action>
 	</package>
 </struts>

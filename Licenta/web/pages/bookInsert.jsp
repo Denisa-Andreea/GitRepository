@@ -2,6 +2,7 @@
 <div class="insertBook"> 
 	<s:form action="bookInsert" method="post" name="bookInsert">		
 		<div>
+			<s:fielderror><s:param>title</s:param></s:fielderror>
 			<label>Title*:</label>
 			<s:if test="session.isEmpty()">
 				<s:textfield name="title" value="%{title}"/>			
@@ -12,6 +13,7 @@
 			
 		</div>
 		<div>
+			<s:fielderror><s:param>authors</s:param></s:fielderror>
 			<label>Athor(s)*:</label>
 			<input type="button" onclick="addInput('authors');" id="buttonAdd" name="add" value="Add author" />
 			<div id="authors">
@@ -41,29 +43,87 @@
 		</div>		
 		<div>
 			<label>Publisher*:</label>
+			<s:fielderror><s:param>publisher</s:param></s:fielderror>
 			<select name="publisher">
-				<option selected="selected">-Select a Publisher-</option>
+				<s:if test="!session.isEmpty()">
+					<option value="0" selected="selected">-Select a Publisher-</option>
+				</s:if>
+				<s:else>
+					<option value="0">-Select a Publisher empty-</option>
+				</s:else>
 				<s:iterator value="listPublisher" var="publishers">
-					<option value="<s:property value="id_publisher"/>" >
-						<s:property value="name"/>
-					</option>
+					<s:if test="%{publisherSelected == id_publisher}">
+						<option value="<s:property value='id_publisher'/>" selected="selected">
+							<s:property value="name"/>-<s:property value="address"/>
+						</option>
+					</s:if>
+					<s:else>
+						<option value="<s:property value='id_publisher'/>">
+							<s:property value="name"/>-<s:property value="address"/>
+						</option>
+					</s:else>
 				</s:iterator>
 			</select>
 		</div>
 		<div>
-			<label>Year*:</label><s:textfield  name="year" value="0"/>
+			<label>Year*:</label>
+				<s:if test="!session.isEmpty()">
+					<s:textfield  name="year" value="%{session.get('year')}"/>
+				</s:if>
+				<s:else>
+					<s:textfield name="year" value="%{year}"/>
+				</s:else>
 		</div>
 		<div>
-			<label>Volume:</label><s:textfield name="volume" value="0"/>
+			<label>Volume:</label>
+			<s:if test="!session.isEmpty()">
+				<s:textfield  name="volume" value="%{session.get('volume')}"/>
+			</s:if>
+			<s:else>
+				<s:textfield name="volume" value="%{volume}"/>
+			</s:else>
+		</div>
+		<div>
+			<label>Series:</label>
+			<s:if test="!session.isEmpty()">
+				<s:textfield name="series" value="%{session.get('series')}"/>
+			</s:if>
+			<s:else>
+				<s:textfield name="series" value="%{series}"/>
+			</s:else>	
+		</div>
+		<div>
+			<label>Edition:</label>
+			<s:if test="!session.isEmpty()">
+				<s:textfield name="edition" value="%{session.get('edition')}"/>
+			</s:if>
+			<s:else>
+				<s:textfield name="edition" value="%{edition}"/>
+			</s:else>
+		</div>
+		<div>
+			<label>Month:</label>
+			<s:if test="!session.isEmpty()">
+				<s:textfield name="month" value="%{session.get('month')}"/>
+			</s:if>
+			<s:else>
+				<s:textfield name="month" value="%{month}"/>
+			</s:else>
+		</div>
+		<div>
+			<label>Note:</label>
+			<s:if test="!session.isEmpty()">
+				<s:textfield name="note" value="%{session.get('note')}"/>
+			</s:if>
+			<s:else>
+				<s:textfield name="note" value="%{note}"/>
+			</s:else>
 		</div>
 		<div>
 		<s:submit value="Insert"/>
 		<s:submit value="Cancel Insert" method="cancel"/>
 		<s:submit value="Add Publisher" method="browse"/>
 		</div>
-	</s:form>
-	<s:form>
-	
 	</s:form>
 </div>
 

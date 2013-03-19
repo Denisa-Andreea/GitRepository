@@ -63,6 +63,7 @@ public class FunctionForInsert {
 							+ title + "'");
 			ResultSet resultExist = exist.executeQuery();
 			if (!resultExist.next()) {
+				exist.close();
 				return false;
 			}
 		} catch (SQLException e) {
@@ -83,6 +84,7 @@ public class FunctionForInsert {
 							+ authorFN + "' and lastname = '" + authorLN + "'");
 			ResultSet resultexist = existAuthor.executeQuery();
 			if (!resultexist.next()) {
+				existAuthor.close();
 				return false;
 			}
 		} catch (SQLException e) {

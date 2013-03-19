@@ -17,6 +17,8 @@ public class FieldPublisher extends ActionSupport {
 	Publisher publisher;
 	ArrayList<Publisher> listPublisher;
 	ArrayList<Authors> authorList;
+	int volume = 0;
+	int year = 0;
 
 	private String authorFN0;
 
@@ -28,7 +30,6 @@ public class FieldPublisher extends ActionSupport {
 //			System.out.println(listPublisher.get(i).getId_publisher());
 //		}
 		return SUCCESS;
-
 	}
 
 	public Publisher getPublisher() {
@@ -53,5 +54,21 @@ public class FieldPublisher extends ActionSupport {
 
 	public void setAuthorFN0(String authorFN0) {
 		this.authorFN0 = authorFN0;
+	}
+
+	public int getVolume() {
+		return volume;
+	}
+
+	public void setVolume(int volume) {
+		this.volume = volume;
+	}
+
+	public int getYear() {
+		return year;
+	}
+
+	public void setYear(int year) {
+		this.year = year;
 	}
 }

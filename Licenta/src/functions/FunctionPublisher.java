@@ -37,8 +37,32 @@ public class FunctionPublisher {
 		return listPublisher;
 	}
 	
-	public void insertPublisher(){
-		
+	public void insertPublisher(String name, String address){
+		try {
+			PreparedStatement insertPublisher = con.prepareStatement("insert into publisher(name,address) values(?,?)");
+			if(!existPublisher(name, address)){
+				insertPublisher.setString(1, name);
+				insertPublisher.setString(2, address);
+				insertPublisher.executeUpdate();
+				insertPublisher.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public boolean existPublisher(String name, String address){
+		try {
+			PreparedStatement verify = con.prepareStatement("select * from publisher where name='"+name+"' and address='"+address+"'");
+			ResultSet resultVerify =verify.executeQuery();
+			if(!resultVerify.next()){
+				verify.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
 	}
 
 }

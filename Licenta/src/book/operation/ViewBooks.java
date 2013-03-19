@@ -13,12 +13,12 @@ public class ViewBooks extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
-	FunctionBookAuthor dbcon = new FunctionBookAuthor();
+	FunctionBookAuthor books = new FunctionBookAuthor();
 	Books bookAuthor;
 	ArrayList<BookAuthor> listBook;
 	
 	public String execute() {
-		listBook = dbcon.fetchBooks();
+		listBook = books.fetchBooks();
 		return SUCCESS;
 	}
 
