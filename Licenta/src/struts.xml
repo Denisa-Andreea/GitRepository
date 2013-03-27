@@ -27,17 +27,31 @@
 <!-- 			<result name="success">/pages/insertPublisher.jsp</result> -->
 <!-- 		</action> -->
 		<action name="addPublisher" class="book.operation.InsertPublisher">
-			<result name="success" type="redirect">bookInsert</result>
+			<result name="success" type="redirect">fetchPublisher</result>
  			<result name="input">/pages/insertPublisher.jsp</result>
  			<result name="fetch" type="redirect">viewPublisher</result>
+ 			<result name="cancel" type="redirect">viewPublisher</result>
+ 			<result name="back" type="redirect">fetchPublisher</result>
  		</action>
  		
  		<action name="viewPublisher" class="book.operation.ViewPublisher">
  			<result>/pages/successPublisher.jsp</result>
  		</action>
  		
- 		<action name="addPublisherDirectly">
+ 		<action name="addPublisherDirectly" class="book.operation.InsertPublisher">
  			<result>/pages/insertPublisher.jsp</result>
+ 		</action>
+ 		
+ 		<!--actiuni de editare/update a cartilor-->
+ 		
+ 		<action name="editBook" class="book.operation.GetBookForEdit">
+ 			<result>/pages/editBooks.jsp</result>
+ 		</action>
+ 		
+ 		<action name="updateBook" class="book.operation.EditBooks">
+ 			<result name="success"></result>
+ 			<result name="input">/pages/editBooks.jsp</result>
+ 			<result name="cancel" type="redirect">fetchBooks</result>
  		</action>
 	</package>
 </struts>

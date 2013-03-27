@@ -2,7 +2,10 @@ package functions;
 
 import iteme.Authors;
 import iteme.BookAuthor;
+import iteme.Books;
 
+import java.awt.print.Book;
+import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,14 +18,14 @@ public class FunctionBookAuthor {
 
 	DBCon dbcon = DBCon.getConnection();
 	Connection con = dbcon.getCon();
-	
+
 	FunctionForInsert insertBooks = new FunctionForInsert();
 	FunctionForInsertTies ties = new FunctionForInsertTies();
-	
+
 	/**
 	 * afisarea cartilor
 	 */
-	
+
 	public ArrayList<BookAuthor> fetchBooks() {
 		try {
 			PreparedStatement selectBooks = con
@@ -34,6 +37,8 @@ public class FunctionBookAuthor {
 			while (resultBooks.next()) {
 				bookAuthor = new BookAuthor();
 
+				bookAuthor.setIdBook(Integer.parseInt(resultBooks
+						.getString("carti.id_carte")));
 				bookAuthor.setTitle(resultBooks.getString("carti.title"));
 				bookAuthor
 						.setAutors(resultBooks
@@ -65,30 +70,83 @@ public class FunctionBookAuthor {
 	 * inserarea unei carti
 	 */
 	public void insertBook(String title, ArrayList<Authors> authorList,
-			int idPubliaher, int volume, int year) {
+			int idPubliaher, int volume, int year, String series,
+			String edition, String month, String note) {
 		int idBook;
 		int idAuthor;
-		try {			
-			insertBooks.insertIntoBooks(title, idPubliaher, year, volume);
+		try {
+			insertBooks.insertIntoBooks(title, idPubliaher, year, volume);// modifica
+																			// insertul!!!!
 			idBook = ties.getIdBook(title);
-			
+
 			/**
-			 * pentru fiecare autor se verifica daca exista si se adauga n baza de date ..adaugandu's si legatura cu id-ul cartii
+			 * pentru fiecare autor se verifica daca exista si se adauga n baza
+			 * de date ..adaugandu's si legatura cu id-ul cartii
 			 */
 			int count = 0;
-			while(count < authorList.size()){
+			while (count < authorList.size()) {
 				String authorFN = authorList.get(count).getFirstName();
 				String authorLN = authorList.get(count).getLastName();
-				authorFN = authorFN.replaceFirst("\\s","");
-				authorLN = authorLN.replaceFirst("\\s", "");
-				insertBooks.insertIntoAuthor(authorFN, authorLN);			
+				authorFN = authorFN.replaceAll("^ +| +$|( )+", "$1");
+				authorLN = authorLN.replaceAll("^ +| +$|( )+", "$1");
+				insertBooks.insertIntoAuthor(authorFN, authorLN);
 				idAuthor = ties.getIdAuthor(authorFN, authorLN);
 				ties.insertTiesBook(idBook, idAuthor);
-				count ++;
-			}			
+				count++;
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public ArrayList<Books> selectBook(int idBook){
+		ArrayList<Books> bookList = new ArrayList<Books>();
+		ArrayList<Authors> authorList = new ArrayList<Authors>();
+		Books book;
+		Authors author;
+		
+		try {
+			PreparedStatement selectAuthors = con.prepareStatement("select autori.id_autor,autori.firstname,autori.lastname from (carte_autor LEFT JOIN autori On carte_autor.id_autor = autori.id_autor) where carte_autor.id_carte = "+idBook);
+			ResultSet resultAuthors = selectAuthors.executeQuery();
+			
+			while(resultAuthors.next()){
+				author = new Authors();
+				
+				author.setFirstName(resultAuthors.getString("autori.firstname"));
+				author.setLastName(resultAuthors.getString("autori.lastname"));
+				authorList.add(author);
+			}
+			resultAuthors.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			PreparedStatement selectBook = con.prepareStatement("select publisher.id_publisher,publisher.name,publisher.address,carti.title,carti.year,carti.volume,carti.series,carti.edition,carti.month,carti.note FROM (carti LEFT JOIN publisher on carti.id_publisher = publisher.id_publisher) WHERE carti.id_carte = " + idBook);
+			ResultSet resultBook = selectBook.executeQuery();
+			
+			while(resultBook.next()){
+				book = new Books();
+				
+				book.setAutors(authorList);
+				book.setTitle(resultBook.getString("carti.title"));
+				book.setId_publisher(Integer.parseInt(resultBook.getString("publisher.id_publisher")));
+				book.setPublisher(resultBook.getString("publisher.name"));
+				book.setAddress(resultBook.getString("publisher.address"));
+				book.setYear(Integer.parseInt(resultBook.getString("carti.year")));
+				book.setVolume(Integer.parseInt(resultBook.getString("carti.volume")));
+				book.setSeries(resultBook.getString("carti.series"));
+				book.setEdition(resultBook.getString("carti.edition"));
+				book.setMonth(resultBook.getString("carti.month"));
+				book.setNote(resultBook.getString("carti.note"));
+				
+				bookList.add(book);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return bookList;
 	}
 
 }

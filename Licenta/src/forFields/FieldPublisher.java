@@ -4,31 +4,42 @@ import iteme.Authors;
 import iteme.Publisher;
 
 import java.util.ArrayList;
+import java.util.Map;
+
+import org.apache.struts2.interceptor.SessionAware;
+
+import book.operation.InsertBook;
+import book.operation.InsertPublisher;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
 
-public class FieldPublisher extends ActionSupport {
+public class FieldPublisher extends ActionSupport implements SessionAware{
 	private static final long serialVersionUID = 1L;
 
 	FunctionPublisher dbcon = new FunctionPublisher();
+	InsertBook book = new InsertBook();
+	InsertPublisher pub = new InsertPublisher();
 
 	Publisher publisher;
+	ArrayList<String> monthList;
 	ArrayList<Publisher> listPublisher;
 	ArrayList<Authors> authorList;
+	Authors author;
+	int size;
+	Map<String, Object> session = pub.getSession();
+	
 	int volume = 0;
 	int year = 0;
 
-	private String authorFN0;
 
-	public String execute() {
-		authorList = null;
-		setAuthorFN0("Unknown");
-		listPublisher = dbcon.fetchPublisher();
-//		for(int i =0; i<listPublisher.size();i++){
-//			System.out.println(listPublisher.get(i).getId_publisher());
-//		}
+//	private String authorFN0;
+
+	public String execute() {		
+		listPublisher = dbcon.fetchPublisher();	
+		monthList = book.initMonthList();
+		size = book.getSize();
 		return SUCCESS;
 	}
 
@@ -47,13 +58,13 @@ public class FieldPublisher extends ActionSupport {
 	public void setListPublisher(ArrayList<Publisher> listPublisher) {
 		this.listPublisher = listPublisher;
 	}
-
-	public String getAuthorFN0() {
-		return authorFN0;
+	
+	public ArrayList<String> getMonthList() {
+		return monthList;
 	}
 
-	public void setAuthorFN0(String authorFN0) {
-		this.authorFN0 = authorFN0;
+	public void setMonthList(ArrayList<String> monthList) {
+		this.monthList = monthList;
 	}
 
 	public int getVolume() {
@@ -71,4 +82,21 @@ public class FieldPublisher extends ActionSupport {
 	public void setYear(int year) {
 		this.year = year;
 	}
+
+	public Map<String, Object> getSession() {
+		return session;
+	}
+
+	public void setSession(Map<String, Object> session) {
+		this.session = session;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
 }

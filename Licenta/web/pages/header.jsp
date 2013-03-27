@@ -10,7 +10,7 @@
 	href="<s:url value="/stile/books/succsessStileBook.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/books/books.css"/>">
-<script type="text/javascript" src="functionJS/fieldsAuthors.js"></script>
+<script type="text/javascript" src="functionJS/fildAuthors.js"></script>
 </head>
 <body id="body">
 	<div id="header">

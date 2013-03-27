@@ -14,6 +14,7 @@
 					<td><s:property value="edition"/></td>
 					<td><s:property value="month"/></td>
 					<td><s:property value="note"/></td>
+					<td class="edit"><a href="editBook?id=<s:property value='idBook'/>"><img src="stile/pictures/edit.gif" alt="edit"/></a></td>
 				</tr>
 			</s:iterator>
 		</table>		

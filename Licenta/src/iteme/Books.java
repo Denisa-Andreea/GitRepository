@@ -7,6 +7,7 @@ public class Books {
 	int idBook;
 	String title;
 	ArrayList<Authors> autors;
+	int id_publisher;
 	String publisher;
 	int year;
 	int volume;
@@ -20,12 +21,13 @@ public class Books {
 		super();
 	}
 
-	public Books(int idBook,String title, ArrayList<Authors> autors, String publisher,
+	public Books(int idBook,String title, ArrayList<Authors> autors, int id_publisher, String publisher,
 			int year, int volume, String series, String address,
 			String edition, String month, String note) {
 		this.idBook = idBook;
 		this.title = title;
 		this.autors = autors;
+		this.id_publisher = id_publisher;
 		this.publisher = publisher;
 		this.year = year;
 		this.volume = volume;
@@ -123,4 +125,13 @@ public class Books {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	public int getId_publisher() {
+		return id_publisher;
+	}
+
+	public void setId_publisher(int id_publisher) {
+		this.id_publisher = id_publisher;
+	}
+	
 }

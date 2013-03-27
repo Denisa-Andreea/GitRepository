@@ -19,7 +19,7 @@ public class InsertPublisher extends ActionSupport implements SessionAware {
 	Map<String, Object> session = book.getSession();
 	
 	public void validate(){
-		System.out.println(" session");
+		System.out.println("session");
 		if(StringUtils.isBlank(getName())){
 			addFieldError("name", "Please insert the name");
 		}
@@ -40,6 +40,14 @@ public class InsertPublisher extends ActionSupport implements SessionAware {
 		return "fetch";
 	}
 
+	public String cancel(){
+		return "cancel";
+	}
+	
+	public String back(){
+		return "back";
+	}
+	
 	public String getAddress() {
 		return address;
 	}
