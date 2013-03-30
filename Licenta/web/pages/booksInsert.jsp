@@ -4,11 +4,11 @@
 		<table class="tabelBookInsert">
 		<tr>
 			<td><label>Title*:</label></td>
-			<td><s:if test="session.isEmpty()">
+			<td><s:if test="sessionBook.isEmpty()">
 				<s:textfield name="title" value="%{title}"/>			
 			</s:if>
 			<s:else>
-				<s:textfield name="title" value="%{session.title}"/>
+				<s:textfield name="title" value="%{sessionBook.title}"/>
 			</s:else>
 			</td>
 			<td><s:fielderror><s:param>title</s:param></s:fielderror></td>
@@ -17,16 +17,16 @@
 			<td><label>Athor(s)*:</label></td>
 			<td>
 				<div id="authors">
-					<s:if test="!session.isEmpty()">
+					<s:if test="!sessionBook.isEmpty()">
 <!-- 				<p>session not empty</p>				 -->
 						<div>
-							<label id="authorFNLabel">First Name:</label><s:textfield id="authorFN" name="authorFN" value="%{session.get('authorList').get(0).getFirstName()}"/>
-							<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{session.get('authorList').get(0).getLastName()}"/>
+							<label id="authorFNLabel">First Name:</label><s:textfield id="authorFN" name="authorFN" value="%{sessionBook.get('authorList').get(0).getFirstName()}"/>
+							<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{sessionBook.get('authorList').get(0).getLastName()}"/>
 						</div>
-						<s:iterator value="session.get('authorList')" begin="1" status="part">
-							<div id="%{#part.index+7}">
+						<s:iterator value="sessionBook.get('authorList')" begin="1" status="part">
+							<div>
 								<label id="authorFNLabel">First Name:</label><s:textfield id="%{#part.index+1}" name="authorFN" value="%{getFirstName()}"/>
-								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{getLastName()}"/>
+								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN%{#part.index+1}" name="authorLN" value="%{getLastName()}"/>
 							</div>
 						</s:iterator>
 					</s:if>
@@ -38,9 +38,9 @@
 								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{authorList.get(0).getLastName()}"/>
 							</div>						
 							<s:iterator value="authorList" begin="1" status="part">
-								<div  id="%{#part.index+7}">
+								<div>
 									<label id="authorFNLabel">First Name:</label><s:textfield id="%{#part.index+1}" name="authorFN" value="%{getFirstName()}"/>
-									<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{getLastName()}"/>
+									<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN%{#part.index+1}" name="authorLN" value="%{getLastName()}"/>
 								</div>
 							</s:iterator>
 						</s:if>
@@ -56,8 +56,8 @@
 			<tr>
 				<td></td>
 				<td>
-					<s:if test="!session.isEmpty()">
-						<input type="button" onclick="addInput('authors','<s:property value='session.get("size")'/>')" id="buttonAdd" name="add" value="Add author" />
+					<s:if test="!sessionBook.isEmpty()">
+						<input type="button" onclick="addInput('authors','<s:property value='sessionBook.get("size")'/>')" id="buttonAdd" name="add" value="Add author" />
 					</s:if>
 					<s:else>
 						<input type="button" onclick="addInput('authors','<s:property value='size'/>')" id="buttonAdd" name="add" value="Add author" />
@@ -67,7 +67,7 @@
 		<tr>
 			<td><label>Publisher*:</label></td>
 			<td><select name="publisher">
-				<s:if test="!session.isEmpty()">
+				<s:if test="!sessionBook.isEmpty()">
 					<option value="0" selected="selected">-Select a Publisher-</option>
 				</s:if>
 				<s:else>
@@ -94,8 +94,8 @@
 		</tr>
 		<tr>
 			<td><label>Year*:</label></td>
-			<td>	<s:if test="!session.isEmpty()">
-					<s:textfield  name="year" value="%{session.get('year')}"/>
+			<td>	<s:if test="!sessionBook.isEmpty()">
+					<s:textfield  name="year" value="%{sessionBook.get('year')}"/>
 				</s:if>
 				<s:else>
 					<s:textfield name="year" value="%{year}"/>
@@ -105,8 +105,8 @@
 		</tr>
 		<tr>
 			<td><label>Volume:</label></td>
-			<td><s:if test="!session.isEmpty()">
-				<s:textfield  name="volume" value="%{session.get('volume')}"/>
+			<td><s:if test="!sessionBook.isEmpty()">
+				<s:textfield  name="volume" value="%{sessionBook.get('volume')}"/>
 			</s:if>
 			<s:else>
 				<s:textfield name="volume" value="%{volume}"/>
@@ -115,8 +115,8 @@
 		</tr>
 		<tr>
 			<td><label>Series:</label></td>
-			<td><s:if test="!session.isEmpty()">
-				<s:textfield name="series" value="%{session.get('series')}"/>
+			<td><s:if test="!sessionBook.isEmpty()">
+				<s:textfield name="series" value="%{sessionBook.get('series')}"/>
 			</s:if>
 			<s:else>
 				<s:textfield name="series" value="%{series}"/>
@@ -125,8 +125,8 @@
 		</tr>
 		<tr>
 			<td><label>Edition:</label></td>
-			<td><s:if test="!session.isEmpty()">
-				<s:textfield name="edition" value="%{session.get('edition')}"/>
+			<td><s:if test="!sessionBook.isEmpty()">
+				<s:textfield name="edition" value="%{sessionBook.get('edition')}"/>
 			</s:if>
 			<s:else>
 				<s:textfield name="edition" value="%{edition}"/>
@@ -138,8 +138,8 @@
 			<td><select name="month">
 				<option value="">-Select a month-</option>
 				<s:iterator value="monthList" status="part">
-					<s:if test="!session.isEmpty()">
-						<s:if test="%{session.get('month') == monthList.get(#part.index)}">
+					<s:if test="!sessionBook.isEmpty()">
+						<s:if test="%{sessionBook.get('month') == monthList.get(#part.index)}">
 							<option selected="selected" value="<s:property value='monthList.get(#part.index)'/>"><s:property value="monthList.get(#part.index)"/></option>
 						</s:if>
 						<s:else>
@@ -160,8 +160,8 @@
 		</tr>
 		<tr>
 			<td><label>Note:</label></td>
-			<td><s:if test="!session.isEmpty()">
-				<s:textfield name="note" value="%{session.get('note')}"/>
+			<td><s:if test="!sessionBook.isEmpty()">
+				<s:textfield name="note" value="%{sessionBook.get('note')}"/>
 			</s:if>
 			<s:else>
 				<s:textfield name="note" value="%{note}"/>

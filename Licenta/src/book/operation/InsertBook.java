@@ -8,20 +8,23 @@ import java.util.Calendar;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.struts2.interceptor.SessionAware;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
 import functions.FunctionPublisher;
 
-public class InsertBook extends ActionSupport implements SessionAware {
+public class InsertBook extends ActionSupport {
 	private static final long serialVersionUID = 1L;
+
+	FunctionBookAuthor function = new FunctionBookAuthor();
+	FunctionPublisher pub = new FunctionPublisher();
 
 	Authors authors;
 	ArrayList<Publisher> listPublisher;
 	ArrayList<String> monthList;
-	Map<String, Object> session;
+	Map<String, Object> sessionBook = ActionContext.getContext().getSession();
 	Calendar c = Calendar.getInstance();
 
 	private String title = null;
@@ -37,9 +40,6 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	private int publisherSelected;
 	private int size = 1;
 
-	FunctionBookAuthor function = new FunctionBookAuthor();
-	FunctionPublisher pub = new FunctionPublisher();
-
 	public InsertBook() {
 		listPublisher = pub.fetchPublisher();
 		monthList = initMonthList();
@@ -48,7 +48,7 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	public String browse() {
 		System.out.println(month);
 		System.out.println("addPublisher");
-		setSession(sessionBook());
+		setSessionBook(sessionBook());
 		setPublisher(0);
 		return "publisher";
 	}
@@ -63,7 +63,8 @@ public class InsertBook extends ActionSupport implements SessionAware {
 		System.out.println("execute");
 		sessionBookUnset();
 		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
-				getVolume(), getYear(),getSeries(),getEdition(),getMonth(),getNote());
+				getVolume(), getYear(), getSeries(), getEdition(), getMonth(),
+				getNote());
 		return SUCCESS;
 
 	}
@@ -73,10 +74,11 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	 */
 	public void validate() {
 		setPublisherSelected(getPublisher());
-//		for(int i = 0;i < authorFN.size(); i++){
-//			System.out.println(authorFN.get(i));
-//		}
-		if (session.isEmpty()) {
+		sessionBookUnset();
+		// for(int i = 0;i < authorFN.size(); i++){
+		// System.out.println(authorFN.get(i));
+		// }
+//		if (sessionBook.isEmpty()) {
 			// System.out.println("publisherSelected " + publisherSelected);
 			if (StringUtils.isBlank(getTitle())) {
 				addFieldError("title", "Please insert the title");
@@ -95,26 +97,27 @@ public class InsertBook extends ActionSupport implements SessionAware {
 								+ c.get(Calendar.YEAR) + ")");
 			}
 
-		} else {
-			sessionBook();
-			if (StringUtils.isBlank((String) session.get("title"))) {
-				addFieldError("title", "Please insert the title session");
-			}
-			if (getPublisher() == 0) {
-				addFieldError("publisher", "Select the Publisher Session");
-			}
-			if (Integer.parseInt(session.get("year").toString()) == 0) {
-				addFieldError("year", "Please insert the year");
-			} else if (1000 > Integer.parseInt(session.get("year").toString())) {
-				addFieldError("year", "Year must have 4 numbers");
-			} else if (Integer.parseInt(session.get("year").toString()) > c
-					.get(Calendar.YEAR)) {
-				addFieldError(
-						"year",
-						"The year is bigger then the current year("
-								+ c.get(Calendar.YEAR) + ")");
-			}
-		}
+//		} else {
+//			sessionBook();
+//			if (StringUtils.isBlank((String) sessionBook.get("title"))) {
+//				addFieldError("title", "Please insert the title session");
+//			}
+//			if (getPublisher() == 0) {
+//				addFieldError("publisher", "Select the Publisher Session");
+//			}
+//			if (Integer.parseInt(sessionBook.get("year").toString()) == 0) {
+//				addFieldError("year", "Please insert the year");
+//			} else if (1000 > Integer.parseInt(sessionBook.get("year")
+//					.toString())) {
+//				addFieldError("year", "Year must have 4 numbers");
+//			} else if (Integer.parseInt(sessionBook.get("year").toString()) > c
+//					.get(Calendar.YEAR)) {
+//				addFieldError(
+//						"year",
+//						"The year is bigger then the current year("
+//								+ c.get(Calendar.YEAR) + ")");
+//			}
+//		}
 	}
 
 	/**
@@ -123,17 +126,19 @@ public class InsertBook extends ActionSupport implements SessionAware {
 
 	public ArrayList<Authors> getAuthorList() {
 		ArrayList<Authors> authorList = new ArrayList<Authors>();
-		for(int i = 0; i< authorFN.size(); i++){
-			authors = new Authors();
-			authors.setFirstName(getAuthorFN().get(i));
-			authors.setLastName(getAuthorLN().get(i));
-			authorList.add(authors);
+		for (int i = 0; i < authorFN.size(); i++) {
+			if (!getAuthorFN().get(i).isEmpty()) {
+				authors = new Authors();
+				authors.setFirstName(getAuthorFN().get(i));
+				authors.setLastName(getAuthorLN().get(i));
+				authorList.add(authors);
+			}
 		}
-		for (int i = 0; i < authorList.size(); i++) {
-			System.out.println("pe" + i + " "
-					+ authorList.get(i).getFirstName() + " "
-					+ authorList.get(i).getLastName());
-		}
+		 for (int i = 0; i < authorList.size(); i++) {
+		 System.out.println("pe" + i + " "
+		 + authorList.get(i).getFirstName() + " "
+		 + authorList.get(i).getLastName());
+		 }
 		setSize(authorList.size());
 		return authorList;
 	}
@@ -144,33 +149,34 @@ public class InsertBook extends ActionSupport implements SessionAware {
 	 * @return
 	 */
 	public Map<String, Object> sessionBook() {
-		System.out.println("set sesion");
-		setSession(session);
-		session.put("title", getTitle());
-		session.put("year", getYear());
-		session.put("volume", getVolume());
-		System.out.println(session.get("title") + " " + session.get("year")
-				+ " " + session.get("volume"));
-		session.put("authorList", getAuthorList());
-		session.put("series", getSeries());
-		session.put("edition", getSeries());
-		session.put("month", getMonth());
-		session.put("note", getNote());
-		session.put("size", getAuthorList().size());
-		return session;
+		// System.out.println("set sesion");
+		setSessionBook(sessionBook);
+		sessionBook.put("title", getTitle());
+		sessionBook.put("year", getYear());
+		sessionBook.put("volume", getVolume());
+		// System.out.println(sessionBook.get("title") + " " +
+		// sessionBook.get("year")
+		// + " " + sessionBook.get("volume"));
+		sessionBook.put("authorList", getAuthorList());
+		sessionBook.put("series", getSeries());
+		sessionBook.put("edition", getSeries());
+		sessionBook.put("month", getMonth());
+		sessionBook.put("note", getNote());
+		sessionBook.put("size", getAuthorList().size());
+		return sessionBook;
 	}
 
 	public void sessionBookUnset() {
-		System.out.println("unset session");
-		session.remove("title");
-		session.remove("year");
-		session.remove("volume");
-		session.remove("authorList");
-		session.remove("series");
-		session.remove("edition");
-		session.remove("month");
-		session.remove("note");
-		session.remove("size");
+		// System.out.println("unset session");
+		sessionBook.remove("title");
+		sessionBook.remove("year");
+		sessionBook.remove("volume");
+		sessionBook.remove("authorList");
+		sessionBook.remove("series");
+		sessionBook.remove("edition");
+		sessionBook.remove("month");
+		sessionBook.remove("note");
+		sessionBook.remove("size");
 	}
 
 	public ArrayList<String> initMonthList() {
@@ -238,12 +244,12 @@ public class InsertBook extends ActionSupport implements SessionAware {
 		this.monthList = monthList;
 	}
 
-	public Map<String, Object> getSession() {
-		return session;
+	public Map<String, Object> getSessionBook() {
+		return sessionBook;
 	}
 
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
+	public void setSessionBook(Map<String, Object> sessionBook) {
+		this.sessionBook = sessionBook;
 	}
 
 	public int getPublisherSelected() {

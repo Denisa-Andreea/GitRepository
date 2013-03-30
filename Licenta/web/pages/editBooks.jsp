@@ -5,6 +5,7 @@
 		<tr>
 			<td><label>Title*:</label></td>
 			<td>
+				<s:hidden  name="id" value="%{bookList.get(0).getIdBook()}"/>
 				<s:textfield name="title" value="%{bookList.get(0).getTitle()}"/>			
 			</td>
 			<td><s:fielderror><s:param>title</s:param></s:fielderror></td>
@@ -19,9 +20,9 @@
 							<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{bookList.get(0).getAutors().get(0).getLastName()}"/>
 						</div>						
 						<s:iterator value="bookList.get(0).getAutors()" begin="1" status="part">
-							<div  id="%{#part.index+7}">
+							<div>							
 								<label id="authorFNLabel">First Name:</label><s:textfield id="%{#part.index+1}" name="authorFN" value="%{getFirstName()}"/>
-								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{getLastName()}"/>
+								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN%{#part.index+1}" name="authorLN" value="%{getLastName()}"/>
 							</div>
 						</s:iterator>
 					</s:if>					

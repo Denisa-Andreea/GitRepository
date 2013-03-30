@@ -3,9 +3,9 @@ var intrari = 0;
 var counter;
 //functia principala.. contine conditiile si ce sse afisseaza in fiecare caz
 function addInput(divName,size) {
-	//alert(size);
+	//alert(size+' '+intrari);
 	if(intrari == 0){
-		 counter = size -1; 
+		 counter = size-1; 
 		 intrari = intrari +2;
 	}else if(intrari == 1){
 		 counter = 0;
@@ -28,7 +28,6 @@ function addInput(divName,size) {
 //functia pentru adaugarea unui nou fild pentru autori
 function addFildsAuthors(divName,counter,id){
 	var newdiv = document.createElement('div');
-	newdiv.id =id+6;
 	var newLabelFN = document.getElementById('authorFNLabel').cloneNode(true);
 	var newFN = document.getElementById('authorFN').cloneNode(true);
 
@@ -38,6 +37,7 @@ function addFildsAuthors(divName,counter,id){
 	var newLN = document.getElementById('authorLN').cloneNode(true);
 
 	newLN.value = "";
+	newLN.id = "authorLN"+id;
 	newdiv.appendChild(newLabelFN);
 	newdiv.appendChild(newFN);
 	newdiv.appendChild(newLabelLN);

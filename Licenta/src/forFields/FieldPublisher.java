@@ -6,8 +6,6 @@ import iteme.Publisher;
 import java.util.ArrayList;
 import java.util.Map;
 
-import org.apache.struts2.interceptor.SessionAware;
-
 import book.operation.InsertBook;
 import book.operation.InsertPublisher;
 
@@ -15,7 +13,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
 
-public class FieldPublisher extends ActionSupport implements SessionAware{
+public class FieldPublisher extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 
 	FunctionPublisher dbcon = new FunctionPublisher();
@@ -28,7 +26,7 @@ public class FieldPublisher extends ActionSupport implements SessionAware{
 	ArrayList<Authors> authorList;
 	Authors author;
 	int size;
-	Map<String, Object> session = pub.getSession();
+	Map<String, Object> sessionBook = pub.getSessionBook();
 	
 	int volume = 0;
 	int year = 0;
@@ -83,14 +81,6 @@ public class FieldPublisher extends ActionSupport implements SessionAware{
 		this.year = year;
 	}
 
-	public Map<String, Object> getSession() {
-		return session;
-	}
-
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
-	}
-
 	public int getSize() {
 		return size;
 	}
@@ -98,5 +88,14 @@ public class FieldPublisher extends ActionSupport implements SessionAware{
 	public void setSize(int size) {
 		this.size = size;
 	}
+
+	public Map<String, Object> getSessionBook() {
+		return sessionBook;
+	}
+
+	public void setSessionBook(Map<String, Object> sessionBook) {
+		this.sessionBook = sessionBook;
+	}
+	
 
 }

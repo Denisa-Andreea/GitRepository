@@ -4,8 +4,6 @@ import iteme.Authors;
 import iteme.BookAuthor;
 import iteme.Books;
 
-import java.awt.print.Book;
-import java.lang.reflect.Array;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -29,7 +27,7 @@ public class FunctionBookAuthor {
 	public ArrayList<BookAuthor> fetchBooks() {
 		try {
 			PreparedStatement selectBooks = con
-					.prepareStatement("select carti.id_carte,carti.title,GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) SEPARATOR ','),carti.year,publisher.name,publisher.address, carti.volume,carti.series,carti.edition,carti.month, carti.note from (carti left join carte_autor on carti.id_carte = carte_autor.id_carte) left join autori on carte_autor.id_autor = autori.id_autor left join publisher on publisher.id_publisher = carti.id_publisher group by carti.id_carte");
+					.prepareStatement("select carti.id_carte,carti.title,GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', '),carti.year,publisher.name,publisher.address, carti.volume,carti.series,carti.edition,carti.month, carti.note from (carti left join carte_autor on carti.id_carte = carte_autor.id_carte) left join autori on carte_autor.id_autor = autori.id_autor left join publisher on publisher.id_publisher = carti.id_publisher group by carti.id_carte");
 			ResultSet resultBooks = selectBooks.executeQuery();
 			BookAuthor bookAuthor;
 			ArrayList<BookAuthor> listBook = new ArrayList<BookAuthor>();
@@ -42,7 +40,7 @@ public class FunctionBookAuthor {
 				bookAuthor.setTitle(resultBooks.getString("carti.title"));
 				bookAuthor
 						.setAutors(resultBooks
-								.getString("GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) SEPARATOR ',')"));
+								.getString("GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', ')"));
 				bookAuthor
 						.setPublisher(resultBooks.getString("publisher.name"));
 				bookAuthor.setAddress(resultBooks
@@ -75,8 +73,7 @@ public class FunctionBookAuthor {
 		int idBook;
 		int idAuthor;
 		try {
-			insertBooks.insertIntoBooks(title, idPubliaher, year, volume);// modifica
-																			// insertul!!!!
+			insertBooks.insertIntoBooks(title, idPubliaher, year, volume, series, edition, month, note);
 			idBook = ties.getIdBook(title);
 
 			/**
@@ -139,6 +136,7 @@ public class FunctionBookAuthor {
 				book.setEdition(resultBook.getString("carti.edition"));
 				book.setMonth(resultBook.getString("carti.month"));
 				book.setNote(resultBook.getString("carti.note"));
+				book.setIdBook(idBook);
 				
 				bookList.add(book);
 			}

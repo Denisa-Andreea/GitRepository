@@ -16,15 +16,20 @@ public class FunctionForInsert {
 	 * insereaza in baza de date cartea doar daca aceasta nu exista deja
 	 * */
 
-	public void insertIntoBooks(String title, int id, int year, int volume) {
+	public void insertIntoBooks(String title, int id, int year, int volume,
+			String series, String edition, String month, String note) {
 		try {
 			PreparedStatement insertBook = con
-					.prepareStatement("insert into carti(title, id_publisher, year, volume) values(?,?,?,?)");
+					.prepareStatement("insert into carti(title, id_publisher, year, volume, series, edition, month, note) values(?,?,?,?,?,?,?,?)");
 			if (!existBook(title)) {
 				insertBook.setString(1, title);
 				insertBook.setInt(2, id);
 				insertBook.setInt(3, year);
 				insertBook.setInt(4, volume);
+				insertBook.setString(5, series);
+				insertBook.setString(6, edition);
+				insertBook.setString(7, month);
+				insertBook.setString(8, note);
 				insertBook.executeUpdate();
 				insertBook.close();
 			}
@@ -42,10 +47,10 @@ public class FunctionForInsert {
 			PreparedStatement insertAuthor = con
 					.prepareStatement("insert into autori(firstname, lastname) values(?,?)");
 			if (!existAuthor(authorFN, authorLN)) {
-				insertAuthor.setString(1, authorFN);
-				insertAuthor.setString(2, authorLN);
-				insertAuthor.executeUpdate();
-				insertAuthor.close();
+					insertAuthor.setString(1, authorFN);
+					insertAuthor.setString(2, authorLN);
+					insertAuthor.executeUpdate();
+					insertAuthor.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

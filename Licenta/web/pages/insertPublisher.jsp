@@ -11,7 +11,7 @@
 				<s:label>Publisher Address*:</s:label>
 				<s:textfield name="address" value="%{address}"/>
 			</div>
-			<s:if test="!session.isEmpty()">
+			<s:if test="!sessionBook.isEmpty()">
 				<s:submit value="Insert"/>
 				<s:submit value="Back" method="back"/>
 			</s:if>

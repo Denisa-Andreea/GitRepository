@@ -7,10 +7,10 @@
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/headerBodyFooter.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsessStileBook.css"/>">
+	href="<s:url value="/stile/books/succsessStileBooks.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/books/books.css"/>">
-<script type="text/javascript" src="functionJS/fildAuthors.js"></script>
+<script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
 </head>
 <body id="body">
 	<div id="header">

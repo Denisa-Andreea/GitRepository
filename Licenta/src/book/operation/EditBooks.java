@@ -1,5 +1,6 @@
 package book.operation;
 
+import functions.FunctionForUpdates;
 import functions.FunctionPublisher;
 import iteme.Authors;
 import iteme.Books;
@@ -7,6 +8,7 @@ import iteme.Publisher;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -14,18 +16,23 @@ import com.opensymphony.xwork2.ActionSupport;
 
 public class EditBooks extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	
+
 	FunctionPublisher pub = new FunctionPublisher();
 	InsertBook monthListInit = new InsertBook();
-	
+	GetBookForEdit oldList = new GetBookForEdit();
+	FunctionForUpdates updateFunction = new FunctionForUpdates();
+
 	ArrayList<Books> bookList = new ArrayList<Books>();
 	ArrayList<Publisher> listPublisher;
 	ArrayList<String> monthList;
+	ArrayList<Authors> oldAuthorList = new ArrayList<Authors>();
+	Map<String, Object> sessionEdit = oldList.getSessionEdit();
 	Authors authors;
 	Calendar c = Calendar.getInstance();
-	
+
 	private ArrayList<String> authorFN;
-	private ArrayList<String> authorLN;	
+	private ArrayList<String> authorLN;
+	private int id;
 	private String title;
 	private int publisher;
 	private int volume = 0;
@@ -36,15 +43,30 @@ public class EditBooks extends ActionSupport {
 	private String note;
 	private int size = 1;
 	private int publisherSelected;
-	
-	public EditBooks(){
+
+	public EditBooks() {
 		listPublisher = pub.fetchPublisher();
 		monthList = monthListInit.initMonthList();
 	}
-	
-	public void validate(){
+
+	public void validate() {
 		bookSet();
 		setPublisherSelected(getPublisher());
+
+		// System.out.println("old session");
+		// oldAuthorList = getOldList();
+		// for (int i = 0; i < oldAuthorList.size(); i++) {
+		// System.out.println(oldAuthorList.get(i).getFirstName() + " "
+		// + oldAuthorList.get(i).getLastName());
+		// }
+		// System.out.println();
+		// System.out.println("new session");
+		// for (int i = 0; i < bookList.get(0).getAutors().size(); i++) {
+		// System.out.println(bookList.get(0).getAutors().get(i)
+		// .getFirstName()
+		// + " " + bookList.get(0).getAutors().get(i).getLastName());
+		// }
+
 		if (StringUtils.isBlank(getTitle())) {
 			addFieldError("title", "Please insert the title");
 		}
@@ -56,39 +78,43 @@ public class EditBooks extends ActionSupport {
 		} else if (1000 > getYear()) {
 			addFieldError("year", "Year must have 4 numbers");
 		} else if (getYear() > c.get(Calendar.YEAR)) {
-			addFieldError(
-					"year",
-					"The year is bigger then the current year("
-							+ c.get(Calendar.YEAR) + ")");
+			addFieldError("year", "The year is bigger then the current year("
+					+ c.get(Calendar.YEAR) + ")");
 		}
 	}
-	
-	public String execute(){
+
+	public String execute() {
+		updateFunction.editBooks(id, title, bookList.get(0).getAutors(),
+				getOldList(), publisher, year, volume,
+				series, edition, month, note);
 		return SUCCESS;
 	}
-	
-	public String cancel(){
+
+	public String cancel() {
+		oldList.sessionEditUnset();
 		return "cancel";
 	}
-	
+
 	public ArrayList<Authors> getAuthorList() {
 		ArrayList<Authors> authorList = new ArrayList<Authors>();
-		for(int i = 0; i< authorFN.size(); i++){
-			authors = new Authors();
-			authors.setFirstName(getAuthorFN().get(i));
-			authors.setLastName(getAuthorLN().get(i));
-			authorList.add(authors);
+		for (int i = 0; i < authorFN.size(); i++) {
+			if (!getAuthorFN().get(i).isEmpty()) {
+				authors = new Authors();
+				authors.setFirstName(getAuthorFN().get(i));
+				authors.setLastName(getAuthorLN().get(i));
+				authorList.add(authors);
+			}
 		}
-		for (int i = 0; i < authorList.size(); i++) {
-			System.out.println("pe" + i + " "
-					+ authorList.get(i).getFirstName() + " "
-					+ authorList.get(i).getLastName());
-		}
+		// for (int i = 0; i < authorList.size(); i++) {
+		// System.out.println("pe" + i + " "
+		// + authorList.get(i).getFirstName() + " "
+		// + authorList.get(i).getLastName());
+		// }
 		setSize(authorList.size());
 		return authorList;
 	}
-	
-	public void bookSet(){
+
+	public void bookSet() {
 		Books book = new Books();
 		book.setAutors(getAuthorList());
 		book.setTitle(getTitle());
@@ -99,7 +125,17 @@ public class EditBooks extends ActionSupport {
 		book.setEdition(getEdition());
 		book.setMonth(getMonth());
 		book.setNote(getNote());
+		book.setIdBook(getId());
 		bookList.add(book);
+	}
+
+	public ArrayList<Authors> getOldList() {
+		ArrayList<Authors> list = new ArrayList<Authors>();
+		@SuppressWarnings("unchecked")
+		ArrayList<Authors> arrayList = (ArrayList<Authors>) sessionEdit
+				.get("authorList");
+		list.addAll(arrayList);
+		return list;
 	}
 
 	public ArrayList<String> getAuthorLN() {
@@ -220,6 +256,14 @@ public class EditBooks extends ActionSupport {
 
 	public void setPublisherSelected(int publisherSelected) {
 		this.publisherSelected = publisherSelected;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

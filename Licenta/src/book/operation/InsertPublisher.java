@@ -3,23 +3,21 @@ package book.operation;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
 
-public class InsertPublisher extends ActionSupport implements SessionAware {
+public class InsertPublisher extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
 	private String address;
 	FunctionPublisher function =new FunctionPublisher();
 	InsertBook book = new InsertBook();
-	Map<String, Object> session = book.getSession();
+	Map<String, Object> sessionBook = book.getSessionBook();
 	
 	public void validate(){
-		System.out.println("session");
 		if(StringUtils.isBlank(getName())){
 			addFieldError("name", "Please insert the name");
 		}
@@ -64,12 +62,14 @@ public class InsertPublisher extends ActionSupport implements SessionAware {
 		this.name = name;
 	}
 
-	public Map<String, Object> getSession() {
-		return session;
+	public Map<String, Object> getSessionBook() {
+		return sessionBook;
 	}
 
-	public void setSession(Map<String, Object> session) {
-		this.session = session;
+	public void setSessionBook(Map<String, Object> sessionBook) {
+		this.sessionBook = sessionBook;
 	}
+
+	
 
 }
