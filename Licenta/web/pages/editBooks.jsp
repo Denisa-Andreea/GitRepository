@@ -100,7 +100,7 @@
 		<tr>
 			<td><label>Note:</label></td>
 			<td>
-				<s:textfield name="note" value="%{bookList.get(0).getNote()}"/>
+				<s:textarea name="note" value="%{bookList.get(0).getNote()}"/>
 			</td>
 		</tr>
 	</table>

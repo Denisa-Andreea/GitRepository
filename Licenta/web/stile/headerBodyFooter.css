@@ -1,11 +1,20 @@
 #header{
 	background-color: #32CD32;
+	width: 100%;
+	float: left;
 }
-
+#image{
+	width: 300px;
+	height: 150px;
+}
 #body{
-	margin:0 auto;
+	float: left;
+	width: 100%;
+	margin: 0 auto;
 }
 #footer{
 	background-color: #20B2AA;
-	bottom: 0 auto;
+	width: 100%;
+	bottom: 0%;
+	float: left;
 }

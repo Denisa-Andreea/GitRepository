@@ -19,15 +19,17 @@ public class FunctionBookAuthor {
 
 	FunctionForInsert insertBooks = new FunctionForInsert();
 	FunctionForInsertTies ties = new FunctionForInsertTies();
+	
+	private int numberOfRecords;
 
 	/**
 	 * afisarea cartilor
 	 */
 
-	public ArrayList<BookAuthor> fetchBooks() {
+	public ArrayList<BookAuthor> fetchBooks(int beginRecord, int numberOfRecords) {
 		try {
 			PreparedStatement selectBooks = con
-					.prepareStatement("select carti.id_carte,carti.title,GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', '),carti.year,publisher.name,publisher.address, carti.volume,carti.series,carti.edition,carti.month, carti.note from (carti left join carte_autor on carti.id_carte = carte_autor.id_carte) left join autori on carte_autor.id_autor = autori.id_autor left join publisher on publisher.id_publisher = carti.id_publisher group by carti.id_carte");
+					.prepareStatement("select SQL_CALC_FOUND_ROWS carti.id_carte,carti.title,GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', '),carti.year,publisher.name,publisher.address, carti.volume,carti.series,carti.edition,carti.month, carti.note from (carti left join carte_autor on carti.id_carte = carte_autor.id_carte) left join autori on carte_autor.id_autor = autori.id_autor left join publisher on publisher.id_publisher = carti.id_publisher group by carti.id_carte limit "+beginRecord+","+numberOfRecords);
 			ResultSet resultBooks = selectBooks.executeQuery();
 			BookAuthor bookAuthor;
 			ArrayList<BookAuthor> listBook = new ArrayList<BookAuthor>();
@@ -57,6 +59,12 @@ public class FunctionBookAuthor {
 				listBook.add(bookAuthor);
 			}
 			selectBooks.close();
+			
+			PreparedStatement statement = con.prepareStatement("SELECT FOUND_ROWS()");
+			resultBooks = statement.executeQuery();
+			if(resultBooks.next()){
+				this.numberOfRecords = resultBooks.getInt(1);
+			}
 			return listBook;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,6 +153,14 @@ public class FunctionBookAuthor {
 		}
 		
 		return bookList;
+	}
+
+	public int getNumberOfRecords() {
+		return numberOfRecords;
+	}
+
+	public void setNumberOfRecords(int numberOfRecords) {
+		this.numberOfRecords = numberOfRecords;
 	}
 
 }

@@ -46,21 +46,21 @@ public class InsertBook extends ActionSupport {
 	}
 
 	public String browse() {
-		System.out.println(month);
-		System.out.println("addPublisher");
+//		System.out.println(month);
+//		System.out.println("addPublisher");
 		setSessionBook(sessionBook());
 		setPublisher(0);
 		return "publisher";
 	}
 
 	public String cancel() {
-		System.out.println("cancel");
+//		System.out.println("cancel");
 		sessionBookUnset();
 		return "cancel";
 	}
 
 	public String execute() {
-		System.out.println("execute");
+//		System.out.println("execute");
 		sessionBookUnset();
 		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
 				getVolume(), getYear(), getSeries(), getEdition(), getMonth(),
@@ -95,6 +95,9 @@ public class InsertBook extends ActionSupport {
 						"year",
 						"The year is bigger then the current year("
 								+ c.get(Calendar.YEAR) + ")");
+			}else if(Integer.toString(getVolume()) == null){
+				System.out.println("laskdjkjs");
+				setVolume(0);
 			}
 
 //		} else {
@@ -134,11 +137,11 @@ public class InsertBook extends ActionSupport {
 				authorList.add(authors);
 			}
 		}
-		 for (int i = 0; i < authorList.size(); i++) {
-		 System.out.println("pe" + i + " "
-		 + authorList.get(i).getFirstName() + " "
-		 + authorList.get(i).getLastName());
-		 }
+//		 for (int i = 0; i < authorList.size(); i++) {
+//		 System.out.println("pe" + i + " "
+//		 + authorList.get(i).getFirstName() + " "
+//		 + authorList.get(i).getLastName());
+//		 }
 		setSize(authorList.size());
 		return authorList;
 	}

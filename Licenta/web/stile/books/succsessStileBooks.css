@@ -1,10 +1,8 @@
 .bookBody{
 	background-color: #FAFAD2;
-	margin: 3%;
-	padding-left: 2%;
-	padding-right: 2%;
-	padding-bottom: 2%;
 	text-align: center;
+	width: 100%;
+	float: left;
 }
 .bookBody p{
 	text-align: center;
@@ -13,42 +11,147 @@
 	font-weight: bold;
 	padding-top: 2%;
 	padding-bottom: 2%;
+	float: left;
+	width: 100%;
 }
 
+.content{
+	width : 100%;
+	float: left;
+}
+.tabel{
+	float: left;
+	margin-left: 100px;
+}
 .bookBody table{
-	font-family: "Comic Sans MS";
 	font-size: 14px;	
+	border-left: #8B0000 solid;
+	border-right: #8B0000 solid;
+	border-top: #8B0000 solid;
+}
+
+ul{border:0; margin-left: 35%; padding:2%;}
+
+#pagination{
+
+}
+#pagination li{
+	border:0; margin:0; padding:0;
+	font-size:14px;
+	list-style:none;
+}
+#pagination li, #pagination a{
+	margin-right:2px;
+}
+#pagination .active a{
+	color:  #8B0000;
+	border : thin solid #FFB6C1;
 	font-weight: bold;
-	border: #FFB6C1 groove;
+	float:left;
+	padding:4px 6px;
+}
+#pagination .inactive{
+	border : thin solid gray;
+	color: gray;
+	float:left;
+	padding:4px 6px;
+}
+#pagination .notactive a{
+	border : thin solid #8B0000;
+	color: #8B0000;
+	float:left;
+	padding:4px 6px;
+}
+#pagination a:link,
+#pagination a:visited {
+	float:left;
+	padding:3px 6px;
+	text-decoration:none;
+	color: #8B0000;
+}
+#pagination a:hover{
+	text-decoration:none;
+	border: thin solid #FFB6C1;
 }
 
 .bigField{
-	width : 20%;
-	border: #FFB6C1 groove;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FAFAD2;
+	color: #8B0000;
+	border-right: medium solid #8B0000;
+	border-bottom: medium solid #8B0000;
 }
 .mediumField{
-	width : 10%;
-	border: #FFB6C1 groove;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+    background-color: #FAFAD2;
+    color: #8B0000;
+    border-right: medium solid #8B0000;
+    border-bottom: medium solid #8B0000;
 }
 .smallField{
-	width : 6%;
-	border: #FFB6C1 groove;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FAFAD2;
+	color: #8B0000;
+	border-right: medium solid #8B0000;
+	border-bottom: medium solid #8B0000;
 }
 .edit{
-	width : 3%;
-	background-color: #FFB6C1;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FAFAD2;
+	color: #8B0000;
+	border-bottom: medium solid #8B0000;
+}
+
+.bigField1{
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FEE0C6;
+	color: #8B0000;
+	border-right: medium solid #8B0000;
+	border-bottom: medium solid #8B0000;
+}
+.mediumField1{
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+    background-color: #FEE0C6;
+    color: #8B0000;
+    border-right: medium solid #8B0000;
+    border-bottom: medium solid #8B0000;
+}
+.smallField1{
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FEE0C6;
+	color: #8B0000;
+	border-bottom: medium solid #8B0000;
+	border-right: medium solid #8B0000;
+}
+.edit1{
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	background-color: #FEE0C6;
+	border-bottom: medium solid #8B0000;
 }
 
 
 .headrow{
 	background-color: #FFB6C1;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	font-size: 16px;
+	border-right: medium solid #8B0000;
+	border-bottom: medium solid #8B0000;
 }
 
 .buttons{
-	padding-top:2%;
+	margin-left: 650px;
+	float: left;
 }
-.buttons a{
-	margin-right: 3%;
+.buttons a{	
 	text-decoration: none;
 	background-color:transparent;
 	border: maroon;
@@ -56,6 +159,7 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: #8B0000;
+	width: 100%;
 }
 
 

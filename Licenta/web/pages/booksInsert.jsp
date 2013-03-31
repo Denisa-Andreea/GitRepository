@@ -161,10 +161,10 @@
 		<tr>
 			<td><label>Note:</label></td>
 			<td><s:if test="!sessionBook.isEmpty()">
-				<s:textfield name="note" value="%{sessionBook.get('note')}"/>
+				<s:textarea name="note" value="%{sessionBook.get('note')}"/>
 			</s:if>
 			<s:else>
-				<s:textfield name="note" value="%{note}"/>
+				<s:textarea name="note" value="%{note}"/>
 			</s:else>
 			</td>
 		</tr>

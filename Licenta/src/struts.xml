@@ -15,6 +15,7 @@
 		<action name="fetchPublisher" class="forFields.FieldPublisher">
 			<result>/pages/booksInsert.jsp</result>
 		</action>
+		
 		<action name="bookInsert" class="book.operation.InsertBook">
 			<result name="success" type="redirect">fetchBooks</result>
 			<result name="input">/pages/booksInsert.jsp</result>

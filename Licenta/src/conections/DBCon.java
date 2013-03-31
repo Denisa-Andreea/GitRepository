@@ -3,12 +3,9 @@ package conections;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-import com.mysql.jdbc.Statement;
-
 public class DBCon {
 
 	private Connection con = null;
-	Statement statement = null;
 	private static DBCon connection = null;
 
 	private DBCon() {
