@@ -25,9 +25,7 @@ public class ViewBooks extends ActionSupport {
 
 
 	public String execute() {
-		int recordsPerPage = 4;
-		
-		System.out.println(page+" "+sort);
+		int recordsPerPage = 5;
 		if (sort.equals("NON")) {
 			listBook = books.fetchBooks((page - 1) * recordsPerPage,
 					recordsPerPage);
@@ -43,12 +41,6 @@ public class ViewBooks extends ActionSupport {
 		return SUCCESS;
 	}
 	
-	public void sortWay(){
-		if(sort.equals("NON")){
-			sort = "ASC";
-			execute();
-		}
-	}
 
 	public Books getBookAuthor() {
 		return bookAuthor;

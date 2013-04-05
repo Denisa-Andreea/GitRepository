@@ -9,11 +9,53 @@
 						<tr>
 							<td class="headrow"><s:checkbox id="checkeAll"
 									onclick="selectAll();" name="checkeAll" /></td>
-							<th class="headrow"><a onclick="href='fetchBooks?column=title&page=<s:property value="page"/>&sort='+change('title','<s:property value="column"/>','<s:property value="sort"/>');">Title</a></th>
+							<th class="headrow">Title <s:if test="%{column != 'title'}">
+									<a
+										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title"><img
+										alt="non" src="stile/pictures/sort_both.jpg"></a>
+								</s:if> <s:else>
+									<s:if test="%{sort == 'NON'}">
+										<a
+											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title"><img
+											alt="non" src="stile/pictures/sort_both.jpg"></a>
+									</s:if>
+									<s:if test="%{sort == 'ASC'}">
+										<a
+											href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=title"><img
+											alt="non" src="stile/pictures/sort_asc.jpg"></a>
+									</s:if>
+									<s:if test="%{sort == 'DESC'}">
+										<a
+											href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=title"><img
+											alt="non" src="stile/pictures/sort_desc.jpg"></a>
+									</s:if>
+								</s:else>
+							</th>
 							<th class="headrow">Author(s)</th>
 							<th class="headrow">Publisher</th>
 							<th class="headrow">Address</th>
-							<th class="headrow"><a onclick="href='fetchBooks?column=year&page=<s:property value="page"/>&sort='+change('year','<s:property value="column"/>','<s:property value="sort"/>');">Year</a></th>
+							<th class="headrow">Year <s:if test="%{column != 'year'}">
+									<a
+										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year"><img
+										alt="non" src="stile/pictures/sort_both.jpg"></a>
+								</s:if> <s:else>
+									<s:if test="%{sort == 'NON'}">
+										<a
+											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year"><img
+											alt="non" src="stile/pictures/sort_both.jpg"></a>
+									</s:if>
+									<s:if test="%{sort == 'ASC'}">
+										<a
+											href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=year"><img
+											alt="non" src="stile/pictures/sort_asc.jpg"></a>
+									</s:if>
+									<s:if test="%{sort == 'DESC'}">
+										<a
+											href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=year"><img
+											alt="non" src="stile/pictures/sort_desc.jpg"></a>
+									</s:if>
+								</s:else>
+							</th>
 							<th class="headrow">Volume</th>
 							<th class="headrow">Series</th>
 							<th class="headrow">Edition</th>
@@ -76,7 +118,8 @@
 				<div id="pagination">
 					<ul>
 						<s:if test="%{page != 1}">
-							<li class="notactive"><a href="fetchBooks?page=1&sort=<s:property value='sort'/>&column=<s:property value="column"/>">First</a></li>
+							<li class="notactive"><a
+								href="fetchBooks?page=1&sort=<s:property value='sort'/>&column=<s:property value="column"/>">First</a></li>
 							<li class="notactive"><a
 								href="fetchBooks?page=<s:property value='page - 1'/>&sort=<s:property value='sort'/>&column=<s:property value="column"/>">Previous</a></li>
 						</s:if>
@@ -87,21 +130,24 @@
 						<c:forEach begin="1" end="${numberOfPages}" var="i">
 							<c:choose>
 								<c:when test="${page eq i}">
-									<li class="active"><a href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
+									<li class="active"><a
+										href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
 								</c:when>
 								<c:otherwise>
 									<c:choose>
 										<c:when test="${(page eq 1) or (page eq numberOfPages)}">
 											<c:choose>
 												<c:when test="${(i-page < 5) and (i-page > -5)}">
-													<li class="notactive"><a href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
+													<li class="notactive"><a
+														href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
 												</c:when>
 											</c:choose>
 										</c:when>
 										<c:otherwise>
 											<c:choose>
 												<c:when test="${(i-page < 3) and (i-page > -3)}">
-													<li class="notactive"><a href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
+													<li class="notactive"><a
+														href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
 												</c:when>
 											</c:choose>
 										</c:otherwise>
