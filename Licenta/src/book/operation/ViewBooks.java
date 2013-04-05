@@ -13,26 +13,41 @@ public class ViewBooks extends ActionSupport {
 
 	private static final long serialVersionUID = 1L;
 
+	private int page = 1;
+	private int numberOfPages;
+	private int sizeTabel;
+	private String column;
+	private String sort = "NON";
+	
 	FunctionBookAuthor books = new FunctionBookAuthor();
 	Books bookAuthor;
 	ArrayList<BookAuthor> listBook;
 
-	private int page ;
-	private int numberOfPages;
-	
+
 	public String execute() {
-		
 		int recordsPerPage = 4;
-		if(page == 0){
-			page = 1;
-		}
-		listBook = books
-				.fetchBooks((page - 1) * recordsPerPage, recordsPerPage);
 		
+		System.out.println(page+" "+sort);
+		if (sort.equals("NON")) {
+			listBook = books.fetchBooks((page - 1) * recordsPerPage,
+					recordsPerPage);
+			setSizeTabel(listBook.size());
+		}else{
+			listBook = books.sortBooks((page - 1) * recordsPerPage, recordsPerPage,column , sort);
+			setSizeTabel(listBook.size());
+		}
 		int numberOfRecords = books.getNumberOfRecords();
-		setNumberOfPages((int) Math.ceil(numberOfRecords * 1.0 / recordsPerPage));
-//		System.out.println(numberOfPages);
+		setNumberOfPages((int) Math
+				.ceil(numberOfRecords * 1.0 / recordsPerPage));
+		// System.out.println(numberOfPages);
 		return SUCCESS;
+	}
+	
+	public void sortWay(){
+		if(sort.equals("NON")){
+			sort = "ASC";
+			execute();
+		}
 	}
 
 	public Books getBookAuthor() {
@@ -66,5 +81,29 @@ public class ViewBooks extends ActionSupport {
 	public void setPage(int page) {
 		this.page = page;
 	}
-	
+
+	public int getSizeTabel() {
+		return sizeTabel;
+	}
+
+	public void setSizeTabel(int sizeTabel) {
+		this.sizeTabel = sizeTabel;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
+	}
+
+	public String getColumn() {
+		return column;
+	}
+
+	public void setColumn(String column) {
+		this.column = column;
+	}
+
 }

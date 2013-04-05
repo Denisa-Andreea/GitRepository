@@ -9,10 +9,30 @@
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/headerBodyFooter.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsessStileBooks.css"/>">
+	href="<s:url value="/stile/books/succsesStileBooks.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/books.css"/>">
+	href="<s:url value="/stile/books/book.css"/>">
 <script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
+<script type="text/javascript" src="functionJS/delete.js"></script>
+<script type="text/javascript" src="functionJS/selectAll.js"></script>
+<script type="text/javascript">
+	function change(string,previosString,sort){
+		//alert(previosString+" "+string);
+		if(previosString != string){
+			sort = "ASC";
+		}else if(sort == "NON"){
+			sort = "ASC";
+		//	alert("if1"+sort);
+		}else if(sort == "ASC"){
+			sort = "DESC";
+		//	alert("if2"+sort);
+		}else{
+			sort = "NON";
+		//	alert("if3"+sort);
+		}
+		return sort;
+	}
+</script>
 </head>
 <body id="body">
 	<div id="header">

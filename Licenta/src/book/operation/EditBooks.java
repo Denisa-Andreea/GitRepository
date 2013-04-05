@@ -35,8 +35,8 @@ public class EditBooks extends ActionSupport {
 	private int id;
 	private String title;
 	private int publisher;
-	private int volume = 0;
-	private int year = 0;
+	private String volume;
+	private String year;
 	private String series;
 	private String edition;
 	private String month;
@@ -73,11 +73,11 @@ public class EditBooks extends ActionSupport {
 		if (getPublisher() == 0) {
 			addFieldError("publisher", "Please select the publisher");
 		}
-		if (getYear() == 0) {
+		if (StringUtils.isBlank(getYear())) {
 			addFieldError("year", "Please insert the year");
-		} else if (1000 > getYear()) {
+		} else if (1000 > Integer.parseInt(getYear())) {
 			addFieldError("year", "Year must have 4 numbers");
-		} else if (getYear() > c.get(Calendar.YEAR)) {
+		} else if (Integer.parseInt(getYear()) > c.get(Calendar.YEAR)) {
 			addFieldError("year", "The year is bigger then the current year("
 					+ c.get(Calendar.YEAR) + ")");
 		}
@@ -85,8 +85,9 @@ public class EditBooks extends ActionSupport {
 
 	public String execute() {
 		updateFunction.editBooks(id, title, bookList.get(0).getAutors(),
-				getOldList(), publisher, year, volume,
+				getOldList(), publisher, Integer.parseInt(year), Integer.parseInt(volume),
 				series, edition, month, note);
+		oldList.sessionEditUnset();
 		return SUCCESS;
 	}
 
@@ -119,8 +120,8 @@ public class EditBooks extends ActionSupport {
 		book.setAutors(getAuthorList());
 		book.setTitle(getTitle());
 		book.setId_publisher(getPublisher());
-		book.setYear(getYear());
-		book.setVolume(getVolume());
+		book.setYear(Integer.parseInt(getYear()));
+		book.setVolume(Integer.parseInt(getVolume()));
 		book.setSeries(getSeries());
 		book.setEdition(getEdition());
 		book.setMonth(getMonth());
@@ -170,19 +171,19 @@ public class EditBooks extends ActionSupport {
 		this.authorFN = authorFN;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 
-	public int getVolume() {
+	public String getVolume() {
 		return volume;
 	}
 
-	public void setVolume(int volume) {
+	public void setVolume(String volume) {
 		this.volume = volume;
 	}
 

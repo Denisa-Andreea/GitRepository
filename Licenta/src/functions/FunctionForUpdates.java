@@ -41,6 +41,7 @@ public class FunctionForUpdates {
 							+ "', carti.month='" + month + "', carti.note='"
 							+ note + "' where carti.id_carte='" + idBook + "'");
 			updateBook.executeUpdate();
+			updateBook.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

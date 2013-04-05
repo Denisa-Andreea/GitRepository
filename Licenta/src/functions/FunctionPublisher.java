@@ -31,6 +31,7 @@ public class FunctionPublisher {
 				publisher.setAddress(resultPublisher.getString("address"));
 				listPublisher.add(publisher);
 			}
+			selectPublisher.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -46,6 +47,7 @@ public class FunctionPublisher {
 				insertPublisher.executeUpdate();
 				insertPublisher.close();
 			}
+			insertPublisher.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

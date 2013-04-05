@@ -64,6 +64,7 @@ public class FunctionForInsertTies {
 			 */
 			if (!existTies(idBook, idAuthor, "carte_autor", "id_carte")) {
 				insertTie.executeUpdate();
+				insertTie.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -82,6 +83,7 @@ public class FunctionForInsertTies {
 							+ idObject + "' and id_autor ='" + idAuthor + "'");
 			ResultSet result = ties.executeQuery();
 			if (!result.next()) {
+				ties.close();
 				return false;
 			}
 		} catch (SQLException e) {

@@ -1,10 +1,10 @@
-.bookBody{
-	background-color: #FAFAD2;
+#bookBody{
 	text-align: center;
 	width: 100%;
 	float: left;
+	background: url("../stile/pictures/imageBackgound.jpg") repeat scroll 0 0;
 }
-.bookBody p{
+#bookBody p{
 	text-align: center;
 	font-family: "Comic Sans MS";
 	font-size: 18px;	
@@ -16,12 +16,13 @@
 }
 
 .content{
-	width : 100%;
+	margin: 25px;
+	background-color: #FAFAD2;
 	float: left;
 }
 .tabel{
 	float: left;
-	margin-left: 100px;
+	padding-left: 50px;
 }
 .bookBody table{
 	font-size: 14px;	
@@ -137,7 +138,6 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	border-bottom: medium solid #8B0000;
 }
 
-
 .headrow{
 	background-color: #FFB6C1;
 	font-family: "Comic Sans MS";
@@ -148,7 +148,7 @@ ul{border:0; margin-left: 35%; padding:2%;}
 }
 
 .buttons{
-	margin-left: 650px;
+	margin-left: 450px;
 	float: left;
 }
 .buttons a{	

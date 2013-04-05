@@ -9,7 +9,7 @@
 
 	<package name="default" extends="struts-default" >
 		<action name="fetchBooks" class="book.operation.ViewBooks">
-			<result>/pages/successBooks.jsp</result>
+			<result name="success">/pages/successBooks.jsp</result>
 		</action>
 		
 		<action name="fetchPublisher" class="forFields.FieldPublisher">
@@ -46,7 +46,9 @@
  		<!--actiuni de editare/update a cartilor-->
  		
  		<action name="editBook" class="book.operation.GetBookForEdit">
- 			<result>/pages/editBooks.jsp</result>
+ 			<result name="edit">/pages/editBooks.jsp</result>
+ 			<result name="delete" type="redirect">fetchBooks?page=${page}</result>
+ 			<result type="redirect">fetchBooks</result>
  		</action>
  		
  		<action name="updateBook" class="book.operation.EditBooks">

@@ -10,43 +10,64 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
+import functions.FunctionForDeleteBooks;
 import functions.FunctionPublisher;
 
 public class GetBookForEdit extends ActionSupport {
 	private static final long serialVersionUID = 1L;
-	
+
 	FunctionBookAuthor function = new FunctionBookAuthor();
 	FunctionPublisher pub = new FunctionPublisher();
 	InsertBook monthListInit = new InsertBook();
-	
+	FunctionForDeleteBooks delete = new FunctionForDeleteBooks();
+
+
 	ArrayList<Books> bookList;
 	ArrayList<Publisher> listPublisher;
 	ArrayList<String> monthList;
 	Map<String, Object> sessionEdit = ActionContext.getContext().getSession();
-	
+
 	private int id;
 	private int size;
 	private int publisherSelected;
-	
-	
-	public String execute(){
-		listPublisher = pub.fetchPublisher();
-		monthList = monthListInit.initMonthList();
-		bookList = function.selectBook(id);
-		publisherSelected = bookList.get(0).getId_publisher();
-		size = bookList.get(0).getAutors().size();	
-		setSessionEdit(sessionEdit());
+	private String action;
+	private int page;
+	private int numberOfPages;
+	private int sizeTabel;
+	private String checkedID;
+
+	public String execute() {
+		if (action.equals("edit")) {
+			listPublisher = pub.fetchPublisher();
+			monthList = monthListInit.initMonthList();
+			bookList = function.selectBook(id);
+			publisherSelected = bookList.get(0).getId_publisher();
+			size = bookList.get(0).getAutors().size();
+			setSessionEdit(sessionEdit());
+			return "edit";
+		} else if (action.equals("delete")) {
+			if (page == numberOfPages && sizeTabel == 1) {
+				setPage(page - 1);
+			}
+			delete.deleteBook(id);
+			return "delete";
+		} else if (action.equals("deleteAll")) {
+//			System.out.println(getCheckedID());
+			delete.deleteAll(getCheckedID());
+			return "delete";
+		}
 		return SUCCESS;
 	}
-	
-	public Map<String, Object> sessionEdit(){
+
+	public Map<String, Object> sessionEdit() {
 		setSessionEdit(sessionEdit);
-		
+
+		sessionEdit.put("edit", true);
 		sessionEdit.put("id", bookList.get(0).getIdBook());
 		sessionEdit.put("publisher", bookList.get(0).getId_publisher());
 		sessionEdit.put("title", bookList.get(0).getTitle());
 		sessionEdit.put("year", bookList.get(0).getYear());
-		sessionEdit.put("volume",bookList.get(0).getVolume());
+		sessionEdit.put("volume", bookList.get(0).getVolume());
 		sessionEdit.put("authorList", bookList.get(0).getAutors());
 		sessionEdit.put("series", bookList.get(0).getSeries());
 		sessionEdit.put("edition", bookList.get(0).getSeries());
@@ -56,9 +77,10 @@ public class GetBookForEdit extends ActionSupport {
 		return sessionEdit;
 	}
 
-	public void sessionEditUnset(){
+	public void sessionEditUnset() {
 		sessionEdit.clear();
 	}
+
 	public int getId() {
 		return id;
 	}
@@ -66,8 +88,6 @@ public class GetBookForEdit extends ActionSupport {
 	public void setId(int id) {
 		this.id = id;
 	}
-
-	
 
 	public ArrayList<Books> getBookList() {
 		return bookList;
@@ -116,5 +136,45 @@ public class GetBookForEdit extends ActionSupport {
 	public void setSessionEdit(Map<String, Object> sessionEdit) {
 		this.sessionEdit = sessionEdit;
 	}
-	
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(String action) {
+		this.action = action;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
+	}
+
+	public int getSizeTabel() {
+		return sizeTabel;
+	}
+
+	public void setSizeTabel(int sizeTabel) {
+		this.sizeTabel = sizeTabel;
+	}
+
+	public String getCheckedID() {
+		return checkedID;
+	}
+
+	public void setCheckedID(String checkedID) {
+		this.checkedID = checkedID;
+	}
+
 }

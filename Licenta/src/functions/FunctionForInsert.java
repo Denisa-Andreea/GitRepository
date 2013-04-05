@@ -20,7 +20,8 @@ public class FunctionForInsert {
 			String series, String edition, String month, String note) {
 		try {
 			PreparedStatement insertBook = con
-					.prepareStatement("insert into carti(title, id_publisher, year, volume, series, edition, month, note) values(?,?,?,?,?,?,?,?)");
+					.prepareStatement("insert into carti(title, id_publisher, year, volume, series, edition, month, note)"
+							+ " values(?,?,?,?,?,?,?,?)");
 			if (!existBook(title)) {
 				insertBook.setString(1, title);
 				insertBook.setInt(2, id);
@@ -47,10 +48,10 @@ public class FunctionForInsert {
 			PreparedStatement insertAuthor = con
 					.prepareStatement("insert into autori(firstname, lastname) values(?,?)");
 			if (!existAuthor(authorFN, authorLN)) {
-					insertAuthor.setString(1, authorFN);
-					insertAuthor.setString(2, authorLN);
-					insertAuthor.executeUpdate();
-					insertAuthor.close();
+				insertAuthor.setString(1, authorFN);
+				insertAuthor.setString(2, authorLN);
+				insertAuthor.executeUpdate();
+				insertAuthor.close();
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

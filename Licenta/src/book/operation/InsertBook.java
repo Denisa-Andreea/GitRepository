@@ -31,8 +31,8 @@ public class InsertBook extends ActionSupport {
 	private ArrayList<String> authorFN;
 	private ArrayList<String> authorLN;
 	private int publisher;
-	private int volume = 0;
-	private int year = 0;
+	private String volume;
+	private String year;
 	private String series;
 	private String edition;
 	private String month;
@@ -63,7 +63,7 @@ public class InsertBook extends ActionSupport {
 //		System.out.println("execute");
 		sessionBookUnset();
 		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
-				getVolume(), getYear(), getSeries(), getEdition(), getMonth(),
+				Integer.parseInt(getVolume()), Integer.parseInt(getYear()), getSeries(), getEdition(), getMonth(),
 				getNote());
 		return SUCCESS;
 
@@ -86,18 +86,18 @@ public class InsertBook extends ActionSupport {
 			if (getPublisher() == 0) {
 				addFieldError("publisher", "Please select the publisher");
 			}
-			if (getYear() == 0) {
+			if (StringUtils.isBlank(getYear())) {
 				addFieldError("year", "Please insert the year");
-			} else if (1000 > getYear()) {
+			} else if (1000 > Integer.parseInt(getYear())) {
 				addFieldError("year", "Year must have 4 numbers");
-			} else if (getYear() > c.get(Calendar.YEAR)) {
+			} else if (Integer.parseInt(getYear()) > c.get(Calendar.YEAR)) {
 				addFieldError(
 						"year",
 						"The year is bigger then the current year("
 								+ c.get(Calendar.YEAR) + ")");
-			}else if(Integer.toString(getVolume()) == null){
-				System.out.println("laskdjkjs");
-				setVolume(0);
+			}
+			if(StringUtils.isBlank(getVolume())){
+				setVolume("0");
 			}
 
 //		} else {
@@ -153,7 +153,7 @@ public class InsertBook extends ActionSupport {
 	 */
 	public Map<String, Object> sessionBook() {
 		// System.out.println("set sesion");
-		setSessionBook(sessionBook);
+		sessionBook.put("book", true);
 		sessionBook.put("title", getTitle());
 		sessionBook.put("year", getYear());
 		sessionBook.put("volume", getVolume());
@@ -207,19 +207,19 @@ public class InsertBook extends ActionSupport {
 		this.title = title;
 	}
 
-	public int getVolume() {
+	public String getVolume() {
 		return volume;
 	}
 
-	public void setVolume(int volume) {
+	public void setVolume(String volume) {
 		this.volume = volume;
 	}
 
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 
