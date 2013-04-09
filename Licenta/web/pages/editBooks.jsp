@@ -49,7 +49,7 @@
 						</s:if>
 						<s:else>
 							<option value="<s:property value='id_publisher'/>">
-								<s:property value="name"/>(<s:property value="address"/>)
+								<s:property value="name"/>(<s:property value="country"/>)
 							</option>
 						</s:else>
 					</s:iterator>

@@ -4,16 +4,18 @@ public class Publisher {
 
 	private int id_publisher;
 	private String name;
-	private String address;
+	private String country;
+	private String city;
 	
 	public Publisher(){
 		super();
 	}
 	
-	public Publisher(int id_publisher, String name, String address){
+	public Publisher(int id_publisher, String name, String country, String city){
 		this.id_publisher = id_publisher;
 		this.name = name;
-		this.address =address;
+		this.setCountry(country);
+		this.setCity(city);
 	}
 
 	public int getId_publisher() {
@@ -32,11 +34,20 @@ public class Publisher {
 		this.name = name;
 	}
 
-	public String getAddress() {
-		return address;
+	public String getCountry() {
+		return country;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setCountry(String country) {
+		this.country = country;
 	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 }

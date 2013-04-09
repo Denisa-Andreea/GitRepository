@@ -34,7 +34,7 @@ public class FunctionBookAuthor {
 			statement = con
 					.prepareStatement("SELECT SQL_CALC_FOUND_ROWS carti.id_carte, carti.title,"
 							+ " GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', '),"
-							+ "carti.year, publisher.name, publisher.address, carti.volume, carti.series, carti.edition, carti.month,"
+							+ "carti.year, publisher.name, publisher.country, carti.volume, carti.series, carti.edition, carti.month,"
 							+ " carti.note from (carti LEFT JOIN carte_autor ON carti.id_carte = carte_autor.id_carte)"
 							+ " LEFT JOIN autori ON carte_autor.id_autor = autori.id_autor"
 							+ " LEFT JOIN publisher ON publisher.id_publisher = carti.id_publisher GROUP BY carti.id_carte limit "
@@ -54,7 +54,7 @@ public class FunctionBookAuthor {
 				bookAuthor
 						.setPublisher(resultBooks.getString("publisher.name"));
 				bookAuthor.setAddress(resultBooks
-						.getString("publisher.address"));
+						.getString("publisher.country"));
 				bookAuthor.setYear(Integer.parseInt(resultBooks
 						.getString("carti.year")));
 				bookAuthor.setSeries(resultBooks.getString("carti.series"));

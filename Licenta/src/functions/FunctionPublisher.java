@@ -28,7 +28,7 @@ public class FunctionPublisher {
 				publisher.setId_publisher(Integer.parseInt(resultPublisher
 						.getString("id_publisher")));
 				publisher.setName(resultPublisher.getString("name"));
-				publisher.setAddress(resultPublisher.getString("address"));
+				publisher.setCountry(resultPublisher.getString("country"));
 				listPublisher.add(publisher);
 			}
 			selectPublisher.close();
