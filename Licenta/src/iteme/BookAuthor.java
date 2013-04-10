@@ -9,7 +9,8 @@ public class BookAuthor {
 	private int year;
 	private int volume;
 	private String series;
-	private String address;
+	private String city;
+	private String country;
 	private String edition;
 	private String month;
 	private String note;
@@ -20,7 +21,7 @@ public class BookAuthor {
 
 	public BookAuthor(int idBook, String title, String autors,
 			String publisher, int year, int volume, String series,
-			String address, String edition, String month, String note) {
+			String city, String country, String edition, String month, String note) {
 		this.idBook = idBook;
 		this.title = title;
 		this.autors = autors;
@@ -28,7 +29,8 @@ public class BookAuthor {
 		this.year = year;
 		this.volume = volume;
 		this.series = series;
-		this.address = address;
+		this.city = city;
+		this.country = country;
 		this.edition = edition;
 		this.month = month;
 		this.note = note;
@@ -90,14 +92,6 @@ public class BookAuthor {
 		this.series = series;
 	}
 
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-
 	public String getEdition() {
 		return edition;
 	}
@@ -120,5 +114,21 @@ public class BookAuthor {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
 	}
 }

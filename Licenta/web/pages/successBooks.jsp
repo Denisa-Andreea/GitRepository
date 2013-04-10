@@ -1,6 +1,6 @@
 <%@include file="header.jsp"%>
 <div id="bookBody">
-	<div class="content">
+	<div class="contentBook">
 		<p>Books</p>
 		<div class="tabel">
 			<s:if test="%{listBook.size() > 0}">
@@ -33,7 +33,8 @@
 							</th>
 							<th class="headrow">Author(s)</th>
 							<th class="headrow">Publisher</th>
-							<th class="headrow">Address</th>
+							<th class="headrow">Publisher City</th>
+							<th class="headrow">Publisher Country</th>
 							<th class="headrow">Year <s:if test="%{column != 'year'}">
 									<a
 										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year"><img
@@ -73,9 +74,12 @@
 									<td class="mediumField"><s:property value="title" /></td>
 									<td class="bigField"><s:property value="autors" /></td>
 									<td class="smallField"><s:property value="publisher" /></td>
-									<td class="mediumField"><s:property value="address" /></td>
+									<td class="mediumField"><s:property value="city" /></td>
+									<td class="mediumField"><s:property value="country" /></td>
 									<td class="smallField"><s:property value="year" /></td>
-									<td class="smallField"><s:property value="volume" /></td>
+									<td class="smallField">
+										<s:if test="%{volume != 0}"><s:property value="volume" /></s:if>
+									</td>
 									<td class="smallField"><s:property value="series" /></td>
 									<td class="smallField"><s:property value="edition" /></td>
 									<td class="smallField"><s:property value="month" /></td>
@@ -96,9 +100,12 @@
 									<td class="mediumField1"><s:property value="title" /></td>
 									<td class="bigField1"><s:property value="autors" /></td>
 									<td class="smallField1"><s:property value="publisher" /></td>
-									<td class="mediumField1"><s:property value="address" /></td>
+									<td class="mediumField"><s:property value="city" /></td>
+									<td class="mediumField"><s:property value="country" /></td>
 									<td class="smallField1"><s:property value="year" /></td>
-									<td class="smallField1"><s:property value="volume" /></td>
+									<td class="smallField1">
+										<s:if test="%{volume != 0}"><s:property value="volume" /></s:if>
+									</td>
 									<td class="smallField1"><s:property value="series" /></td>
 									<td class="smallField1"><s:property value="edition" /></td>
 									<td class="smallField1"><s:property value="month" /></td>
@@ -115,58 +122,7 @@
 						</s:iterator>
 					</tbody>
 				</table>
-				<div id="pagination">
-					<ul>
-						<s:if test="%{page != 1}">
-							<li class="notactive"><a
-								href="fetchBooks?page=1&sort=<s:property value='sort'/>&column=<s:property value="column"/>">First</a></li>
-							<li class="notactive"><a
-								href="fetchBooks?page=<s:property value='page - 1'/>&sort=<s:property value='sort'/>&column=<s:property value="column"/>">Previous</a></li>
-						</s:if>
-						<s:else>
-							<li class="inactive">First</li>
-							<li class="inactive">Previous</li>
-						</s:else>
-						<c:forEach begin="1" end="${numberOfPages}" var="i">
-							<c:choose>
-								<c:when test="${page eq i}">
-									<li class="active"><a
-										href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
-								</c:when>
-								<c:otherwise>
-									<c:choose>
-										<c:when test="${(page eq 1) or (page eq numberOfPages)}">
-											<c:choose>
-												<c:when test="${(i-page < 5) and (i-page > -5)}">
-													<li class="notactive"><a
-														href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
-												</c:when>
-											</c:choose>
-										</c:when>
-										<c:otherwise>
-											<c:choose>
-												<c:when test="${(i-page < 3) and (i-page > -3)}">
-													<li class="notactive"><a
-														href="fetchBooks?page=${i}&sort=<s:property value='sort'/>&column=<s:property value="column"/>">${i}</a></li>
-												</c:when>
-											</c:choose>
-										</c:otherwise>
-									</c:choose>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-						<s:if test="%{page < numberOfPages}">
-							<li class="notactive"><a
-								href="fetchBooks?page=<s:property value='page + 1'/>&sort=<s:property value='sort'/>&column=<s:property value="column"/>">Next</a></li>
-							<li class="notactive"><a
-								href="fetchBooks?page=<s:property value='numberOfPages'/>&sort=<s:property value='sort'/>&column=<s:property value="column"/>">Last</a></li>
-						</s:if>
-						<s:else>
-							<li class="inactive">Next</li>
-							<li class="inactive">Last</li>
-						</s:else>
-					</ul>
-				</div>
+				<%@include file="pagination.jsp" %>
 			</s:if>
 		</div>
 		<div class="tabel">

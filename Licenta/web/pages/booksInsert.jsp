@@ -71,12 +71,12 @@
 				<s:iterator value="listPublisher" var="publishers">
 					<s:if test="%{publisherSelected == id_publisher}">
 						<option value="<s:property value='id_publisher'/>" selected="selected">
-							<s:property value="name"/>-<s:property value="address"/>
+							<s:property value="name"/>(<s:property value="city"/>,<s:property value="country"/>)
 						</option>
 					</s:if>
 					<s:else>
 						<option value="<s:property value='id_publisher'/>">
-							<s:property value="name"/>(<s:property value="address"/>)
+							<s:property value="name"/>(<s:property value="city"/>,<s:property value="country"/>)
 						</option>
 					</s:else>
 				</s:iterator>

@@ -29,6 +29,7 @@ public class FunctionPublisher {
 						.getString("id_publisher")));
 				publisher.setName(resultPublisher.getString("name"));
 				publisher.setCountry(resultPublisher.getString("country"));
+				publisher.setCity(resultPublisher.getString("city"));
 				listPublisher.add(publisher);
 			}
 			selectPublisher.close();
@@ -38,12 +39,25 @@ public class FunctionPublisher {
 		return listPublisher;
 	}
 	
-	public void insertPublisher(String name, String address){
+	public void insertPublisher(String name, String country, String city){
+		PreparedStatement insertPublisher;
+		String countryName = "";
 		try {
-			PreparedStatement insertPublisher = con.prepareStatement("insert into publisher(name,address) values(?,?)");
-			if(!existPublisher(name, address)){
+			insertPublisher = con.prepareStatement("SELECT name FROM country WHERE country.code ='"+country+"'");
+			ResultSet result = insertPublisher.executeQuery();
+			while(result.next()){
+				countryName = result.getString("name");
+			}
+			result.close();
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			insertPublisher = con.prepareStatement("insert into publisher(name,country,city) values(?,?,?)");
+			if(!existPublisher(name, country, city)){
 				insertPublisher.setString(1, name);
-				insertPublisher.setString(2, address);
+				insertPublisher.setString(2, countryName);
+				insertPublisher.setString(3, city);
 				insertPublisher.executeUpdate();
 				insertPublisher.close();
 			}
@@ -53,9 +67,9 @@ public class FunctionPublisher {
 		}
 	}
 	
-	public boolean existPublisher(String name, String address){
+	public boolean existPublisher(String name, String country, String city){
 		try {
-			PreparedStatement verify = con.prepareStatement("select * from publisher where name='"+name+"' and address='"+address+"'");
+			PreparedStatement verify = con.prepareStatement("select * from publisher where name='"+name+"' and country='"+country+"' and city='"+city+"'");
 			ResultSet resultVerify =verify.executeQuery();
 			if(!resultVerify.next()){
 				verify.close();
@@ -66,5 +80,6 @@ public class FunctionPublisher {
 		}
 		return true;
 	}
+	
 
 }

@@ -21,17 +21,11 @@ public class ForCountryCity extends ActionSupport {
 	Map<String, Object> sessionBook = book.getSessionBook();
 	ArrayList<String> cityList = new ArrayList<String>(funcCity.cityList);
 	
-	private String code;
-	
 	public String execute(){
 		countryList = function.fetchCountry();
 		return SUCCESS;
 	}
 	
-	public String cityToGet(){
-		cityList = function.fetchCity(code);
-		return SUCCESS;
-	}
 
 	public ArrayList<Country> getCountryList() {
 		return countryList;
@@ -57,12 +51,5 @@ public class ForCountryCity extends ActionSupport {
 		this.cityList = cityList;
 	}
 
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
 	
 }

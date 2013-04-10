@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import validation.BookValidation;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -20,6 +20,7 @@ public class InsertBook extends ActionSupport {
 
 	FunctionBookAuthor function = new FunctionBookAuthor();
 	FunctionPublisher pub = new FunctionPublisher();
+	BookValidation validation = new BookValidation();
 
 	Authors authors;
 	ArrayList<Publisher> listPublisher;
@@ -46,25 +47,24 @@ public class InsertBook extends ActionSupport {
 	}
 
 	public String browse() {
-//		System.out.println(month);
-//		System.out.println("addPublisher");
+		// System.out.println(month);
+		// System.out.println("addPublisher");
 		setSessionBook(sessionBook());
 		setPublisher(0);
 		return "publisher";
 	}
 
 	public String cancel() {
-//		System.out.println("cancel");
+		// System.out.println("cancel");
 		sessionBookUnset();
 		return "cancel";
 	}
 
 	public String execute() {
-//		System.out.println("execute");
 		sessionBookUnset();
 		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
-				Integer.parseInt(getVolume()), Integer.parseInt(getYear()), getSeries(), getEdition(), getMonth(),
-				getNote());
+				Integer.parseInt(getVolume()), Integer.parseInt(getYear()),
+				getSeries(), getEdition(), getMonth(), getNote());
 		return SUCCESS;
 
 	}
@@ -75,52 +75,44 @@ public class InsertBook extends ActionSupport {
 	public void validate() {
 		setPublisherSelected(getPublisher());
 		sessionBookUnset();
-		// for(int i = 0;i < authorFN.size(); i++){
-		// System.out.println(authorFN.get(i));
-		// }
-//		if (sessionBook.isEmpty()) {
-			// System.out.println("publisherSelected " + publisherSelected);
-			if (StringUtils.isBlank(getTitle())) {
-				addFieldError("title", "Please insert the title");
+		if (validation.blankString(getTitle())) {
+			addFieldError("title", "Please insert the title");
+		}else if (validation.littleFirstLetter(getTitle())) {
+			setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
+		}
+		if (validation.alreadyExistTitle(getTitle())) {
+			addFieldError("title", "This book already exist!!!");
+		}
+		
+		if (getPublisher() == 0) {
+			addFieldError("publisher", "Please select the publisher");
+		}
+		if (validation.blankString(getYear())) {
+			addFieldError("year", "Please insert the year");
+		} else if (validation.notNumberValidate(getYear())) {
+			addFieldError("year", "Please insert only numbers!!!");
+		} else if (validation.invalidYear(getYear())) {
+			addFieldError("year", validation.getMessage());
+		}
+		if (validation.blankString(getVolume())) {
+			setVolume("0");
+		}
+		for (int i = 0; i < getAuthorFN().size(); i++) {
+			if (!validation.blankString(authorFN.get(i))) {
+				if (validation.littleFirstLetter(getAuthorFN().get(i))) {
+					authorFN.set(i, authorFN.get(i).substring(0, 1)
+							.toUpperCase()
+							+ authorFN.get(i).substring(1));
+				}
 			}
-			if (getPublisher() == 0) {
-				addFieldError("publisher", "Please select the publisher");
+			if (!validation.blankString(authorLN.get(i))) {
+				if (validation.littleFirstLetter(getAuthorLN().get(i))) {
+					authorLN.set(i, authorLN.get(i).substring(0, 1)
+							.toUpperCase()
+							+ authorLN.get(i).substring(1));
+				}
 			}
-			if (StringUtils.isBlank(getYear())) {
-				addFieldError("year", "Please insert the year");
-			} else if (1000 > Integer.parseInt(getYear())) {
-				addFieldError("year", "Year must have 4 numbers");
-			} else if (Integer.parseInt(getYear()) > c.get(Calendar.YEAR)) {
-				addFieldError(
-						"year",
-						"The year is bigger then the current year("
-								+ c.get(Calendar.YEAR) + ")");
-			}
-			if(StringUtils.isBlank(getVolume())){
-				setVolume("0");
-			}
-
-//		} else {
-//			sessionBook();
-//			if (StringUtils.isBlank((String) sessionBook.get("title"))) {
-//				addFieldError("title", "Please insert the title session");
-//			}
-//			if (getPublisher() == 0) {
-//				addFieldError("publisher", "Select the Publisher Session");
-//			}
-//			if (Integer.parseInt(sessionBook.get("year").toString()) == 0) {
-//				addFieldError("year", "Please insert the year");
-//			} else if (1000 > Integer.parseInt(sessionBook.get("year")
-//					.toString())) {
-//				addFieldError("year", "Year must have 4 numbers");
-//			} else if (Integer.parseInt(sessionBook.get("year").toString()) > c
-//					.get(Calendar.YEAR)) {
-//				addFieldError(
-//						"year",
-//						"The year is bigger then the current year("
-//								+ c.get(Calendar.YEAR) + ")");
-//			}
-//		}
+		}
 	}
 
 	/**
@@ -137,11 +129,11 @@ public class InsertBook extends ActionSupport {
 				authorList.add(authors);
 			}
 		}
-//		 for (int i = 0; i < authorList.size(); i++) {
-//		 System.out.println("pe" + i + " "
-//		 + authorList.get(i).getFirstName() + " "
-//		 + authorList.get(i).getLastName());
-//		 }
+		// for (int i = 0; i < authorList.size(); i++) {
+		// System.out.println("pe" + i + " "
+		// + authorList.get(i).getFirstName() + " "
+		// + authorList.get(i).getLastName());
+		// }
 		setSize(authorList.size());
 		return authorList;
 	}
@@ -180,6 +172,7 @@ public class InsertBook extends ActionSupport {
 		sessionBook.remove("month");
 		sessionBook.remove("note");
 		sessionBook.remove("size");
+		sessionBook.remove("book");
 	}
 
 	public ArrayList<String> initMonthList() {

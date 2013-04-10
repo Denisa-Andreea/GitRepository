@@ -7,49 +7,19 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/headerBodyFooter.css"/>">
+	href="<s:url value="/stile/headerBody&Footer.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsesStileBooks.css"/>">
+	href="<s:url value="/stile/books/succsesStileBook.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/books/book.css"/>">
+	<link rel="stylesheet" type="text/css"
+	href="<s:url value="/stile/publisher/successPublisher.css"/>">
 <script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
 <script type="text/javascript" src="functionJS/delete.js"></script>
 <script type="text/javascript" src="functionJS/selectAll.js"></script>
-<script type="text/javascript">
-// 	function loadCities(value) {
-// 		var selectCity = document.publisher.city;
-// 		selectCity.options.lenght = 0;;
-// 		if (value == "NON") {
-// 			selectCity.options.lenght = 0;
-// 		}
-// 		var url = "cityToGet";
-// 		url += "?code=" + value;
-// 		alert(url);
-// 		window.location = url;
-// 	}
-
-	$(function(){ 
-$("#publisher").onclick(function(){
- 
-var formInput=$(this).serialize();
- 
-$.getJSON('cityToGet.action', formInput,function(data) {
- 
- 
-$.each(data.countryList,function(index, value){
-console.log("value " + value);
-});
- 
-});
- 
-return false;
- 
-});
- 
-});
-</script>
+<script type="text/javascript" src="functionJS/dropdown.js"></script>
 </head>
 <body id="body">
 	<div id="header">
-		<img class="image" alt="book" src="stile/pictures/book.jpg">
+	
 	</div>

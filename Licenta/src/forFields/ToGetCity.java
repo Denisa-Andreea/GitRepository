@@ -13,8 +13,10 @@ public class ToGetCity extends ActionSupport{
 	ArrayList<String> cityList = new ArrayList<String>();
 	String code;
 	
-	public String city(){
+	public String execute(){
+		//System.out.println(code);
 		cityList = function.fetchCity(code);
+		//System.out.println(cityList);
 		return SUCCESS;
 	}
 
@@ -24,6 +26,14 @@ public class ToGetCity extends ActionSupport{
 
 	public void setCityList(ArrayList<String> cityList) {
 		this.cityList = cityList;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
 	}
 	
 }

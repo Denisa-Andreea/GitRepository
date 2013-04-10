@@ -2,6 +2,7 @@
 	text-align: center;
 	width: 100%;
 	float: left;
+	background: url("../pictures/b.jpg") repeat scroll;
 }
 #bookBody p{
 	text-align: center;
@@ -14,8 +15,9 @@
 	width: 100%;
 }
 
-.content{
-	margin: 25px;
+.contentBook{
+	margin: 30px;
+	width:96%;
 	background-color: #FAFAD2;
 	float: left;
 }

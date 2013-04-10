@@ -42,7 +42,10 @@
  		<action name="viewPublisher" class="book.operation.ViewPublisher">
  			<result>/pages/successPublisher.jsp</result>
  		</action>
- 				
+	
+		<action name="cityToGet" class="forFields.ToGetCity">
+			<result>pages/city.jsp</result>
+		</action>
  		<!--actiuni de editare/update a cartilor-->
  		
  		<action name="editBook" class="book.operation.GetBookForEdit">
@@ -56,10 +59,5 @@
  			<result name="input">/pages/editBooks.jsp</result>
  			<result name="cancel" type="redirect">fetchBooks</result>
  		</action>
-	</package>
-	<package name="json" extends="json-default">
-		<action name="cityToGet" class="forFields.ForCountryCity" method="cityToGet">
-			<result type="json">PublisherFields</result>
-		</action>
 	</package>
 </struts>

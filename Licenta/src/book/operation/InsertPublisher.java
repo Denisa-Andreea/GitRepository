@@ -7,6 +7,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import validation.PublisherValidation;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import forFields.ForCountryCity;
@@ -17,39 +19,57 @@ public class InsertPublisher extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	
 	private String name;
-	private String country;
+	private String selectedState;
 	private String city;
+	private String country;
+	private String selectedCity;
 	
-	ArrayList<Country> countryLit;
-	ArrayList<String> cityList;
+	
 	FunctionPublisher function =new FunctionPublisher();
 	GetCountryCity functionCountry = new GetCountryCity();
-//	InsertBook book = new InsertBook();
 	ForCountryCity book = new ForCountryCity();
+	PublisherValidation validation = new PublisherValidation();
+	
 	Map<String, Object> sessionBook = book.getSessionBook();
+	ArrayList<Country> countryList;
+	ArrayList<String> cityList ;
 	
 	public InsertPublisher(){
-		countryLit = functionCountry.fetchCountry();
+		countryList = functionCountry.fetchCountry();
 	}
 	
 	public void validate(){
+		setCountry(selectedState);
+		cityList = functionCountry.fetchCity(country);
+		setSelectedCity(city); 
+		
 		if(StringUtils.isBlank(getName())){
 			addFieldError("name", "Please insert the name");
 		}
-		if(StringUtils.isBlank(getCountry())){
+		if(validation.littleFirstLetter(getName())){
+			setName(name.substring(0,1).toUpperCase()+name.substring(1));
+		}
+		if(StringUtils.equals(getSelectedState(), "NON")){
 			addFieldError("country", "Please select the country");
+		}
+		if(StringUtils.equals(getCity(), "NON")){
+			addFieldError("city", "Please select the city");
+		}
+		if(validation.alreadyExistPublisher(getName(), getCountry(), getCity())){
+			addFieldError("name", "Publisher already exist!!!");
 		}
 	}
 
+
 	public String execute() {
-		System.out.println("execute");
-		function.insertPublisher(name, country);
+//		System.out.println("execute");
+		function.insertPublisher(name, selectedState, city);
 		return SUCCESS;
 	}
 	
 	public String execute2(){
-		System.out.println("execute 2");
-		function.insertPublisher(name, country);
+//		System.out.println("execute 2");
+		function.insertPublisher(name, selectedState, city);
 		return "fetch";
 	}
 
@@ -58,17 +78,10 @@ public class InsertPublisher extends ActionSupport{
 	}
 	
 	public String back(){
+		book.setSessionBook(sessionBook);
 		return "back";
 	}
 	
-
-	public String getCountry() {
-		return country;
-	}
-
-	public void setCountry(String country) {
-		this.country = country;
-	}
 
 	public String getName() {
 		return name;
@@ -86,12 +99,13 @@ public class InsertPublisher extends ActionSupport{
 		this.sessionBook = sessionBook;
 	}
 
-	public ArrayList<Country> getCountryLit() {
-		return countryLit;
+
+	public ArrayList<Country> getCountryList() {
+		return countryList;
 	}
 
-	public void setCountryLit(ArrayList<Country> countryLit) {
-		this.countryLit = countryLit;
+	public void setCountryList(ArrayList<Country> countryList) {
+		this.countryList = countryList;
 	}
 
 	public String getCity() {
@@ -102,6 +116,36 @@ public class InsertPublisher extends ActionSupport{
 		this.city = city;
 	}
 
-	
+	public String getSelectedState() {
+		return selectedState;
+	}
 
+	public void setSelectedState(String selectedState) {
+		this.selectedState = selectedState;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getSelectedCity() {
+		return selectedCity;
+	}
+
+	public void setSelectedCity(String selectedCity) {
+		this.selectedCity = selectedCity;
+	}
+
+
+	public ArrayList<String> getCityList() {
+		return cityList;
+	}
+	
+	public void setCityList(ArrayList<String> cityList) {
+		this.cityList = cityList;
+	}
 }
