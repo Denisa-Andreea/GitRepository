@@ -1,4 +1,4 @@
-package book.operation;
+package publisher.operation;
 
 import java.util.ArrayList;
 

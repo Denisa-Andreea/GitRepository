@@ -14,9 +14,9 @@ public class ToGetCity extends ActionSupport{
 	String code;
 	
 	public String execute(){
-		//System.out.println(code);
+//		System.out.println(code);
 		cityList = function.fetchCity(code);
-		//System.out.println(cityList);
+//		System.out.println(cityList);
 		return SUCCESS;
 	}
 

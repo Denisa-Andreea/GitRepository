@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import conections.DBCon;
 
-public class FunctionForUpdates {
+public class FunctionForUpdateBooks {
 
 	DBCon dbcon = DBCon.getConnection();
 	Connection con = dbcon.getCon();

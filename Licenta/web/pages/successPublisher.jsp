@@ -24,7 +24,10 @@
 							<td>
 								<table><tr class="headrow"><th><br/></th></tr>
 									<tr>
-										<td>edit</td>
+										<td><a
+										href="editPublisher?id=<s:property value='id_publisher'/>">
+											<img src="stile/pictures/edit.gif" alt="edit" />
+									</a></td>
 									</tr>
 								</table>
 							</td>

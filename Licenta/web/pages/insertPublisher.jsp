@@ -1,5 +1,5 @@
 <%@include file="header.jsp" %>
-	<div>
+	<div class="inserPublisher">
 		<s:form name="publisher" id="publisher" action="addPublisher">
 			<div>
 				<s:fielderror><s:param>name</s:param></s:fielderror>

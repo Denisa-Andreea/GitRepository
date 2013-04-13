@@ -52,8 +52,9 @@ public class GetBookForEdit extends ActionSupport {
 			delete.deleteBook(id);
 			return "delete";
 		} else if (action.equals("deleteAll")) {
-//			System.out.println(getCheckedID());
-			delete.deleteAll(getCheckedID());
+			if(!getCheckedID().isEmpty()){
+				delete.deleteAll(getCheckedID());
+			}
 			return "delete";
 		}
 		return SUCCESS;
@@ -63,16 +64,16 @@ public class GetBookForEdit extends ActionSupport {
 		setSessionEdit(sessionEdit);
 
 		sessionEdit.put("edit", true);
-		sessionEdit.put("id", bookList.get(0).getIdBook());
-		sessionEdit.put("publisher", bookList.get(0).getId_publisher());
-		sessionEdit.put("title", bookList.get(0).getTitle());
-		sessionEdit.put("year", bookList.get(0).getYear());
-		sessionEdit.put("volume", bookList.get(0).getVolume());
+//		sessionEdit.put("id", bookList.get(0).getIdBook());
+//		sessionEdit.put("publisher", bookList.get(0).getId_publisher());
+//		sessionEdit.put("title", bookList.get(0).getTitle());
+//		sessionEdit.put("year", bookList.get(0).getYear());
+//		sessionEdit.put("volume", bookList.get(0).getVolume());
 		sessionEdit.put("authorList", bookList.get(0).getAutors());
-		sessionEdit.put("series", bookList.get(0).getSeries());
-		sessionEdit.put("edition", bookList.get(0).getSeries());
-		sessionEdit.put("month", bookList.get(0).getMonth());
-		sessionEdit.put("note", bookList.get(0).getNote());
+//		sessionEdit.put("series", bookList.get(0).getSeries());
+//		sessionEdit.put("edition", bookList.get(0).getSeries());
+//		sessionEdit.put("month", bookList.get(0).getMonth());
+//		sessionEdit.put("note", bookList.get(0).getNote());
 		sessionEdit.put("size", bookList.get(0).getAutors().size());
 		return sessionEdit;
 	}

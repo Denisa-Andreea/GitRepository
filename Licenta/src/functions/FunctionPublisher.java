@@ -67,6 +67,43 @@ public class FunctionPublisher {
 		}
 	}
 	
+	public Publisher selectPublisher(int idPublisher){
+		PreparedStatement statement;
+		ResultSet result;
+		Publisher publisher = new Publisher();
+		try {
+			statement = con.prepareStatement("SELECT * FROM publisher WHERE publisher.id_publisher="+idPublisher);
+			result = statement.executeQuery();
+			while (result.next()) {
+				publisher.setName(result.getString("name"));
+				publisher.setCountry(result.getString("country"));
+				publisher.setCity(result.getString("city"));
+			}
+			result.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return publisher;
+	}
+	
+	public String countryCode(String country){
+		PreparedStatement statement;
+		ResultSet result;
+		String code = null;
+		try {
+			statement = con.prepareStatement("SELECT code FROM country WHERE country.name = '"+country+"'");
+			result = statement.executeQuery();
+			while(result.next()){
+				code = result.getString("code");
+			}
+			System.out.println(code);
+			statement.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return code;
+	}
+	
 	public boolean existPublisher(String name, String country, String city){
 		try {
 			PreparedStatement verify = con.prepareStatement("select * from publisher where name='"+name+"' and country='"+country+"' and city='"+city+"'");
@@ -81,5 +118,4 @@ public class FunctionPublisher {
 		return true;
 	}
 	
-
 }

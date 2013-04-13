@@ -29,25 +29,8 @@
 			<result name="publisher" type="redirect">PublisherFields</result>
 		</action>
 		
-		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher, precum si petru afisarea unui tabel cu publicatiile disponibile -->
-
-		<action name="addPublisher" class="book.operation.InsertPublisher">
-			<result name="success" type="redirect">fetchPublisher</result>
- 			<result name="input">/pages/insertPublisher.jsp</result>
- 			<result name="fetch" type="redirect">viewPublisher</result>
- 			<result name="cancel" type="redirect">viewPublisher</result>
- 			<result name="back" type="redirect">fetchPublisher</result>
- 		</action>
- 		
- 		<action name="viewPublisher" class="book.operation.ViewPublisher">
- 			<result>/pages/successPublisher.jsp</result>
- 		</action>
-	
-		<action name="cityToGet" class="forFields.ToGetCity">
-			<result>pages/city.jsp</result>
-		</action>
+		
  		<!--actiuni de editare/update a cartilor-->
- 		
  		<action name="editBook" class="book.operation.GetBookForEdit">
  			<result name="edit">/pages/editBooks.jsp</result>
  			<result name="delete" type="redirect">fetchBooks?page=${page}</result>
@@ -59,5 +42,39 @@
  			<result name="input">/pages/editBooks.jsp</result>
  			<result name="cancel" type="redirect">fetchBooks</result>
  		</action>
+ 		
+		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher, precum si petru afisarea unui tabel cu publicatiile disponibile -->
+
+		<action name="addPublisher" class="publisher.operation.InsertPublisher">
+			<result name="success" type="redirect">fetchPublisher</result>
+ 			<result name="input">/pages/insertPublisher.jsp</result>
+ 			<result name="fetch" type="redirect">viewPublisher</result>
+ 			<result name="cancel" type="redirect">viewPublisher</result>
+ 			<result name="back" type="redirect">fetchPublisher</result>
+ 		</action>
+ 		
+ 		
+ 		<action name="viewPublisher" class="publisher.operation.ViewPublisher">
+ 			<result>/pages/successPublisher.jsp</result>
+ 		</action>
+ 		
+ 		<!-- actiuni de editare/update a publicatiilor -->
+ 		
+ 		<action name="editPublisher" class="publisher.operation.GetPublisherForEdit">
+ 			<result name="edit">/pages/editPublisher.jsp</result>
+ 		</action>
+ 		
+ 		<action name="updatePublisher" class="publisher.operation.EditPublisher">
+ 			<result name="success" type="redirect">viewPublisher</result>
+ 			<result name="input">/pages/editPublisher.jsp</result>
+ 			<result name="cancel" type="redirect">viewPublisher</result>
+ 		</action>
+	<!--actiune pentru selectarea unei liste de orase in functie de tara aleasa-->
+	
+		<action name="cityToGet" class="forFields.ToGetCity">
+			<result>pages/city.jsp</result>
+		</action>
+ 		
+ 		
 	</package>
 </struts>

@@ -1,7 +1,5 @@
 package book.operation;
 
-import functions.FunctionForUpdates;
-import functions.FunctionPublisher;
 import iteme.Authors;
 import iteme.Books;
 import iteme.Publisher;
@@ -10,9 +8,12 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import validation.BookValidation;
 
 import com.opensymphony.xwork2.ActionSupport;
+
+import functions.FunctionForUpdateBooks;
+import functions.FunctionPublisher;
 
 public class EditBooks extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +21,8 @@ public class EditBooks extends ActionSupport {
 	FunctionPublisher pub = new FunctionPublisher();
 	InsertBook monthListInit = new InsertBook();
 	GetBookForEdit oldList = new GetBookForEdit();
-	FunctionForUpdates updateFunction = new FunctionForUpdates();
+	FunctionForUpdateBooks updateFunction = new FunctionForUpdateBooks();
+	BookValidation validation = new BookValidation();
 
 	ArrayList<Books> bookList = new ArrayList<Books>();
 	ArrayList<Publisher> listPublisher;
@@ -53,33 +55,43 @@ public class EditBooks extends ActionSupport {
 		bookSet();
 		setPublisherSelected(getPublisher());
 
-		// System.out.println("old session");
-		// oldAuthorList = getOldList();
-		// for (int i = 0; i < oldAuthorList.size(); i++) {
-		// System.out.println(oldAuthorList.get(i).getFirstName() + " "
-		// + oldAuthorList.get(i).getLastName());
-		// }
-		// System.out.println();
-		// System.out.println("new session");
-		// for (int i = 0; i < bookList.get(0).getAutors().size(); i++) {
-		// System.out.println(bookList.get(0).getAutors().get(i)
-		// .getFirstName()
-		// + " " + bookList.get(0).getAutors().get(i).getLastName());
-		// }
-
-		if (StringUtils.isBlank(getTitle())) {
+		if (validation.blankString(getTitle())) {
 			addFieldError("title", "Please insert the title");
+		}else if (validation.littleFirstLetter(getTitle())) {
+			setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
 		}
+		if (validation.alreadyExistTitle(getTitle())) {
+			addFieldError("title", "This book already exist!!!");
+		}
+		
 		if (getPublisher() == 0) {
 			addFieldError("publisher", "Please select the publisher");
 		}
-		if (StringUtils.isBlank(getYear())) {
+		if (validation.blankString(getYear())) {
 			addFieldError("year", "Please insert the year");
-		} else if (1000 > Integer.parseInt(getYear())) {
-			addFieldError("year", "Year must have 4 numbers");
-		} else if (Integer.parseInt(getYear()) > c.get(Calendar.YEAR)) {
-			addFieldError("year", "The year is bigger then the current year("
-					+ c.get(Calendar.YEAR) + ")");
+		} else if (validation.notNumberValidate(getYear())) {
+			addFieldError("year", "Please insert only numbers!!!");
+		} else if (validation.invalidYear(getYear())) {
+			addFieldError("year", validation.getMessage());
+		}
+		if (validation.blankString(getVolume())) {
+			setVolume("0");
+		}
+		for (int i = 0; i < getAuthorFN().size(); i++) {
+			if (!validation.blankString(authorFN.get(i))) {
+				if (validation.littleFirstLetter(getAuthorFN().get(i))) {
+					authorFN.set(i, authorFN.get(i).substring(0, 1)
+							.toUpperCase()
+							+ authorFN.get(i).substring(1));
+				}
+			}
+			if (!validation.blankString(authorLN.get(i))) {
+				if (validation.littleFirstLetter(getAuthorLN().get(i))) {
+					authorLN.set(i, authorLN.get(i).substring(0, 1)
+							.toUpperCase()
+							+ authorLN.get(i).substring(1));
+				}
+			}
 		}
 	}
 
@@ -106,11 +118,6 @@ public class EditBooks extends ActionSupport {
 				authorList.add(authors);
 			}
 		}
-		// for (int i = 0; i < authorList.size(); i++) {
-		// System.out.println("pe" + i + " "
-		// + authorList.get(i).getFirstName() + " "
-		// + authorList.get(i).getLastName());
-		// }
 		setSize(authorList.size());
 		return authorList;
 	}

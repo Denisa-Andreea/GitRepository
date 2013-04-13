@@ -146,7 +146,7 @@ public class FunctionBookAuthor {
 
 		try {
 			PreparedStatement selectBook = con
-					.prepareStatement("select publisher.id_publisher, publisher.name, publisher.address, carti.title, carti.year,"
+					.prepareStatement("select publisher.id_publisher, publisher.name, publisher.country, publisher.city, carti.title, carti.year,"
 							+ "carti.volume,carti.series,carti.edition,carti.month,carti.note FROM "
 							+ "(carti LEFT JOIN publisher on carti.id_publisher = publisher.id_publisher) WHERE carti.id_carte = "
 							+ idBook);
@@ -160,7 +160,8 @@ public class FunctionBookAuthor {
 				book.setId_publisher(Integer.parseInt(resultBook
 						.getString("publisher.id_publisher")));
 				book.setPublisher(resultBook.getString("publisher.name"));
-				book.setAddress(resultBook.getString("publisher.address"));
+				book.setCountry(resultBook.getString("publisher.country"));
+				book.setCity(resultBook.getString("publisher.city"));
 				book.setYear(Integer.parseInt(resultBook
 						.getString("carti.year")));
 				book.setVolume(Integer.parseInt(resultBook

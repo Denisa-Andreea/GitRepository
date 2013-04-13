@@ -47,15 +47,12 @@ public class InsertBook extends ActionSupport {
 	}
 
 	public String browse() {
-		// System.out.println(month);
-		// System.out.println("addPublisher");
 		setSessionBook(sessionBook());
 		setPublisher(0);
 		return "publisher";
 	}
 
 	public String cancel() {
-		// System.out.println("cancel");
 		sessionBookUnset();
 		return "cancel";
 	}

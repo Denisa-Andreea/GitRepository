@@ -26,11 +26,14 @@ public class ViewBooks extends ActionSupport {
 
 	public String execute() {
 		int recordsPerPage = 5;
-		if (sort.equals("NON")) {
+		if (sort.equals("NON") || sort.isEmpty()) {
 			listBook = books.fetchBooks((page - 1) * recordsPerPage,
 					recordsPerPage);
 			setSizeTabel(listBook.size());
 		}else{
+			if(column.isEmpty()){
+				 column = "id_carte";
+			}
 			listBook = books.sortBooks((page - 1) * recordsPerPage, recordsPerPage,column , sort);
 			setSizeTabel(listBook.size());
 		}

@@ -14,7 +14,6 @@
 			<td><label>Athor(s)*:</label></td>
 			<td>
 				<div id="autors">
-					<s:if test="bookList.get(0).getAutors() != null">					
 						<div>
 							<label id="authorFNLabel">First Name:</label><s:textfield id="authorFN" name="authorFN" value="%{bookList.get(0).getAutors().get(0).getFirstName()}"/>
 							<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN" name="authorLN" value="%{bookList.get(0).getAutors().get(0).getLastName()}"/>
@@ -25,7 +24,6 @@
 								<label id="authorLNLabel">Last Name:</label><s:textfield id="authorLN%{#part.index+1}" name="authorLN" value="%{getLastName()}"/>
 							</div>
 						</s:iterator>
-					</s:if>					
 				</div>
 			</td>
 			<td><s:fielderror><s:param>authors</s:param></s:fielderror></td>
@@ -44,7 +42,7 @@
 					<s:iterator value="listPublisher" var="publishers">
 						<s:if test="%{publisherSelected == id_publisher}">
 							<option value="<s:property value='id_publisher'/>" selected="selected">
-								<s:property value="name"/>-<s:property value="address"/>
+								<s:property value="name"/>(<s:property value="city"/>,<s:property value="country"/>)
 							</option>
 						</s:if>
 						<s:else>
