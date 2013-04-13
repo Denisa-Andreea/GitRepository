@@ -4,7 +4,7 @@
 		<p>Books</p>
 		<div class="tabel">
 			<s:if test="%{listBook.size() > 0}">
-				<table>
+				<table class="bookBodyTable">
 					<thead>
 						<tr>
 							<td class="headrow"><s:checkbox id="checkeAll"
@@ -100,8 +100,8 @@
 									<td class="mediumField1"><s:property value="title" /></td>
 									<td class="bigField1"><s:property value="autors" /></td>
 									<td class="smallField1"><s:property value="publisher" /></td>
-									<td class="mediumField"><s:property value="city" /></td>
-									<td class="mediumField"><s:property value="country" /></td>
+									<td class="mediumField1"><s:property value="city" /></td>
+									<td class="mediumField1"><s:property value="country" /></td>
 									<td class="smallField1"><s:property value="year" /></td>
 									<td class="smallField1">
 										<s:if test="%{volume != 0}"><s:property value="volume" /></s:if>
@@ -131,8 +131,9 @@
 			</s:else>
 		</div>
 		<div class="buttons">
-			<a href="fetchPublisher">Insert</a> <a href="index.jsp">Back</a> <a
+			<a href="fetchPublisher">Insert</a>  <a
 				onclick="href='editBook?action=deleteAll&page='+<s:property value='page'/>+'&checkedID='+checkbox_test();">Delete</a>
+				<a href="index.jsp">Back</a>
 		</div>
 	</div>
 </div>

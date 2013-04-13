@@ -9,11 +9,11 @@
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/headerBody&Footer.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsesStileBook.css"/>">
+	href="<s:url value="/stile/books/succsesStile&Books.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/books/book.css"/>">
 	<link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/publisher/successPublisher.css"/>">
+	href="<s:url value="/stile/publisher/successPublishers.css"/>">
 <script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
 <script type="text/javascript" src="functionJS/delete.js"></script>
 <script type="text/javascript" src="functionJS/selectAll.js"></script>
