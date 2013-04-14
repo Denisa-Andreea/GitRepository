@@ -9,7 +9,7 @@
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/headerBody&Footer.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsesStile&Books.css"/>">
+	href="<s:url value="/stile/books/succsesStile&Book.css"/>">
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/books/book.css"/>">
 	<link rel="stylesheet" type="text/css"

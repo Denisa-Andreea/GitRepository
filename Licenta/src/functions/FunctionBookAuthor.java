@@ -241,7 +241,6 @@ public class FunctionBookAuthor {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		try {
 			statement = con.prepareStatement("SELECT FOUND_ROWS()");
 			resultBooks = statement.executeQuery();

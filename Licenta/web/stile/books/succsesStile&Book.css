@@ -2,7 +2,6 @@
 	text-align: center;
 	width: 100%;
 	float: left;
-	background: url("../pictures/b.jpg") repeat scroll;
 }
 #bookBody p{
 	text-align: center;
@@ -18,7 +17,6 @@
 .contentBook{
 	margin: 40px;
 	width:96%;
-	background-color: #FAFAD2;
 	float: left;
 }
 .tabel{
@@ -28,9 +26,7 @@
 .bookBodyTable{
 	font-size: 14px;	
 	width: 100%;
-	border-left: #8B0000 solid;
-	border-right: #8B0000 solid;
-	border-top: #8B0000 solid;
+	border: #8B0000 solid;
 }
 
 ul{border:0; margin-left: 35%; padding:2%;}
@@ -83,7 +79,6 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	background-color: #FAFAD2;
 	color: #8B0000;
 	border-right: medium solid #8B0000;
-	border-bottom: medium solid #8B0000;
 }
 .mediumField{
 	font-family: "Comic Sans MS";
@@ -91,7 +86,6 @@ ul{border:0; margin-left: 35%; padding:2%;}
     background-color: #FAFAD2;
     color: #8B0000;
     border-right: medium solid #8B0000;
-    border-bottom: medium solid #8B0000;
 }
 .smallField{
 	font-family: "Comic Sans MS";
@@ -99,14 +93,12 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	background-color: #FAFAD2;
 	color: #8B0000;
 	border-right: medium solid #8B0000;
-	border-bottom: medium solid #8B0000;
 }
 .edit{
 	font-family: "Comic Sans MS";
 	font-weight: bold;
 	background-color: #FAFAD2;
 	color: #8B0000;
-	border-bottom: medium solid #8B0000;
 }
 
 .bigField1{
@@ -116,6 +108,7 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	color: #8B0000;
 	border-right: medium solid #8B0000;
 	border-bottom: medium solid #8B0000;
+	border-top: medium solid #8B0000;
 }
 .mediumField1{
 	font-family: "Comic Sans MS";
@@ -124,6 +117,7 @@ ul{border:0; margin-left: 35%; padding:2%;}
     color: #8B0000;
     border-right: medium solid #8B0000;
     border-bottom: medium solid #8B0000;
+    border-top: medium solid #8B0000;
 }
 .smallField1{
 	font-family: "Comic Sans MS";
@@ -132,12 +126,14 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	color: #8B0000;
 	border-bottom: medium solid #8B0000;
 	border-right: medium solid #8B0000;
+	border-top: medium solid #8B0000;
 }
 .edit1{
 	font-family: "Comic Sans MS";
 	font-weight: bold;
 	background-color: #FEE0C6;
 	border-bottom: medium solid #8B0000;
+	border-top: medium solid #8B0000;
 }
 
 .headrow{
@@ -146,6 +142,14 @@ ul{border:0; margin-left: 35%; padding:2%;}
 	font-weight: bold;
 	font-size: 16px;
 	border-right: medium solid #8B0000;
+	border-bottom: medium solid #8B0000;
+}
+
+.headrowLast{
+	background-color: #FFB6C1;
+	font-family: "Comic Sans MS";
+	font-weight: bold;
+	font-size: 16px;
 	border-bottom: medium solid #8B0000;
 }
 

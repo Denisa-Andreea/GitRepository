@@ -14,9 +14,33 @@ public class ViewPublisher extends ActionSupport {
 	FunctionPublisher publisherFetch = new FunctionPublisher();
 	Publisher publisher;
 	ArrayList<Publisher> listPublisher;
+	
+	private int page = 1;
+	private int numberOfPages;
+	private int sizeTabel;
+	private String column;
+	private String sort = "NON";
 
 	public String execute() {
-		listPublisher = publisherFetch.fetchPublisher();
+		int recordsPerPage = 3;
+		if (sort.equals("NON") || sort.isEmpty()) {
+			column = "id_publisher";
+			sort = "ASC";
+			listPublisher = publisherFetch.fetchPublisherSort((page - 1) * recordsPerPage,
+					recordsPerPage, column ,sort);
+			setSizeTabel(listPublisher.size());
+		}else{
+			if(column.isEmpty()){
+				 column = "id_publisher";
+			}
+			listPublisher = publisherFetch.fetchPublisherSort((page - 1) * recordsPerPage,
+					recordsPerPage, column , sort);
+			setSizeTabel(listPublisher.size());
+		}
+		int numberOfRecords = publisherFetch.getNumberOfRecords();
+		setNumberOfPages((int) Math
+				.ceil(numberOfRecords * 1.0 / recordsPerPage));
+//		System.out.println(numberOfPages);
 		return SUCCESS;
 	}
 
@@ -34,6 +58,46 @@ public class ViewPublisher extends ActionSupport {
 
 	public void setListPublisher(ArrayList<Publisher> listPublisher) {
 		this.listPublisher = listPublisher;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getNumberOfPages() {
+		return numberOfPages;
+	}
+
+	public void setNumberOfPages(int numberOfPages) {
+		this.numberOfPages = numberOfPages;
+	}
+
+	public int getSizeTabel() {
+		return sizeTabel;
+	}
+
+	public void setSizeTabel(int sizeTabel) {
+		this.sizeTabel = sizeTabel;
+	}
+
+	public String getColumn() {
+		return column;
+	}
+
+	public void setColumn(String column) {
+		this.column = column;
+	}
+
+	public String getSort() {
+		return sort;
+	}
+
+	public void setSort(String sort) {
+		this.sort = sort;
 	}
 
 }

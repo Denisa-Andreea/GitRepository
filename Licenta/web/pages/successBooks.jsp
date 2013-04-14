@@ -7,8 +7,8 @@
 				<table class="bookBodyTable">
 					<thead>
 						<tr>
-							<td class="headrow"><s:checkbox id="checkeAll"
-									onclick="selectAll();" name="checkeAll" /></td>
+							<th class="headrow"><s:checkbox id="checkeAll"
+									onclick="selectAll();" name="checkeAll" /></th>
 							<th class="headrow">Title <s:if test="%{column != 'title'}">
 									<a
 										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title"><img
@@ -62,7 +62,7 @@
 							<th class="headrow">Edition</th>
 							<th class="headrow">Month</th>
 							<th class="headrow">Note</th>
-							<th class="headrow"></th>
+							<th class="headrowLast"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -95,7 +95,7 @@
 							</s:if>
 							<s:else>
 								<tr>
-									<td class="smallField"><s:checkbox fieldValue="%{idBook}"
+									<td class="smallField1"><s:checkbox fieldValue="%{idBook}"
 											name="checkbox" /></td>
 									<td class="mediumField1"><s:property value="title" /></td>
 									<td class="bigField1"><s:property value="autors" /></td>
@@ -122,7 +122,7 @@
 						</s:iterator>
 					</tbody>
 				</table>
-				<%@include file="pagination.jsp" %>
+				<%@include file="paginationBook.jsp" %>
 			</s:if>
 		</div>
 		<div class="tabel">
