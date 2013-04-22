@@ -137,7 +137,7 @@ public class FunctionPublisher {
 			while(result.next()){
 				code = result.getString("code");
 			}
-			System.out.println(code);
+			//System.out.println(code);
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();

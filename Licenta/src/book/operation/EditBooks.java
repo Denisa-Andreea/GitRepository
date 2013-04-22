@@ -96,6 +96,9 @@ public class EditBooks extends ActionSupport {
 	}
 
 	public String execute() {
+		if(sessionEdit.get("login") == null){
+			return "noUser";
+		}
 		updateFunction.editBooks(id, title, bookList.get(0).getAutors(),
 				getOldList(), publisher, Integer.parseInt(year), Integer.parseInt(volume),
 				series, edition, month, note);
@@ -104,6 +107,9 @@ public class EditBooks extends ActionSupport {
 	}
 
 	public String cancel() {
+		if(sessionEdit.get("login") == null){
+			return "noUser";
+		}
 		oldList.sessionEditUnset();
 		return "cancel";
 	}

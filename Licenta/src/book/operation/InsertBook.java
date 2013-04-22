@@ -47,6 +47,9 @@ public class InsertBook extends ActionSupport {
 	}
 
 	public String browse() {
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		setSessionBook(sessionBook());
 		setPublisher(0);
 		return "publisher";
@@ -54,10 +57,16 @@ public class InsertBook extends ActionSupport {
 
 	public String cancel() {
 		sessionBookUnset();
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		return "cancel";
 	}
 
 	public String execute() {
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		sessionBookUnset();
 		function.insertBook(getTitle(), getAuthorList(), getPublisher(),
 				Integer.parseInt(getVolume()), Integer.parseInt(getYear()),
@@ -156,7 +165,7 @@ public class InsertBook extends ActionSupport {
 		sessionBook.put("note", getNote());
 		sessionBook.put("size", getAuthorList().size());
 		return sessionBook;
-	}
+	} 
 
 	public void sessionBookUnset() {
 		// System.out.println("unset session");

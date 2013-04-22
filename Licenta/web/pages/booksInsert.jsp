@@ -1,8 +1,9 @@
 <%@include file="header.jsp" %>
-<div class="contentBook">
+<div class="content">
+	<s:if test="sessionBook.get('login') == true">
 	<s:form action="bookInsert" method="post" name="bookInsert">		
-		<div class="insertBook"> 
-			<table class="tabelBookInsert">
+		<div> 
+			<table>
 				<tr>
 					<td><label>Title*:</label></td>
 					<td><s:if test="sessionBook.get('book') != true">
@@ -166,10 +167,12 @@
 				</tr>
 			</table>
 		</div>
-		<div class="buttons">
+		<div>
 			<s:submit value="Insert"/>
 			<s:submit value="Cancel Insert" method="cancel"/>
 		</div>
 	</s:form>
+	</s:if>
+	<s:else>Please login!!!</s:else>
 </div>
 <%@include file="footer.jsp" %>

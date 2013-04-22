@@ -1,8 +1,9 @@
 <%@include file="header.jsp" %>
-<div class="contentEditBook">
+<div class="content">
+	<s:if test="sessionEdit.get('login') == true">
 	<s:form action="updateBook" method="post" name="updateBook">		
-		<div class="editBook">
-			<table class="tabelBookUpdate">
+		<div>
+			<table>
 				<tr>
 					<td><label>Title*:</label></td>
 					<td>
@@ -107,7 +108,8 @@
 		<div>
 			<s:submit value="Update"/>
 			<s:submit value="Cancel Update" method="cancel"/>
-		</div>		
+		</div>
 	</s:form>
+	</s:if><s:else>Please login!!!</s:else>
 </div>
 <%@include file="footer.jsp" %>

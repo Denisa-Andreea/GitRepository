@@ -22,6 +22,9 @@ public class ForCountryCity extends ActionSupport {
 	ArrayList<String> cityList = new ArrayList<String>(funcCity.cityList);
 	
 	public String execute(){
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		countryList = function.fetchCountry();
 		return SUCCESS;
 	}

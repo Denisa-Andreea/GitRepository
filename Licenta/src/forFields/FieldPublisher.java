@@ -35,7 +35,10 @@ public class FieldPublisher extends ActionSupport{
 
 //	private String authorFN0;
 
-	public String execute() {		
+	public String execute() {	
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		listPublisher = dbcon.fetchPublisher();	
 		monthList = book.initMonthList();
 		size = book.getSize();

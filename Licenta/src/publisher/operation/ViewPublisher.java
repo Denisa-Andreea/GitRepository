@@ -1,9 +1,11 @@
 package publisher.operation;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import iteme.Publisher;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
@@ -14,6 +16,7 @@ public class ViewPublisher extends ActionSupport {
 	FunctionPublisher publisherFetch = new FunctionPublisher();
 	Publisher publisher;
 	ArrayList<Publisher> listPublisher;
+	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
 	
 	private int page = 1;
 	private int numberOfPages;
@@ -22,7 +25,10 @@ public class ViewPublisher extends ActionSupport {
 	private String sort = "NON";
 
 	public String execute() {
-		int recordsPerPage = 3;
+		if(sessionLogin.get("login") == null){
+			return "noUser";
+		}
+		int recordsPerPage = 5;
 		if (sort.equals("NON") || sort.isEmpty()) {
 			column = "id_publisher";
 			sort = "ASC";
@@ -98,6 +104,14 @@ public class ViewPublisher extends ActionSupport {
 
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+
+	public Map<String, Object> getSessionLogin() {
+		return sessionLogin;
+	}
+
+	public void setSessionLogin(Map<String, Object> sessionLogin) {
+		this.sessionLogin = sessionLogin;
 	}
 
 }

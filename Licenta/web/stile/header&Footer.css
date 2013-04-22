@@ -1,0 +1,13 @@
+#header{
+	background: purple;
+	width: 100%;
+	height: 83px;
+	float: left;
+}
+
+#footer{
+	background: purple;
+	width: 100%;
+	height: 80px;
+	float: left;
+}

@@ -63,21 +63,33 @@ public class InsertPublisher extends ActionSupport{
 
 	public String execute() {
 //		System.out.println("execute");
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		function.insertPublisher(name, selectedState, city);
 		return SUCCESS;
 	}
 	
 	public String execute2(){
 //		System.out.println("execute 2");
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		function.insertPublisher(name, selectedState, city);
 		return "fetch";
 	}
 
 	public String cancel(){
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		return "cancel";
 	}
 	
 	public String back(){
+		if(sessionBook.get("login") == null){
+			return "noUser";
+		}
 		book.setSessionBook(sessionBook);
 		return "back";
 	}

@@ -7,19 +7,19 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/headerBody&Footer.css"/>">
+	href="<s:url value="/stile/pagination.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/succsesStile&Book.css"/>">
+	href="<s:url value="/stile/stileCss.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/books/book.css"/>">
-	<link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/publisher/successPublishers.css"/>">
+	href="<s:url value="/stile/header&Footer.css"/>">
 <script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
 <script type="text/javascript" src="functionJS/delete.js"></script>
 <script type="text/javascript" src="functionJS/selectAll.js"></script>
 <script type="text/javascript" src="functionJS/dropdown.js"></script>
 </head>
-<body id="body">
+<body>
 	<div id="header">
-	
+		<form action="login">
+			<s:submit value="Logout" method="back"/>
+		</form>
 	</div>

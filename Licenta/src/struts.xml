@@ -8,6 +8,28 @@
 <constant name="struts.ui.theme" value="simple" />
 
 	<package name="default" extends="struts-default" >
+	
+	<global-results>
+		<result name="noUser">login.jsp</result>
+	</global-results>
+	
+	<!-- utilizator action -->
+	
+	
+	<!-- actiune pentru login -->
+	
+	<action name="login" class="login.Login">
+		<result name="login" type="redirect">firstPageAdmin</result>
+		<result name="logout" type="redirect">login.jsp</result>
+		<result name="input">login.jsp</result>
+	</action>
+	
+	<!-- first page admin -->
+	<action name="firstPageAdmin" class="admin.FirstPage">
+		<result name="success">index.jsp</result>
+	</action>
+		
+	<!-- actiuni utilizate pentru afisarea inforatiilor din baza de date -->
     
 		<action name="fetchBooks" class="book.operation.ViewBooks">
 			<result name="success">/pages/successBooks.jsp</result>

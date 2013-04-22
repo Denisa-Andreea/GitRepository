@@ -1,140 +1,160 @@
 <%@include file="header.jsp"%>
-<div id="bookBody">
-	<div class="contentBook">
-		<p>Books</p>
-		<div class="tabel">
+<div class="view">
+	<s:if test="sessionLogin.get('login') == true">
+		<span class="text">Books</span>
+		<div>
 			<s:if test="%{listBook.size() > 0}">
-				<table class="bookBodyTable">
-					<thead>
-						<tr>
-							<th class="headrow"><s:checkbox id="checkeAll"
+				<div class="books">
+					<table>
+						<thead>
+							<tr>
+								<th><s:checkbox id="checkeAll"
 									onclick="selectAll();" name="checkeAll" /></th>
-							<th class="headrow">Title <s:if test="%{column != 'title'}">
-									<a
-										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title"><img
-										alt="non" src="stile/pictures/sort_both.jpg"></a>
-								</s:if> <s:else>
-									<s:if test="%{sort == 'NON'}">
+								<th>Title
+									 <s:if test="%{column != 'title'}">
 										<a
-											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title"><img
-											alt="non" src="stile/pictures/sort_both.jpg"></a>
-									</s:if>
-									<s:if test="%{sort == 'ASC'}">
+											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title">
+											<img alt="non" src="stile/pictures/sort_both.jpg" />
+										</a>
+									</s:if> 
+									<s:else>
+										<s:if test="%{sort == 'NON'}">
+											<a
+											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=title">
+												<img alt="non" src="stile/pictures/sort_both.jpg">
+											</a>
+										</s:if>
+										<s:if test="%{sort == 'ASC'}">
+											<a
+											href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=title">
+												<img alt="non" src="stile/pictures/sort_asc.jpg">
+											</a>
+										</s:if>
+										<s:if test="%{sort == 'DESC'}">
+											<a
+												href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=title">
+												<img alt="non" src="stile/pictures/sort_desc.jpg">
+											</a>
+										</s:if>
+									</s:else>
+								</th>
+								<th>Author(s)</th>
+								<th>Publisher</th>
+								<th>Publisher City</th>
+								<th>Publisher Country</th>
+								<th>Year 
+									<s:if test="%{column != 'year'}">
 										<a
-											href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=title"><img
-											alt="non" src="stile/pictures/sort_asc.jpg"></a>
+											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year">
+											<img alt="non" src="stile/pictures/sort_both.jpg">
+										</a>
 									</s:if>
-									<s:if test="%{sort == 'DESC'}">
-										<a
-											href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=title"><img
-											alt="non" src="stile/pictures/sort_desc.jpg"></a>
-									</s:if>
-								</s:else>
-							</th>
-							<th class="headrow">Author(s)</th>
-							<th class="headrow">Publisher</th>
-							<th class="headrow">Publisher City</th>
-							<th class="headrow">Publisher Country</th>
-							<th class="headrow">Year <s:if test="%{column != 'year'}">
-									<a
-										href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year"><img
-										alt="non" src="stile/pictures/sort_both.jpg"></a>
-								</s:if> <s:else>
-									<s:if test="%{sort == 'NON'}">
-										<a
-											href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year"><img
-											alt="non" src="stile/pictures/sort_both.jpg"></a>
-									</s:if>
-									<s:if test="%{sort == 'ASC'}">
-										<a
-											href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=year"><img
-											alt="non" src="stile/pictures/sort_asc.jpg"></a>
-									</s:if>
-									<s:if test="%{sort == 'DESC'}">
-										<a
-											href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=year"><img
-											alt="non" src="stile/pictures/sort_desc.jpg"></a>
-									</s:if>
-								</s:else>
-							</th>
-							<th class="headrow">Volume</th>
-							<th class="headrow">Series</th>
-							<th class="headrow">Edition</th>
-							<th class="headrow">Month</th>
-							<th class="headrow">Note</th>
-							<th class="headrowLast"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<s:iterator value="listBook" var="bookAuthor" status="part">
-							<s:if test="%{#part.index% 2 == 0}">
-								<tr>
-									<td class="smallField"><s:checkbox fieldValue="%{idBook}"
-											id="checkbox" name="checkbox" /></td>
-									<td class="mediumField"><s:property value="title" /></td>
-									<td class="bigField"><s:property value="autors" /></td>
-									<td class="smallField"><s:property value="publisher" /></td>
-									<td class="mediumField"><s:property value="city" /></td>
-									<td class="mediumField"><s:property value="country" /></td>
-									<td class="smallField"><s:property value="year" /></td>
-									<td class="smallField">
-										<s:if test="%{volume != 0}"><s:property value="volume" /></s:if>
-									</td>
-									<td class="smallField"><s:property value="series" /></td>
-									<td class="smallField"><s:property value="edition" /></td>
-									<td class="smallField"><s:property value="month" /></td>
-									<td class="bigField"><s:property value="note" /></td>
-									<td class="edit"><a
-										href="editBook?id=<s:property value='idBook'/>&&action=edit">
-											<img src="stile/pictures/edit.gif" alt="edit" />
-									</a><br /> <a
-										href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
-											<img src="stile/pictures/delete_button.gif" alt="delete" />
-									</a></td>
-								</tr>
-							</s:if>
-							<s:else>
-								<tr>
-									<td class="smallField1"><s:checkbox fieldValue="%{idBook}"
+									<s:else>
+										<s:if test="%{sort == 'NON'}">
+											<a
+												href="fetchBooks?sort=ASC&page=<s:property value='page'/>&column=year">
+												<img alt="non" src="stile/pictures/sort_both.jpg">
+											</a>
+										</s:if>
+										<s:if test="%{sort == 'ASC'}">
+											<a
+												href="fetchBooks?sort=DESC&page=<s:property value='page'/>&column=year">
+												<img alt="non" src="stile/pictures/sort_asc.jpg">
+											</a>
+										</s:if>
+										<s:if test="%{sort == 'DESC'}">
+											<a
+												href="fetchBooks?sort=NON&page=<s:property value='page'/>&column=year">
+												<img alt="non" src="stile/pictures/sort_desc.jpg">
+											</a>
+										</s:if>
+									</s:else>
+								</th>
+								<th>Volume</th>
+								<th>Series</th>
+								<th>Edition</th>
+								<th>Month</th>
+								<th>Note</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<s:iterator value="listBook" var="bookAuthor" status="part">
+								<s:if test="%{#part.index% 2 == 0}">
+									<tr class="par">
+										<td><s:checkbox fieldValue="%{idBook}" id="checkbox"
 											name="checkbox" /></td>
-									<td class="mediumField1"><s:property value="title" /></td>
-									<td class="bigField1"><s:property value="autors" /></td>
-									<td class="smallField1"><s:property value="publisher" /></td>
-									<td class="mediumField1"><s:property value="city" /></td>
-									<td class="mediumField1"><s:property value="country" /></td>
-									<td class="smallField1"><s:property value="year" /></td>
-									<td class="smallField1">
-										<s:if test="%{volume != 0}"><s:property value="volume" /></s:if>
-									</td>
-									<td class="smallField1"><s:property value="series" /></td>
-									<td class="smallField1"><s:property value="edition" /></td>
-									<td class="smallField1"><s:property value="month" /></td>
-									<td class="bigField1"><s:property value="note" /></td>
-									<td class="edit1"><a
+										<td><s:property value="title" /></td>
+										<td><s:property value="autors" /></td>
+										<td><s:property value="publisher" /></td>
+										<td><s:property value="city" /></td>
+										<td><s:property value="country" /></td>
+										<td><s:property value="year" /></td>
+										<td><s:if test="%{volume != 0}">
+												<s:property value="volume" />
+										</s:if></td>
+										<td><s:property value="series" /></td>
+										<td><s:property value="edition" /></td>
+										<td><s:property value="month" /></td>
+										<td><s:property value="note" /></td>
+										<td><a
 										href="editBook?id=<s:property value='idBook'/>&&action=edit">
-											<img src="stile/pictures/edit.gif" alt="edit" />
-									</a><br /> <a
-										href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
-											<img src="stile/pictures/delete_button.gif" alt="delete" />
-									</a></td>
-								</tr>
-							</s:else>
-						</s:iterator>
-					</tbody>
-				</table>
-				<%@include file="paginationBook.jsp" %>
+											<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
+										</a> <a
+											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
+												<img src="stile/pictures/trashcan_delete2_17.png"
+												alt="delete" />
+										</a></td>
+									</tr>
+								</s:if>
+								<s:else>
+									<tr class="impar">
+										<td><s:checkbox fieldValue="%{idBook}" name="checkbox" /></td>
+										<td><s:property value="title" /></td>
+										<td><s:property value="autors" /></td>
+										<td><s:property value="publisher" /></td>
+										<td><s:property value="city" /></td>
+										<td><s:property value="country" /></td>
+										<td><s:property value="year" /></td>
+										<td><s:if test="%{volume != 0}">
+												<s:property value="volume" />
+											</s:if></td>
+										<td><s:property value="series" /></td>
+										<td><s:property value="edition" /></td>
+										<td><s:property value="month" /></td>
+										<td><s:property value="note" /></td>
+										<td><a
+											href="editBook?id=<s:property value='idBook'/>&&action=edit">
+												<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
+										</a> <a
+											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
+												<img src="stile/pictures/trashcan_delete2_17.png"
+												alt="delete" />
+										</a></td>
+									</tr>
+								</s:else>
+							</s:iterator>
+						</tbody>
+					</table>
+				</div>
+				<%@include file="paginationBook.jsp"%>
 			</s:if>
+			<div class="notFound">
+				<s:else>
+					<p>No Books Found</p>
+				</s:else>
+			</div>
 		</div>
-		<div class="tabel">
-			<s:else>
-				<p>No Books Found</p>
-			</s:else>
+		<div class="buttonsBook">
+			<a href="fetchPublisher"><img
+				src="stile/pictures/edit_delete3.png" /><span class="butonText">Insert</span></a>
+			<a
+				onclick="href='editBook?action=deleteAll&page='+<s:property value='page'/>+'&checkedID='+checkbox_test();"><img
+				src="stile/pictures/trashcan_delete2_17.png" /><span
+				class="butonText">Delete</span></a> <a href="firstPageAdmin"><img
+				src="stile/pictures/back.png"><span class="butonText">Back</span></a>
 		</div>
-		<div class="buttons">
-			<a href="fetchPublisher">Insert</a>  <a
-				onclick="href='editBook?action=deleteAll&page='+<s:property value='page'/>+'&checkedID='+checkbox_test();">Delete</a>
-				<a href="index.jsp">Back</a>
-		</div>
-	</div>
+	</s:if>
+	<s:else>Please login!!!</s:else>
 </div>
 <%@include file="footer.jsp"%>

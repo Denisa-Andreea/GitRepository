@@ -4,7 +4,9 @@ import iteme.BookAuthor;
 import iteme.Books;
 
 import java.util.ArrayList;
+import java.util.Map;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
@@ -19,12 +21,17 @@ public class ViewBooks extends ActionSupport {
 	private String column;
 	private String sort = "NON";
 	
+	
 	FunctionBookAuthor books = new FunctionBookAuthor();
 	Books bookAuthor;
 	ArrayList<BookAuthor> listBook;
+	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
 
 
 	public String execute() {
+		if(sessionLogin.get("login") == null){
+			return "noUser";
+		}
 		int recordsPerPage = 5;
 		if (sort.equals("NON") || sort.isEmpty()) {
 			listBook = books.fetchBooks((page - 1) * recordsPerPage,
@@ -99,6 +106,16 @@ public class ViewBooks extends ActionSupport {
 
 	public void setColumn(String column) {
 		this.column = column;
+	}
+
+
+	public Map<String, Object> getSessionLogin() {
+		return sessionLogin;
+	}
+
+
+	public void setSessionLogin(Map<String, Object> sessionLogin) {
+		this.sessionLogin = sessionLogin;
 	}
 
 }

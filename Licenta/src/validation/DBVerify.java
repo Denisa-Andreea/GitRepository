@@ -1,5 +1,7 @@
 package validation;
 
+import iteme.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -57,5 +59,23 @@ public class DBVerify {
 			e.printStackTrace();
 		}
 		return "nu exista";
+	}
+	
+	public User userDB(){
+		PreparedStatement statement;
+		ResultSet result;
+		User user = new User();
+		try {
+			statement = con.prepareStatement("select user, password from login where id = 1");
+			result = statement.executeQuery();
+			while(result.next()){
+				user.setUser(result.getString("user"));
+				user.setPassword(result.getString("password"));
+				return user;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

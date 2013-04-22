@@ -37,6 +37,9 @@ public class GetBookForEdit extends ActionSupport {
 	private String checkedID;
 
 	public String execute() {
+		if(sessionEdit.get("login") == null){
+			return "noUser";
+		}
 		if (action.equals("edit")) {
 			listPublisher = pub.fetchPublisher();
 			monthList = monthListInit.initMonthList();
@@ -79,7 +82,9 @@ public class GetBookForEdit extends ActionSupport {
 	}
 
 	public void sessionEditUnset() {
-		sessionEdit.clear();
+		sessionEdit.remove("edit");
+		sessionEdit.remove("authorList");
+		sessionEdit.remove("size");
 	}
 
 	public int getId() {
