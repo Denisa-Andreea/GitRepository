@@ -10,7 +10,7 @@
 	<package name="default" extends="struts-default" >
 	
 	<global-results>
-		<result name="noUser">login.jsp</result>
+		<result name="noUser">/pages/login/login.jsp</result>
 	</global-results>
 	
 	<!-- utilizator action -->
@@ -20,33 +20,42 @@
 	
 	<action name="login" class="login.Login">
 		<result name="login" type="redirect">firstPageAdmin</result>
-		<result name="logout" type="redirect">login.jsp</result>
-		<result name="input">login.jsp</result>
+		<result name="logout" type="redirect">/pages/login/login.jsp</result>
+		<result name="changePassword" type="redirect">/pages/login/changePassword.jsp</result>
+		<result name="input">/pages/login/login.jsp</result>
+	</action>
+	
+	<!-- actiune pentru schimbarea parolei -->
+	
+	<action name="changePass" class="login.ChangePassword">
+		<result name="success" type="redirect">/pages/login/login.jsp</result>
+		<result name="input">/pages/login/changePassword.jsp</result>
+		<result name="cancel" type="redirect">/pages/login/login.jsp</result>
 	</action>
 	
 	<!-- first page admin -->
 	<action name="firstPageAdmin" class="admin.FirstPage">
-		<result name="success">index.jsp</result>
+		<result name="success">/pages/admin/index.jsp</result>
 	</action>
 		
 	<!-- actiuni utilizate pentru afisarea inforatiilor din baza de date -->
     
 		<action name="fetchBooks" class="book.operation.ViewBooks">
-			<result name="success">/pages/successBooks.jsp</result>
+			<result name="success">/pages/admin/successBooks.jsp</result>
 		</action>
 		
 		<action name="fetchPublisher" class="forFields.FieldPublisher">
-			<result>/pages/booksInsert.jsp</result>
+			<result>/pages/admin/booksInsert.jsp</result>
 		</action>
 		
 		<action name="PublisherFields" class="forFields.ForCountryCity">
-			<result>/pages/insertPublisher.jsp</result>
+			<result>/pages/admin/insertPublisher.jsp</result>
 		</action>
 		
 
 		<action name="bookInsert" class="book.operation.InsertBook">
 			<result name="success" type="redirect">fetchBooks</result>
-			<result name="input">/pages/booksInsert.jsp</result>
+			<result name="input">/pages/admin/booksInsert.jsp</result>
 			<result name="cancel" type="redirect">fetchBooks</result>
 			<result name="publisher" type="redirect">PublisherFields</result>
 		</action>
@@ -54,14 +63,14 @@
 		
  		<!--actiuni de editare/update a cartilor-->
  		<action name="editBook" class="book.operation.GetBookForEdit">
- 			<result name="edit">/pages/editBooks.jsp</result>
+ 			<result name="edit">/pages/admin/editBooks.jsp</result>
  			<result name="delete" type="redirect">fetchBooks?page=${page}</result>
  			<result type="redirect">fetchBooks</result>
  		</action>
  		
  		<action name="updateBook" class="book.operation.EditBooks">
  			<result name="success" type="redirect">fetchBooks</result>
- 			<result name="input">/pages/editBooks.jsp</result>
+ 			<result name="input">/pages/admin/editBooks.jsp</result>
  			<result name="cancel" type="redirect">fetchBooks</result>
  		</action>
  		
@@ -69,7 +78,7 @@
 
 		<action name="addPublisher" class="publisher.operation.InsertPublisher">
 			<result name="success" type="redirect">fetchPublisher</result>
- 			<result name="input">/pages/insertPublisher.jsp</result>
+ 			<result name="input">/pages/admin/insertPublisher.jsp</result>
  			<result name="fetch" type="redirect">viewPublisher</result>
  			<result name="cancel" type="redirect">viewPublisher</result>
  			<result name="back" type="redirect">fetchPublisher</result>
@@ -77,24 +86,24 @@
  		
  		
  		<action name="viewPublisher" class="publisher.operation.ViewPublisher">
- 			<result>/pages/successPublisher.jsp</result>
+ 			<result>/pages/admin/successPublisher.jsp</result>
  		</action>
  		
  		<!-- actiuni de editare/update a publicatiilor -->
  		
  		<action name="editPublisher" class="publisher.operation.GetPublisherForEdit">
- 			<result name="edit">/pages/editPublisher.jsp</result>
+ 			<result name="edit">/pages/admin/editPublisher.jsp</result>
  		</action>
  		
  		<action name="updatePublisher" class="publisher.operation.EditPublisher">
  			<result name="success" type="redirect">viewPublisher</result>
- 			<result name="input">/pages/editPublisher.jsp</result>
+ 			<result name="input">/pages/admin/editPublisher.jsp</result>
  			<result name="cancel" type="redirect">viewPublisher</result>
  		</action>
 	<!--actiune pentru selectarea unei liste de orase in functie de tara aleasa-->
 	
 		<action name="cityToGet" class="forFields.ToGetCity">
-			<result>pages/city.jsp</result>
+			<result>pages/admin/city.jsp</result>
 		</action>
  		
  		

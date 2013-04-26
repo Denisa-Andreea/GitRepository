@@ -106,7 +106,7 @@
 			</table>
 		</div>
 		<div>
-			<s:submit value="Update"/>
+			<s:submit value="Update" onclick="return confirm('Are you sure you want to update this book')"/>
 			<s:submit value="Cancel Update" method="cancel"/>
 		</div>
 	</s:form>
