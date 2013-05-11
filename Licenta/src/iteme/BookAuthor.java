@@ -16,7 +16,6 @@ public class BookAuthor {
 	private String note;
 
 	public BookAuthor() {
-		super();
 	}
 
 	public BookAuthor(int idBook, String title, String autors,

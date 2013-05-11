@@ -8,7 +8,6 @@ public class Publisher {
 	private String city;
 	
 	public Publisher(){
-		super();
 	}
 	
 	public Publisher(int id_publisher, String name, String country, String city){

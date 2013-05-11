@@ -14,6 +14,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
 import functions.FunctionPublisher;
+import functions.FuntionToUse;
 
 public class InsertBook extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -21,6 +22,7 @@ public class InsertBook extends ActionSupport {
 	FunctionBookAuthor function = new FunctionBookAuthor();
 	FunctionPublisher pub = new FunctionPublisher();
 	BookValidation validation = new BookValidation();
+	FuntionToUse replace = new FuntionToUse();
 
 	Authors authors;
 	ArrayList<Publisher> listPublisher;
@@ -103,6 +105,10 @@ public class InsertBook extends ActionSupport {
 		if (validation.blankString(getVolume())) {
 			setVolume("0");
 		}
+		System.out.println(getAuthorFN().size());
+		if(getAuthorList().size() < 1 ){
+			addFieldError("authors", "Please insert an author or Unknown if dosen't exist one");
+		}
 		for (int i = 0; i < getAuthorFN().size(); i++) {
 			if (!validation.blankString(authorFN.get(i))) {
 				if (validation.littleFirstLetter(getAuthorFN().get(i))) {
@@ -130,8 +136,8 @@ public class InsertBook extends ActionSupport {
 		for (int i = 0; i < authorFN.size(); i++) {
 			if (!getAuthorFN().get(i).isEmpty()) {
 				authors = new Authors();
-				authors.setFirstName(getAuthorFN().get(i));
-				authors.setLastName(getAuthorLN().get(i));
+				authors.setFirstName(replace.multipleSpaceElim(getAuthorFN().get(i)));
+				authors.setLastName(replace.multipleSpaceElim(getAuthorLN().get(i)));
 				authorList.add(authors);
 			}
 		}

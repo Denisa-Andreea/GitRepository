@@ -4,22 +4,21 @@ import java.util.ArrayList;
 
 public class Books {
 	
-	int idBook;
-	String title;
-	ArrayList<Authors> autors;
-	int id_publisher;
-	String publisher;
-	int year;
-	int volume;
-	String series;
-	String country;
-	String city;
-	String edition;
-	String month; 
-	String note;
+	private int idBook;
+	private String title;
+	private ArrayList<Authors> autors;
+	private int id_publisher;
+	private String publisher;
+	private int year;
+	private int volume;
+	private String series;
+	private String country;
+	private String city;
+	private String edition;
+	private String month; 
+	private String note;
 
 	public Books() {
-		super();
 	}
 
 	public Books(int idBook,String title, ArrayList<Authors> autors, int id_publisher, String publisher,

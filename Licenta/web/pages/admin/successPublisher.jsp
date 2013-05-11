@@ -1,7 +1,7 @@
 <%@include file="header.jsp"%>
 <div class="view">
 	<s:if test="sessionLogin.get('login') == true">
-		<span class="text">Tabel of books</span>
+		<span class="text">Tabel of publishers</span>
 		<div>
 			<s:if test="%{listPublisher.size()>0}">
 				<div class="publisher">

@@ -19,6 +19,7 @@ public class FunctionBookAuthor {
 
 	FunctionForInsert insertBooks = new FunctionForInsert();
 	FunctionForInsertTies ties = new FunctionForInsertTies();
+	FuntionToUse replace = new FuntionToUse();
 
 	private int numberOfRecords;
 
@@ -79,6 +80,7 @@ public class FunctionBookAuthor {
 				this.numberOfRecords = resultBooks.getInt(1);
 			}
 			statement.close();
+			System.out.println();
 			return listBook;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -107,8 +109,8 @@ public class FunctionBookAuthor {
 			while (count < authorList.size()) {
 				String authorFN = authorList.get(count).getFirstName();
 				String authorLN = authorList.get(count).getLastName();
-				authorFN = authorFN.replaceAll("^ +| +$|( )+", "$1");
-				authorLN = authorLN.replaceAll("^ +| +$|( )+", "$1");
+				authorFN = replace.multipleSpaceElim(authorFN);
+				authorLN = replace.multipleSpaceElim(authorLN);
 				insertBooks.insertIntoAuthor(authorFN, authorLN);
 				idAuthor = ties.getIdAuthor(authorFN, authorLN);
 				ties.insertTiesBook(idBook, idAuthor);
@@ -119,33 +121,14 @@ public class FunctionBookAuthor {
 		}
 	}
 
-	public ArrayList<Books> selectBook(int idBook) {
+	public ArrayList<Books> selectBook(int idBook, int exist) {
 		ArrayList<Books> bookList = new ArrayList<Books>();
-		ArrayList<Authors> authorList = new ArrayList<Authors>();
 		Books book;
-		Authors author;
+		ArrayList<Authors> authorList = selectAuthorByBook(idBook, exist);
+		PreparedStatement selectBook = null;
 
 		try {
-			PreparedStatement selectAuthors = con
-					.prepareStatement("select autori.id_autor,autori.firstname,autori.lastname from "
-							+ "(carte_autor LEFT JOIN autori On carte_autor.id_autor = autori.id_autor) where carte_autor.id_carte = "
-							+ idBook);
-			ResultSet resultAuthors = selectAuthors.executeQuery();
-
-			while (resultAuthors.next()) {
-				author = new Authors();
-
-				author.setFirstName(resultAuthors.getString("autori.firstname"));
-				author.setLastName(resultAuthors.getString("autori.lastname"));
-				authorList.add(author);
-			}
-			resultAuthors.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
-		try {
-			PreparedStatement selectBook = con
+			selectBook = con
 					.prepareStatement("select publisher.id_publisher, publisher.name, publisher.country, publisher.city, carti.title, carti.year,"
 							+ "carti.volume,carti.series,carti.edition,carti.month,carti.note FROM "
 							+ "(carti LEFT JOIN publisher on carti.id_publisher = publisher.id_publisher) WHERE carti.id_carte = "
@@ -177,6 +160,14 @@ public class FunctionBookAuthor {
 			selectBook.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (selectBook != null) {
+					selectBook.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return bookList;
@@ -193,7 +184,7 @@ public class FunctionBookAuthor {
 	public ArrayList<BookAuthor> sortBooks(int beginRecord,
 			int numberOfRecords, String column, String direction) {
 		ResultSet resultBooks;
-		PreparedStatement statement;
+		PreparedStatement statement = null;
 		ArrayList<BookAuthor> listBook = new ArrayList<BookAuthor>();
 		try {
 			statement = con
@@ -223,9 +214,9 @@ public class FunctionBookAuthor {
 								.getString("GROUP_CONCAT(CONCAT_WS(' ', autori.lastname, autori.firstname) ORDER BY autori.firstname SEPARATOR ', ')"));
 				bookAuthor
 						.setPublisher(resultBooks.getString("publisher.name"));
-				bookAuthor.setCity(resultBooks
-						.getString("publisher.city"));
-				bookAuthor.setCountry(resultBooks.getString("publisher.country"));
+				bookAuthor.setCity(resultBooks.getString("publisher.city"));
+				bookAuthor.setCountry(resultBooks
+						.getString("publisher.country"));
 				bookAuthor.setYear(Integer.parseInt(resultBooks
 						.getString("carti.year")));
 				bookAuthor.setSeries(resultBooks.getString("carti.series"));
@@ -240,6 +231,14 @@ public class FunctionBookAuthor {
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		try {
 			statement = con.prepareStatement("SELECT FOUND_ROWS()");
@@ -251,7 +250,99 @@ public class FunctionBookAuthor {
 			return listBook;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
+	}
+
+	public ArrayList<Authors> selectAuthorByBook(int idBook, int exist) {
+		Authors author;
+		ArrayList<Authors> authorList = new ArrayList<Authors>();
+		PreparedStatement selectAuthors = null;
+//		authorList.add(existName(exist));
+		try {
+			selectAuthors = con
+					.prepareStatement("select autori.id_autor,autori.firstname,autori.lastname from "
+							+ "(carte_autor LEFT JOIN autori On carte_autor.id_autor = autori.id_autor) where carte_autor.id_carte = "
+							+ idBook + " and autori.id_autor != " + exist);
+			ResultSet resultAuthors = selectAuthors.executeQuery();
+
+			while (resultAuthors.next()) {
+				author = new Authors();
+
+				author.setFirstName(resultAuthors.getString("autori.firstname"));
+				author.setLastName(resultAuthors.getString("autori.lastname"));
+				authorList.add(author);
+			}
+			resultAuthors.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (selectAuthors != null) {
+					selectAuthors.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return authorList;
+	}
+
+	public Authors existName(int exist){
+		Authors author = new Authors();
+		PreparedStatement statement = null;
+		
+		try {
+			statement = con.prepareStatement("SELECT autori.firstname,autori.lastname from autori WHERE id_autor = "+exist);
+			ResultSet result = statement.executeQuery();
+			while(result.next()){
+				author.setFirstName(result.getString("autori.firstname"));
+				author.setLastName(result.getString("autori.lastname"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return author;
+	}
+	public ArrayList<Integer> selectBookByAuthor(int idAuthor) {
+		ArrayList<Integer> bookId = new ArrayList<Integer>();
+		PreparedStatement statement = null;
+		ResultSet result;
+		try {
+			statement = con
+					.prepareStatement("SELECT carti.id_carte FROM carti LEFT JOIN carte_autor ON carte_autor.id_carte = carti.id_carte"
+							+ " WHERE id_autor =" + idAuthor);
+			result = statement.executeQuery();
+			while(result.next()){
+				bookId.add(result.getInt("id_carte"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return bookId;
 	}
 }

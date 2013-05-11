@@ -14,7 +14,7 @@
 				<s:label>Publisher Country*:</s:label>
 				<span class="input">
 				<s:fielderror><s:param>country</s:param></s:fielderror>
-				<select id="stateSelect"  name="selectedState" onchange="loadCities();">
+				<select id="stateSelect" name="selectedState" onchange="loadCities();">
 					<option value="NON">-Select Country-</option>
 					<s:iterator value="countryList" status="itr">	
 						<s:if test="%{code.equals(country)}">

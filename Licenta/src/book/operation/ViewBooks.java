@@ -11,9 +11,8 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
 
+@SuppressWarnings("serial")
 public class ViewBooks extends ActionSupport {
-
-	private static final long serialVersionUID = 1L;
 
 	private int page = 1;
 	private int numberOfPages;
@@ -47,7 +46,6 @@ public class ViewBooks extends ActionSupport {
 		int numberOfRecords = books.getNumberOfRecords();
 		setNumberOfPages((int) Math
 				.ceil(numberOfRecords * 1.0 / recordsPerPage));
-		// System.out.println(numberOfPages);
 		return SUCCESS;
 	}
 	

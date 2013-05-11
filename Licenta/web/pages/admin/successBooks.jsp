@@ -99,9 +99,9 @@
 										<td><s:property value="note" /></td>
 										<td><a
 										href="editBook?id=<s:property value='idBook'/>&&action=edit">
-											<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
+											<img src="stile/pictures/paint_brush_plus.png" alt="edit"  />
 										</a> <a
-											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
+											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>" onclick="return confirm('Are you sure you want to delete this author?');">
 												<img src="stile/pictures/trashcan_delete2_17.png"
 												alt="delete" />
 										</a></td>
@@ -127,7 +127,7 @@
 											href="editBook?id=<s:property value='idBook'/>&&action=edit">
 												<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
 										</a> <a
-											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>">
+											href="editBook?id=<s:property value='idBook'/>&numberOfPages=<s:property value='numberOfPages'/>&sizeTabel=<s:property value='sizeTabel'/>&action=delete&page=<s:property value='page'/>" onclick="return confirm('Are you sure you want to delete this author?');">
 												<img src="stile/pictures/trashcan_delete2_17.png"
 												alt="delete" />
 										</a></td>

@@ -14,7 +14,10 @@
 	</global-results>
 	
 	<!-- utilizator action -->
-	
+		<action name="search" class="user.Search">
+			<result name="books">/pages/user/bookSearch.jsp</result>
+			<result name="authors">/pages/user/authorSearch.jsp</result>
+		</action>
 	
 	<!-- actiune pentru login -->
 	
@@ -34,6 +37,7 @@
 	</action>
 	
 	<!-- first page admin -->
+	
 	<action name="firstPageAdmin" class="admin.FirstPage">
 		<result name="success">/pages/admin/index.jsp</result>
 	</action>
@@ -48,6 +52,10 @@
 			<result>/pages/admin/booksInsert.jsp</result>
 		</action>
 		
+		<action name="fetchArticle" class="article.operation.ViewArticle">
+			<result name="success">/pages/admin/successArticle.jsp</result>
+		</action>
+		
 		<action name="PublisherFields" class="forFields.ForCountryCity">
 			<result>/pages/admin/insertPublisher.jsp</result>
 		</action>
@@ -59,6 +67,8 @@
 			<result name="cancel" type="redirect">fetchBooks</result>
 			<result name="publisher" type="redirect">PublisherFields</result>
 		</action>
+		
+		
 		
 		
  		<!--actiuni de editare/update a cartilor-->

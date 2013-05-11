@@ -25,3 +25,4 @@ function loadCities() {
 			xmlhttp.send(null);
 		}
 	}
+

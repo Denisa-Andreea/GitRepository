@@ -1,6 +1,7 @@
 
 function checkbox_test() {
-	var i;
+	if(confirm("Do you want to delete all selected authors?")){
+		var i;
 	url = '';
 	input_obj = document.getElementsByName('checkbox');
 	for (i = 0; i < input_obj.length-1; i++) {
@@ -22,7 +23,10 @@ function checkbox_test() {
 		url = url + input_obj[i].value;
 	}
 	//alert(url);
-	return url;        
+	}else{
+		url = 0;
+	}
+	return url;   
 }
 
 
