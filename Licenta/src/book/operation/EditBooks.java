@@ -14,12 +14,13 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionForUpdateBooks;
 import functions.FunctionPublisher;
+import functions.MonthInit;
 
+@SuppressWarnings("serial")
 public class EditBooks extends ActionSupport {
-	private static final long serialVersionUID = 1L;
 
 	FunctionPublisher pub = new FunctionPublisher();
-	InsertBook monthListInit = new InsertBook();
+	MonthInit monthListInit = new MonthInit();
 	GetBookForEdit oldList = new GetBookForEdit();
 	FunctionForUpdateBooks updateFunction = new FunctionForUpdateBooks();
 	BookValidation validation = new BookValidation();
@@ -54,46 +55,50 @@ public class EditBooks extends ActionSupport {
 	public void validate() {
 		bookSet();
 		setPublisherSelected(getPublisher());
-
-		if (validation.blankString(getTitle())) {
-			addFieldError("title", "Please insert the title");
-		}else if (validation.littleFirstLetter(getTitle())) {
-			setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
-		}
-		if (validation.alreadyExistTitle(getTitle())) {
-			addFieldError("title", "This book already exist!!!");
-		}
-		
-		if (getPublisher() == 0) {
-			addFieldError("publisher", "Please select the publisher");
-		}
-		if (validation.blankString(getYear())) {
-			addFieldError("year", "Please insert the year");
-		} else if (validation.notNumberValidate(getYear())) {
-			addFieldError("year", "Please insert only numbers!!!");
-		} else if (validation.invalidYear(getYear())) {
-			addFieldError("year", validation.getMessage());
-		}
-		if (validation.blankString(getVolume())) {
-			setVolume("0");
-		}
-		for (int i = 0; i < getAuthorFN().size(); i++) {
-			if (!validation.blankString(authorFN.get(i))) {
-				if (validation.littleFirstLetter(getAuthorFN().get(i))) {
-					authorFN.set(i, authorFN.get(i).substring(0, 1)
-							.toUpperCase()
-							+ authorFN.get(i).substring(1));
+			if (validation.blankString(getTitle())) {
+				addFieldError("title", "Is required");
+			}else if (validation.littleFirstLetter(getTitle())) {
+				setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
+			}
+			
+			if (getPublisher() == 0) {
+				addFieldError("publisher", "Select the publisher");
+			}
+			if (validation.blankString(getYear())) {
+				addFieldError("year", "Is required");
+			} else if (validation.notNumberValidate(getYear())) {
+				addFieldError("year", "Insert only numbers!!!");
+			} else if (validation.invalidYear(getYear())) {
+				addFieldError("year", validation.getMessage());
+			}
+			if (validation.blankString(getVolume())) {
+				setVolume("0");
+			}else if(validation.notNumberValidate(getVolume())){
+				addFieldError("volume", "Must be a number. Letters are not allowed");
+			}
+			if(getAuthorList().size() < 1 ){
+				addFieldError("authors", "Is required");
+			}
+			for (int i = 0; i < getAuthorFN().size(); i++) {
+				if (!validation.blankString(authorFN.get(i))) {
+					if (validation.littleFirstLetter(getAuthorFN().get(i))) {
+						authorFN.set(i, authorFN.get(i).substring(0, 1)
+								.toUpperCase()
+								+ authorFN.get(i).substring(1));
+					}
+				}
+				if (!validation.blankString(authorLN.get(i))) {
+					if (validation.littleFirstLetter(getAuthorLN().get(i))) {
+						authorLN.set(i, authorLN.get(i).substring(0, 1)
+								.toUpperCase()
+								+ authorLN.get(i).substring(1));
+					}
+				}
+				if(!getAuthorFN().get(i).isEmpty() && getAuthorLN().get(i).isEmpty()){
+					addFieldError("authors", "Last name is required");
 				}
 			}
-			if (!validation.blankString(authorLN.get(i))) {
-				if (validation.littleFirstLetter(getAuthorLN().get(i))) {
-					authorLN.set(i, authorLN.get(i).substring(0, 1)
-							.toUpperCase()
-							+ authorLN.get(i).substring(1));
-				}
-			}
 		}
-	}
 
 	public String execute() {
 		if(sessionEdit.get("login") == null){
@@ -178,6 +183,14 @@ public class EditBooks extends ActionSupport {
 
 	public ArrayList<String> getAuthorFN() {
 		return authorFN;
+	}
+
+	public Map<String, Object> getSessionEdit() {
+		return sessionEdit;
+	}
+
+	public void setSessionEdit(Map<String, Object> sessionEdit) {
+		this.sessionEdit = sessionEdit;
 	}
 
 	public void setAuthorFN(ArrayList<String> authorFN) {

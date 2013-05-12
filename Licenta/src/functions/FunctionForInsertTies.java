@@ -18,26 +18,62 @@ public class FunctionForInsertTies {
 	 * */
 
 	public int getIdBook(String title) {
+		PreparedStatement selectBookId = null;
 		try {
-			PreparedStatement selectBookId = con
+			selectBookId = con
 					.prepareStatement("select id_carte from carti where title = '"
 							+ title + "'");
 			ResultSet resultSelect = selectBookId.executeQuery();
 			resultSelect.next();
-			return Integer.parseInt(resultSelect.getString("id_carte"));
+			return resultSelect.getInt("id_carte");
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (selectBookId != null) {
+					selectBookId.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
+	
+	/**
+	 * selecteaza id-ul articolului inserat sau care se dorea sa se insereze dar
+	 * exista deja...
+	 * */
 
+	public int getIdArticle(String title){
+		PreparedStatement statement = null;
+		try {
+			statement =  con.prepareStatement("SELECT id_article FROM articole where title = '"+title+"'");
+			ResultSet result = statement.executeQuery();
+			result.next();
+			return result.getInt("id_article");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return 0;
+	}
+	
 	/**
 	 * selecteaza id-ul autorului inserat pentru o carte
 	 * */
 
 	public int getIdAuthor(String authorFN, String authorLN) {
+		PreparedStatement selectAuthorId = null;
 		try {
-			PreparedStatement selectAuthorId = con
+			selectAuthorId = con
 					.prepareStatement("select id_autor from autori where firstname = '"
 							+ authorFN + "' and lastname = '" + authorLN + "'");
 			ResultSet resultSelect = selectAuthorId.executeQuery();
@@ -45,6 +81,14 @@ public class FunctionForInsertTies {
 			return Integer.parseInt(resultSelect.getString("id_autor"));
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (selectAuthorId != null) {
+					selectAuthorId.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return 0;
 	}
@@ -54,8 +98,9 @@ public class FunctionForInsertTies {
 	 */
 
 	public void insertTiesBook(int idBook, int idAuthor) {
+		PreparedStatement insertTie = null;
 		try {
-			PreparedStatement insertTie = con
+			insertTie = con
 					.prepareStatement("insert into carte_autor(id_carte,id_autor) values(?,?)");
 			insertTie.setInt(1, idBook);
 			insertTie.setInt(2, idAuthor);
@@ -68,6 +113,45 @@ public class FunctionForInsertTies {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (insertTie != null) {
+					insertTie.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	/**
+	 * inseram legaturile intre articol si autorii lui in tabela de legaturi
+	 */
+	
+	public void insertTiesArticle(int idArticle, int idAuthor){
+		PreparedStatement insertTie = null;
+		try {
+			insertTie = con
+					.prepareStatement("insert into articol_autor(id_article,id_autor) values(?,?)");
+			insertTie.setInt(1, idArticle);
+			insertTie.setInt(2, idAuthor);
+			/**
+			 * verific daca legatura ai exista si daca nu exista atunci o adaug
+			 */
+			if (!existTies(idArticle, idAuthor, "articol_autor", "id_article")) {
+				insertTie.executeUpdate();
+				insertTie.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if (insertTie != null) {
+					insertTie.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -77,9 +161,10 @@ public class FunctionForInsertTies {
 
 	public boolean existTies(int idObject, int idAuthor, String table,
 			String object) {
+		PreparedStatement ties = null;
 		try {
-			PreparedStatement ties = con
-					.prepareStatement("select id_autor,id_carte from "+table+" where "+object+" = '"
+			ties = con
+					.prepareStatement("select id_autor,"+object+" from "+table+" where "+object+" = '"
 							+ idObject + "' and id_autor ='" + idAuthor + "'");
 			ResultSet result = ties.executeQuery();
 			if (!result.next()) {
@@ -88,6 +173,14 @@ public class FunctionForInsertTies {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (ties != null) {
+					ties.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return true;
 	}

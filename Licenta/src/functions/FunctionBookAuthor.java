@@ -266,7 +266,7 @@ public class FunctionBookAuthor {
 		Authors author;
 		ArrayList<Authors> authorList = new ArrayList<Authors>();
 		PreparedStatement selectAuthors = null;
-//		authorList.add(existName(exist));
+
 		try {
 			selectAuthors = con
 					.prepareStatement("select autori.id_autor,autori.firstname,autori.lastname from "

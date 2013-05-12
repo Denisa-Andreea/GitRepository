@@ -1,0 +1,21 @@
+.login{
+	background: none repeat scroll 0 0 red;
+    margin: 0 auto;
+    width: 30%;
+    margin-top: 15%;
+}
+
+.login label{
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    width: 40%;
+}
+
+.login span {
+    margin: 0 auto;
+    width: 12%;
+}
+
+.button{
+}

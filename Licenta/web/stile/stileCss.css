@@ -1,0 +1,142 @@
+/*css pentru content-urile de la paginile cu formular si de la cele cu tabele*/
+/* .content { */
+/* 	background: red; */
+/* 	margin: 100px auto; */
+/* 	width: 70%; */
+/* 	height: 350px; */
+/* } */
+
+/* .view { */
+/* 	background: none repeat scroll 0 0 red; */
+/*     height: 550px; */
+/*     margin-bottom: 0; */
+/*     margin-left: auto; */
+/*     margin-right: auto; */
+/*     padding-top: 199px; */
+/*     text-align: center; */
+/*     width: 70%; */
+/* } */
+
+/*css pentru paginile de vizualizare a tabelelor de carti si publicatii*/
+.formular{
+	float: left;
+}
+
+.books {
+	margin: 0 auto;
+	width: 80%;
+}
+
+.books table {
+	background: none repeat scroll 0 0 transparent;
+	font-family: "Comic Sans MS";
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+	border: solid blue;
+}
+
+.books table thead {
+	background: pink;
+}
+
+.par {
+	background: gray;
+}
+
+.impar {
+	background: white;
+}
+
+.publisher {
+	margin: 70px auto 0;
+	width: 60%;
+}
+
+.publisher table {
+	background: none repeat scroll 0 0 transparent;
+	font-family: "Comic Sans MS";
+	font-size: 16px;
+	font-weight: bold;
+	margin: 0 auto;
+	text-align: center;
+	width: 100%;
+	border: solid blue;
+}
+
+.publisher table thead {
+	background: pink;
+}
+
+/*css pentru butoane*/
+
+.buttonsBook {
+	width: 45%;
+	float: left;
+	margin-top: 20px;
+}
+
+.buttonsBook a {
+	text-decoration: none;
+	background-color: #C3C3C3;
+	font-size: 20px;
+	font-weight: bold;
+	color: #8B0000;
+	text-align: center;
+	border: 2px solid #8B0000;
+	border-radius: 50px;
+	padding: 1px 8px;
+	margin-right: 15px;
+}
+
+.buttonsPublisher {
+	width: 55%;
+	float: left;
+	margin-top: 20px;
+}
+
+.buttonsPublisher a {
+	text-decoration: none;
+	background-color: #C3C3C3;
+	font-size: 20px;
+	font-weight: bold;
+	color: #8B0000;
+	text-align: center;
+	border: 2px solid #8B0000;
+	border-radius: 50px;
+	padding: 1px 8px;
+	margin-right: 15px;
+}
+
+.butonText{
+	padding-left: 10px;
+}
+
+/*css pentru paginile de edit si insert books*/
+
+
+
+/*css pentru paginile de edit si insert publisher*/
+
+.insertPublisher {
+	background: green;
+	margin: 0 auto;
+	width: 70%;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	font-family: "Comic Sans MS";
+}
+
+#publisher {
+	padding-top: 30px;
+}
+
+#country stateSelect {
+	text-align: center;
+	font-weight: bold;
+	font-size: 12px;
+	margin-left: 20px;
+}

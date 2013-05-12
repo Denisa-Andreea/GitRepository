@@ -56,11 +56,16 @@
 			<result name="success">/pages/admin/successArticle.jsp</result>
 		</action>
 		
+		<action name="fetchJournal" class="forFields.FieldJournal">
+			<result name="success">/pages/admin/articleInsert.jsp</result>
+		</action>
+		
 		<action name="PublisherFields" class="forFields.ForCountryCity">
 			<result>/pages/admin/insertPublisher.jsp</result>
 		</action>
 		
-
+	<!-- actiune de inderare a cartilor -->
+	
 		<action name="bookInsert" class="book.operation.InsertBook">
 			<result name="success" type="redirect">fetchBooks</result>
 			<result name="input">/pages/admin/booksInsert.jsp</result>
@@ -68,8 +73,14 @@
 			<result name="publisher" type="redirect">PublisherFields</result>
 		</action>
 		
+	
+	<!-- actiune de inserare a articolelor -->	
 		
-		
+		<action name="articleInsert" class="article.operation.InsertArticle">
+			<result name="success" type="redirect">fetchArticle</result>
+			<result name="input">/pages/admin/articleInsert.jsp</result>
+			<result name="cancel" type="redirect">fetchArticle</result>
+		</action>
 		
  		<!--actiuni de editare/update a cartilor-->
  		<action name="editBook" class="book.operation.GetBookForEdit">
@@ -82,6 +93,20 @@
  			<result name="success" type="redirect">fetchBooks</result>
  			<result name="input">/pages/admin/editBooks.jsp</result>
  			<result name="cancel" type="redirect">fetchBooks</result>
+ 		</action>
+ 		
+ 		<!-- actiune de editare/update a articolelor -->
+ 		
+ 		<action name="editArticle" class="article.operation.GetArticleForEdit">
+ 			<result name="edit">/pages/admin/editArticle.jsp</result>
+ 			<result name="delete" type="redirect">fetchArticle?page=${page}</result>
+ 			<result type="redirect">fetchArticle</result>
+ 		</action>
+ 		
+ 		<action name="updateArticle" class="article.operation.EditArticle">
+ 			<result name="success" type="redirect">fetchArticle</result>
+ 			<result name="input">/pages/admin/editArticle.jsp</result>
+ 			<result name="cancel" type="redirect">fetchArticle</result>
  		</action>
  		
 		<!-- actiuni pentru butonul si pagina de adaugare a unui nou publisher, precum si petru afisarea unui tabel cu publicatiile disponibile -->

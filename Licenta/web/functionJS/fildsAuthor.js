@@ -12,10 +12,15 @@ function addInput(divName,size) {
 	}
 	var id = counter;		
 	var authorFName = document.getElementById('authorFN').value;
+	var authorLName = document.getElementById('authorLN').value;
 	if(id>0 && !verificareFilds(id)){
 		return alert("Compleate all the authors!!!");
-	} else if(authorFName == 'Unknown' || authorFName.replace(/\s/g,'') == ""){
-		return alert("Please insert the first author to call for another");
+	}else if(authorFName.replace(/\s/g,'') == "" && authorLName.replace(/\s/g,'') == ""){
+		return alert("Please insert the author to call for another");
+	} else if(authorFName.replace(/\s/g,'') == ""){
+		return alert("Please insert the  author first name to call for another");
+	}else if(authorLName.replace(/\s/g,'') == ""){
+		return alert("Please insert the  author last name to call for another");
 	}else if(counter == limit-1){
 		return alert("You have reached the limit of adding " + limit + " inputs");
 	}else{

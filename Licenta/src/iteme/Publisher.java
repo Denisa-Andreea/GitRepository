@@ -13,8 +13,8 @@ public class Publisher {
 	public Publisher(int id_publisher, String name, String country, String city){
 		this.id_publisher = id_publisher;
 		this.name = name;
-		this.setCountry(country);
-		this.setCity(city);
+		this.country = country;
+		this.city = city;
 	}
 
 	public int getId_publisher() {

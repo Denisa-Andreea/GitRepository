@@ -10,16 +10,17 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
-import functions.FunctionForDeleteBooks;
+import functions.FunctionForDelete;
 import functions.FunctionPublisher;
+import functions.MonthInit;
 
+@SuppressWarnings("serial")
 public class GetBookForEdit extends ActionSupport {
-	private static final long serialVersionUID = 1L;
 
 	FunctionBookAuthor function = new FunctionBookAuthor();
 	FunctionPublisher pub = new FunctionPublisher();
-	InsertBook monthListInit = new InsertBook();
-	FunctionForDeleteBooks delete = new FunctionForDeleteBooks();
+	MonthInit monthListInit = new MonthInit();
+	FunctionForDelete delete = new FunctionForDelete();
 
 	ArrayList<Books> bookList;
 	ArrayList<Publisher> listPublisher;
@@ -56,7 +57,10 @@ public class GetBookForEdit extends ActionSupport {
 			return "delete";
 		} else if (action.equals("deleteAll")) {
 			if (!getCheckedID().isEmpty()) {
-				delete.deleteAll(getCheckedID());
+				if (page == numberOfPages && sizeTabel == 1) {
+					setPage(page - 1);
+				}
+				delete.deleteAllBook(getCheckedID());
 			}
 			return "delete";
 		}

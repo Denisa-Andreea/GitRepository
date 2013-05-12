@@ -15,6 +15,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import functions.FunctionBookAuthor;
 import functions.FunctionPublisher;
 import functions.FuntionToUse;
+import functions.MonthInit;
 
 public class InsertBook extends ActionSupport {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +24,7 @@ public class InsertBook extends ActionSupport {
 	FunctionPublisher pub = new FunctionPublisher();
 	BookValidation validation = new BookValidation();
 	FuntionToUse replace = new FuntionToUse();
+	MonthInit forMonth = new MonthInit();
 
 	Authors authors;
 	ArrayList<Publisher> listPublisher;
@@ -45,7 +47,7 @@ public class InsertBook extends ActionSupport {
 
 	public InsertBook() {
 		listPublisher = pub.fetchPublisher();
-		monthList = initMonthList();
+		monthList = forMonth.initMonthList();
 	}
 
 	public String browse() {
@@ -78,36 +80,37 @@ public class InsertBook extends ActionSupport {
 	}
 
 	/**
-	 * validare la nivel de server ..este facuta provizoriu ...TREBUIE FACUTA
+	 * validare la nivel de server
 	 */
 	public void validate() {
 		setPublisherSelected(getPublisher());
 		sessionBookUnset();
 		if (validation.blankString(getTitle())) {
-			addFieldError("title", "Please insert the title");
+			addFieldError("title", "Is required");
 		}else if (validation.littleFirstLetter(getTitle())) {
 			setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
 		}
 		if (validation.alreadyExistTitle(getTitle())) {
-			addFieldError("title", "This book already exist!!!");
+			addFieldError("title", "Already exist!!!");
 		}
 		
 		if (getPublisher() == 0) {
-			addFieldError("publisher", "Please select the publisher");
+			addFieldError("publisher", "Select the publisher");
 		}
 		if (validation.blankString(getYear())) {
-			addFieldError("year", "Please insert the year");
+			addFieldError("year", "Is required");
 		} else if (validation.notNumberValidate(getYear())) {
-			addFieldError("year", "Please insert only numbers!!!");
+			addFieldError("year", "Insert only numbers!!!");
 		} else if (validation.invalidYear(getYear())) {
 			addFieldError("year", validation.getMessage());
 		}
 		if (validation.blankString(getVolume())) {
 			setVolume("0");
+		}else if(validation.notNumberValidate(getVolume())){
+			addFieldError("volume", "Must be a number. Letters are not allowed");
 		}
-		System.out.println(getAuthorFN().size());
 		if(getAuthorList().size() < 1 ){
-			addFieldError("authors", "Please insert an author or Unknown if dosen't exist one");
+			addFieldError("authors", "Is required");
 		}
 		for (int i = 0; i < getAuthorFN().size(); i++) {
 			if (!validation.blankString(authorFN.get(i))) {
@@ -124,6 +127,9 @@ public class InsertBook extends ActionSupport {
 							+ authorLN.get(i).substring(1));
 				}
 			}
+			if(!getAuthorFN().get(i).isEmpty() && getAuthorLN().get(i).isEmpty()){
+				addFieldError("authors", "Last name is required");
+			}
 		}
 	}
 
@@ -134,7 +140,7 @@ public class InsertBook extends ActionSupport {
 	public ArrayList<Authors> getAuthorList() {
 		ArrayList<Authors> authorList = new ArrayList<Authors>();
 		for (int i = 0; i < authorFN.size(); i++) {
-			if (!getAuthorFN().get(i).isEmpty()) {
+			if (!getAuthorFN().get(i).isEmpty() && !getAuthorLN().get(i).isEmpty()) {
 				authors = new Authors();
 				authors.setFirstName(replace.multipleSpaceElim(getAuthorFN().get(i)));
 				authors.setLastName(replace.multipleSpaceElim(getAuthorLN().get(i)));
@@ -187,22 +193,7 @@ public class InsertBook extends ActionSupport {
 		sessionBook.remove("book");
 	}
 
-	public ArrayList<String> initMonthList() {
-		ArrayList<String> list = new ArrayList<String>();
-		list.add("January");
-		list.add("February");
-		list.add("March");
-		list.add("April");
-		list.add("May");
-		list.add("June");
-		list.add("July");
-		list.add("August");
-		list.add("September");
-		list.add("October");
-		list.add("November");
-		list.add("December");
-		return list;
-	}
+	
 
 	public String getTitle() {
 		return title;

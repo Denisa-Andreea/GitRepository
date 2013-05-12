@@ -38,13 +38,13 @@ public class BookValidation {
 	
 	public boolean invalidYear(String year){
 		if(year.substring(0,1).equals("0")){
-			message = "Year can't begin with 0";
+			message = "Can't begin with 0";
 			return true;
 		}else if(Integer.parseInt(year) < 1000){
-			message = "Year must have 4 numbers";
+			message = "Must have 4 numbers";
 			return true;
 		}else if (Integer.parseInt(year) > c.get(Calendar.YEAR)) {
-			message = "The year is bigger then the current year("
+			message = "Is bigger then the current year("
 					+ c.get(Calendar.YEAR) + ")";
 			return true;
 		}

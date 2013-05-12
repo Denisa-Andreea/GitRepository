@@ -40,6 +40,33 @@ public class FunctionForInsert {
 	}
 
 	/**
+	 * insereaza in baza de date un articol doar daca acesta nu exista deja
+	 */
+
+	public void insertIntoArticle(String title, int id, int year, int volume,
+			int number, String month, String note) {
+		
+		try {
+			PreparedStatement insert = con.prepareStatement("insert into articole(title, id_journal, year, volume, number, month, note)"
+								+ " values(?,?,?,?,?,?,?)");
+			if(!existArticle(title)){
+				insert.setString(1, title);
+				insert.setInt(2, id);
+				insert.setInt(3, year);
+				insert.setInt(4, volume);
+				insert.setInt(5, number);
+				insert.setString(6, month);
+				insert.setString(7, note);
+				insert.executeUpdate();
+				insert.close();
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 * inserarea unui autor in baza de date doar daca acesta nu exista deja
 	 * */
 
@@ -77,6 +104,26 @@ public class FunctionForInsert {
 		}
 		return true;
 	}
+	
+	/**
+	 * verifica daca exista articolul cu titlul respectiv in baza de date
+	 */
+	
+	public boolean existArticle(String title){
+		try {
+			PreparedStatement exist = con
+					.prepareStatement("select title,id_article from articole where title = '"
+							+ title + "'");
+			ResultSet resultExist = exist.executeQuery();
+			if(!resultExist.next()){
+				exist.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return true;
+	}
 
 	/**
 	 * verifica daca autorul pe care dorim sa il adaugam exista sau nu in baza
@@ -98,4 +145,5 @@ public class FunctionForInsert {
 		}
 		return true;
 	}
+
 }

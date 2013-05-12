@@ -6,20 +6,21 @@ import iteme.Publisher;
 import java.util.ArrayList;
 import java.util.Map;
 
-import publisher.operation.InsertPublisher;
-
 import book.operation.InsertBook;
+import book.operation.ViewBooks;
 
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
+import functions.MonthInit;
 
+@SuppressWarnings("serial")
 public class FieldPublisher extends ActionSupport{
-	private static final long serialVersionUID = 1L;
 
 	FunctionPublisher dbcon = new FunctionPublisher();
 	InsertBook book = new InsertBook();
-	InsertPublisher pub = new InsertPublisher();
+	MonthInit forMonth = new MonthInit();
+	ViewBooks function = new ViewBooks();
 
 	Publisher publisher;
 	ArrayList<String> monthList;
@@ -27,20 +28,18 @@ public class FieldPublisher extends ActionSupport{
 	ArrayList<Authors> authorList;
 	Authors author;
 	int size;
-	Map<String, Object> sessionBook = pub.getSessionBook();
+	Map<String, Object> sessionBook = function.getSessionLogin();
 	
 	int volume = 0;
 	int year = 0;
 
-
-//	private String authorFN0;
 
 	public String execute() {	
 		if(sessionBook.get("login") == null){
 			return "noUser";
 		}
 		listPublisher = dbcon.fetchPublisher();	
-		monthList = book.initMonthList();
+		monthList = forMonth.initMonthList();
 		size = book.getSize();
 		return SUCCESS;
 	}
