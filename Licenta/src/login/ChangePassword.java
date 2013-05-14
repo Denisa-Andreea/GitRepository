@@ -12,6 +12,7 @@ public class ChangePassword extends ActionSupport {
 	LoginValidate validate = new LoginValidate();
 	FunctionChangePassword function = new FunctionChangePassword();
 	
+	
 	private String oldPassword;
 	private String newPassword;
 	

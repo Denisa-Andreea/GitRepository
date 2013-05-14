@@ -38,7 +38,7 @@
 										</s:if>
 									</s:else>
 								</th>
-								<th>Author(s)</th>
+								<th>book(s)</th>
 								<th>Publisher</th>
 								<th>Publisher City</th>
 								<th>Publisher Country</th>

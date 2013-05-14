@@ -15,8 +15,8 @@ import forFields.ForCountryCity;
 import functions.FunctionPublisher;
 import functions.GetCountryCity;
 
+@SuppressWarnings("serial")
 public class InsertPublisher extends ActionSupport{
-	private static final long serialVersionUID = 1L;
 	
 	private String name;
 	private String selectedState;

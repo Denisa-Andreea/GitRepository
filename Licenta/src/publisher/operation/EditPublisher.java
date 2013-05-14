@@ -9,12 +9,12 @@ import validation.PublisherValidation;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
-import functions.FunctionForUpdatePublisher;
+import functions.FunctionForUpdatePublisherJournal;
 
 public class EditPublisher extends ActionSupport{
 	private static final long serialVersionUID = 1L;
 	
-	FunctionForUpdatePublisher function = new FunctionForUpdatePublisher();
+	FunctionForUpdatePublisherJournal function = new FunctionForUpdatePublisherJournal();
 	Map<String, Object> sessionBook = ActionContext.getContext().getSession();
 	PublisherValidation validation = new PublisherValidation();
 	

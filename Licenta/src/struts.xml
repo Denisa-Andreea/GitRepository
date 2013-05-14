@@ -33,7 +33,7 @@
 	<action name="changePass" class="login.ChangePassword">
 		<result name="success" type="redirect">/pages/login/login.jsp</result>
 		<result name="input">/pages/login/changePassword.jsp</result>
-		<result name="cancel" type="redirect">/pages/login/login.jsp</result>
+		<result name="cancel" type="redirect">firstPageAdmin</result>
 	</action>
 	
 	<!-- first page admin -->
@@ -60,10 +60,15 @@
 			<result name="success">/pages/admin/articleInsert.jsp</result>
 		</action>
 		
+		<!-- action pentru inserare de dropdown-uri -->
+		
 		<action name="PublisherFields" class="forFields.ForCountryCity">
 			<result>/pages/admin/insertPublisher.jsp</result>
 		</action>
 		
+		<action name="JournalFields" class="forFields.ForJournal">
+			<result>/pages/admin/insertJournal.jsp</result>
+		</action>
 	<!-- actiune de inderare a cartilor -->
 	
 		<action name="bookInsert" class="book.operation.InsertBook">
@@ -80,9 +85,11 @@
 			<result name="success" type="redirect">fetchArticle</result>
 			<result name="input">/pages/admin/articleInsert.jsp</result>
 			<result name="cancel" type="redirect">fetchArticle</result>
+			<result name="journal" type="redirect">JournalFields</result>
 		</action>
 		
  		<!--actiuni de editare/update a cartilor-->
+ 		
  		<action name="editBook" class="book.operation.GetBookForEdit">
  			<result name="edit">/pages/admin/editBooks.jsp</result>
  			<result name="delete" type="redirect">fetchBooks?page=${page}</result>
@@ -140,7 +147,32 @@
 		<action name="cityToGet" class="forFields.ToGetCity">
 			<result>pages/admin/city.jsp</result>
 		</action>
+		
+		<!-- actuni pentru butonul si pagina de adaugare a unui nou journal, precu si pentru afisarea unui tabel cu journal-urie disponibile -->
  		
+ 		<action name="addJournal" class="journal.operation.InsertJournal">
+			<result name="success" type="redirect">fetchJournal</result>
+ 			<result name="input">/pages/admin/insertJournal.jsp</result>
+ 			<result name="fetch" type="redirect">viewJournal</result>
+ 			<result name="cancel" type="redirect">viewJournal</result>
+ 			<result name="back" type="redirect">fetchJournal</result>
+ 		</action>
+ 		
+ 		<action name="viewJournal" class="journal.operation.ViewJournal">
+ 			<result>/pages/admin/successJournal.jsp</result>
+ 		</action>
+ 		
+ 		<!-- actiuni de editare/update a journal -->
+ 		
+ 		<action name="editJournal" class="journal.operation.GetJournalForEdit">
+ 			<result name="edit">/pages/admin/editJournal.jsp</result>
+ 		</action>
+ 		
+ 		<action name="updateJournal" class="journal.operation.EditJournal">
+ 			<result name="success" type="redirect">viewJournal</result>
+ 			<result name="input">/pages/admin/editJournal.jsp</result>
+ 			<result name="cancel" type="redirect">viewJournal</result>
+ 		</action>
  		
 	</package>
 </struts>

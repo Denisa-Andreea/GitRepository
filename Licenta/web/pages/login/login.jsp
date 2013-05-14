@@ -22,7 +22,6 @@
 			</div>
 			<div class="button" >
 				<s:submit value="Login"/>
-				<s:submit value="Change Password" method="browse"/>
 			</div>
 		</s:form>
 	</div>

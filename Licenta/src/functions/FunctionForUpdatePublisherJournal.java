@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 import conections.DBCon;
 
-public class FunctionForUpdatePublisher {
+public class FunctionForUpdatePublisherJournal {
 
 	DBCon dbcon = DBCon.getConnection();
 	Connection con = dbcon.getCon();
@@ -32,6 +32,19 @@ public class FunctionForUpdatePublisher {
 							+ name + "', publisher.country = '" + countryName
 							+ "', publisher.city='" + city
 							+ "' where publisher.id_publisher=" + idPublisher);
+			statement.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void editJournal(int idJournal, String name, String description) {
+		PreparedStatement statement;
+		try {
+			statement = con
+					.prepareStatement("UPDATE journal SET journal.name = '"
+							+ name + "', journal.description = '" + description
+							+ "' where journal.id_journal=" + idJournal);
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

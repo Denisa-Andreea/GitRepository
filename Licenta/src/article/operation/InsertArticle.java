@@ -131,6 +131,15 @@ public class InsertArticle extends ActionSupport {
 		return "cancel";
 	}
 	
+	public String browse() {
+		if(sessionArticle.get("login") == null){
+			return "noUser";
+		}
+		setSessionArticle(sessionArticle());
+		setJournal(0);
+		return "journal";
+	}
+	
 	public ArrayList<Authors> getAuthorList() {
 		ArrayList<Authors> authorList = new ArrayList<Authors>();
 		for (int i = 0; i < authorFN.size(); i++) {
