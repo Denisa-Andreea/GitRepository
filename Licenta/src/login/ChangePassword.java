@@ -1,17 +1,20 @@
 package login;
 
+import java.util.Map;
+
 import validation.LoginValidate;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionChangePassword;
 
+@SuppressWarnings("serial")
 public class ChangePassword extends ActionSupport {
-	private static final long serialVersionUID = 1L;
 
 	LoginValidate validate = new LoginValidate();
 	FunctionChangePassword function = new FunctionChangePassword();
-	
+	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
 	
 	private String oldPassword;
 	private String newPassword;
@@ -51,6 +54,14 @@ public class ChangePassword extends ActionSupport {
 
 	public void setNewPassword(String newPassword) {
 		this.newPassword = newPassword;
+	}
+
+	public Map<String, Object> getSessionLogin() {
+		return sessionLogin;
+	}
+
+	public void setSessionLogin(Map<String, Object> sessionLogin) {
+		this.sessionLogin = sessionLogin;
 	}
 	
 }

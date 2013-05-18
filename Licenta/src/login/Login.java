@@ -7,6 +7,8 @@ import validation.LoginValidate;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
+import forFields.Codification;
+
 public class Login extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 	
@@ -16,6 +18,7 @@ public class Login extends ActionSupport {
 	
 	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
 	LoginValidate validate = new LoginValidate();
+	Codification codif =  new Codification();
 	
 	public void validate(){
 		if(user.isEmpty()){
@@ -41,6 +44,10 @@ public class Login extends ActionSupport {
 	
 	public String browse(){
 		return "changePassword";
+	}
+	
+	public String cancel(){
+		return "cancel";
 	}
 	
 	public void loginSession(){

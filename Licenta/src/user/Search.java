@@ -2,6 +2,7 @@ package user;
 
 import functions.FunctionForSearch;
 import functions.FuntionToUse;
+import iteme.Article;
 import iteme.Authors;
 import iteme.Books;
 
@@ -17,12 +18,15 @@ public class Search extends ActionSupport {
 	private String category;
 	private ArrayList<Books> book;
 	private HashMap<Authors, ArrayList<Books>> authors;
+	private ArrayList<Article> article;
 
 	FunctionForSearch function = new FunctionForSearch();
 	FuntionToUse replace = new FuntionToUse();
 
 	public Search() {
 		book = new ArrayList<Books>();
+		authors = new HashMap<Authors, ArrayList<Books>>();
+		article = new ArrayList<Article>();
 	}
 
 	public void validate() {
@@ -30,23 +34,20 @@ public class Search extends ActionSupport {
 	}
 
 	public String execute() {
+		if(word.equals(null)){
+			word = "%";
+		}
 		if (category.equals("books")) {
-			book.addAll(function.searchBook(word));
+			book = function.searchBook(word);
 			return "books";
 		}
 		if (category.equals("authors")) {
 			authors = function.searchAuthor(word, true);
-			// for (Entry<Authors, ArrayList<Books>> entry : authors.entrySet())
-			// {
-			// Authors key = entry.getKey();
-			// ArrayList<Books> value = entry.getValue();
-			// System.out
-			// .println(key.getFirstName() + " " + key.getLastName());
-			// for (int i = 0; i < value.size(); i++) {
-			// System.out.println(value.get(i).getTitle());
-			// }
-			// }
 			return "authors";
+		}
+		if(category.equals("article")){
+			article = function.searchArticle(word);
+			return "article";
 		}
 		if(category.equals("displayOneAuthor")){
 			authors = function.searchAuthor(word, false);
@@ -85,6 +86,14 @@ public class Search extends ActionSupport {
 
 	public void setAuthors(HashMap<Authors, ArrayList<Books>> authors) {
 		this.authors = authors;
+	}
+
+	public ArrayList<Article> getArticle() {
+		return article;
+	}
+
+	public void setArticle(ArrayList<Article> article) {
+		this.article = article;
 	}
 
 }

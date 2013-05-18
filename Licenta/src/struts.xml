@@ -17,21 +17,30 @@
 		<action name="search" class="user.Search">
 			<result name="books">/pages/user/bookSearch.jsp</result>
 			<result name="authors">/pages/user/authorSearch.jsp</result>
+			<result name="article">/pages/user/articleSearch.jsp</result>
 		</action>
 	
+		<action name="user" class="user.User">
+			<result>/pages/user/utilizator.jsp</result>
+		</action>
 	<!-- actiune pentru login -->
+	
+	<action name="goToLogin" class="user.GoToLogin">
+		<result>/pages/login/login.jsp</result>
+	</action>
 	
 	<action name="login" class="login.Login">
 		<result name="login" type="redirect">firstPageAdmin</result>
-		<result name="logout" type="redirect">/pages/login/login.jsp</result>
+		<result name="logout" type="redirect">user</result>
 		<result name="changePassword" type="redirect">/pages/login/changePassword.jsp</result>
 		<result name="input">/pages/login/login.jsp</result>
+		<result name="cancel" type="redirect">user</result>
 	</action>
 	
 	<!-- actiune pentru schimbarea parolei -->
 	
 	<action name="changePass" class="login.ChangePassword">
-		<result name="success" type="redirect">/pages/login/login.jsp</result>
+		<result name="success" type="redirect">firstPageAdmin</result>
 		<result name="input">/pages/login/changePassword.jsp</result>
 		<result name="cancel" type="redirect">firstPageAdmin</result>
 	</action>
@@ -174,5 +183,14 @@
  			<result name="cancel" type="redirect">viewJournal</result>
  		</action>
  		
+ 		<!-- actiune pentru advance search -->
+ 		
+ 		<action name="advanceSearch" class="admin.AdvanceSearch">
+ 			<result>/pages/admin/resultAdvSearch.jsp</result>
+ 		</action>
+ 		
+ 		<action name="goToAdvSearch" class="admin.GoToAdvSearch">
+ 			<result>/pages/admin/advanceSearch.jsp</result>
+ 		</action>
 	</package>
 </struts>

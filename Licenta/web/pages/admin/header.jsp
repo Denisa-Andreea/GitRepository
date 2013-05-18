@@ -16,6 +16,7 @@
 <script type="text/javascript" src="functionJS/delete.js"></script>
 <script type="text/javascript" src="functionJS/selectAll.js"></script>
 <script type="text/javascript" src="functionJS/dropdown.js"></script>
+<script type="text/javascript" src="functionJS/search.js"></script>
 </head>
 <body>
 	<div id="header">

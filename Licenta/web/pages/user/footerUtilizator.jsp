@@ -1,5 +1,3 @@
-<div>
-	footer
-</div>
+<div class="footerUtilizator"></div>
 </body>
 </html>

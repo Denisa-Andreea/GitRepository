@@ -8,6 +8,7 @@ public class ArticleAuthor {
 	private String autors;
 	private String journal;
 	private int year;
+	private String description;
 	private int volume;
 	private int number;
 	private String month;
@@ -16,10 +17,11 @@ public class ArticleAuthor {
 	public ArticleAuthor() {
 	}
 
-	public ArticleAuthor(int idArticle, String title, String autors,
+	public ArticleAuthor(int idArticle, String title,String description, String autors,
 			String journal, int year, int volume, int number, String month,
 			String note) {
 		this.idArticle = idArticle;
+		this.description = description;
 		this.title = title;
 		this.autors = autors;
 		this.journal = journal;
@@ -102,4 +104,13 @@ public class ArticleAuthor {
 	public void setNote(String note) {
 		this.note = note;
 	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

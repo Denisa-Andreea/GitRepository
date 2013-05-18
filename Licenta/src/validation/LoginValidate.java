@@ -1,10 +1,12 @@
 package validation;
 
+import forFields.Codification;
 import iteme.User;
 
 public class LoginValidate {
 
 	DBVerify dbVerify = new DBVerify();
+	Codification codif =  new Codification();
 	
 	private String message;
 	User verify = new User();
@@ -22,7 +24,7 @@ public class LoginValidate {
 	}
 	
 	public boolean validatePassword(String password){
-		if(!verify.getPassword().equals(password)){
+		if(!verify.getPassword().equals(codif.md5(password))){
 			message = "Password incorect!!!";
 			return false;
 		}
