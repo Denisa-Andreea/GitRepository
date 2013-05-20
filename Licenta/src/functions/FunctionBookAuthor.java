@@ -23,13 +23,16 @@ public class FunctionBookAuthor {
 
 	private int numberOfRecords;
 
+	public FunctionBookAuthor() {
+	}
+
 	/**
 	 * afisarea cartilor
 	 */
 
 	public ArrayList<BookAuthor> fetchBooks(int beginRecord, int numberOfRecords) {
 		ResultSet resultBooks;
-		PreparedStatement statement;
+		PreparedStatement statement = null;
 		ArrayList<BookAuthor> listBook = new ArrayList<BookAuthor>();
 		try {
 			statement = con
@@ -71,6 +74,14 @@ public class FunctionBookAuthor {
 			statement.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		try {
@@ -84,6 +95,14 @@ public class FunctionBookAuthor {
 			return listBook;
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return null;
 	}
@@ -296,20 +315,22 @@ public class FunctionBookAuthor {
 		return authorList;
 	}
 
-	public Authors existName(int exist){
+	public Authors existName(int exist) {
 		Authors author = new Authors();
 		PreparedStatement statement = null;
-		
+
 		try {
-			statement = con.prepareStatement("SELECT autori.firstname,autori.lastname from autori WHERE id_autor = "+exist);
+			statement = con
+					.prepareStatement("SELECT autori.firstname,autori.lastname from autori WHERE id_autor = "
+							+ exist);
 			ResultSet result = statement.executeQuery();
-			while(result.next()){
+			while (result.next()) {
 				author.setFirstName(result.getString("autori.firstname"));
 				author.setLastName(result.getString("autori.lastname"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			try {
 				if (statement != null) {
 					statement.close();
@@ -320,6 +341,7 @@ public class FunctionBookAuthor {
 		}
 		return author;
 	}
+
 	public ArrayList<Integer> selectBookByAuthor(int idAuthor) {
 		ArrayList<Integer> bookId = new ArrayList<Integer>();
 		PreparedStatement statement = null;
@@ -329,7 +351,7 @@ public class FunctionBookAuthor {
 					.prepareStatement("SELECT carti.id_carte FROM carti LEFT JOIN carte_autor ON carte_autor.id_carte = carti.id_carte"
 							+ " WHERE id_autor =" + idAuthor);
 			result = statement.executeQuery();
-			while(result.next()){
+			while (result.next()) {
 				bookId.add(result.getInt("id_carte"));
 			}
 		} catch (SQLException e) {

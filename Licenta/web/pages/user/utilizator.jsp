@@ -37,5 +37,6 @@
 			style="margin: 0 auto; overflow: hidden; text-align: left; width: 638px !important;">
 
 		</div>
+	</div>
 </center>
 <%@ include file="footerUtilizator.jsp"%>

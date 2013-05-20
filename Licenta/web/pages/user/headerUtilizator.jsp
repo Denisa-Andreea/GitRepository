@@ -19,9 +19,8 @@
 		<div id="colorBoxes">
 			<ul>
 				<li
-					style="background: none repeat scroll 0px 0px rgb(73, 175, 208);">2,028,378
-					books</li>
-				<li style="background: #90a5a8;">direct links</li>
+					style="background: none repeat scroll 0px 0px rgb(73, 175, 208);">books</li>
+				<li style="background: #90a5a8;">article</li>
 				<li style="background: #8ecd51;">for free</li>
 			</ul>
 		</div>

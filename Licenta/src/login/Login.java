@@ -9,24 +9,28 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import forFields.Codification;
 
+@SuppressWarnings("serial")
 public class Login extends ActionSupport {
-	private static final long serialVersionUID = 1L;
-	
 	
 	private String user;
 	private String password;
 	
 	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
-	LoginValidate validate = new LoginValidate();
-	Codification codif =  new Codification();
+	LoginValidate validate;
+	Codification codif;
+	
+	public Login(){
+		validate = new LoginValidate();
+		codif =  new Codification();
+	}
 	
 	public void validate(){
 		if(user.isEmpty()){
-			addFieldError("user","Please insert the user!");
+			addFieldError("user","User requied");
 		}else if(!validate.validateUser(user)){
 			addFieldError("user", validate.getMessage());
 		}else if(password.isEmpty()){
-			addFieldError("password","Please insert the password!");
+			addFieldError("password","Password required");
 		}else if(!validate.validatePassword(password)){
 			addFieldError("password",validate.getMessage());
 		}

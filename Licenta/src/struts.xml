@@ -13,16 +13,37 @@
 		<result name="noUser">/pages/login/login.jsp</result>
 	</global-results>
 	
-	<!-- utilizator action -->
+	<!-- utilizator action search -->
+	
 		<action name="search" class="user.Search">
 			<result name="books">/pages/user/bookSearch.jsp</result>
 			<result name="authors">/pages/user/authorSearch.jsp</result>
 			<result name="article">/pages/user/articleSearch.jsp</result>
 		</action>
+	<!-- utilizator action first page -->
 	
 		<action name="user" class="user.User">
 			<result>/pages/user/utilizator.jsp</result>
 		</action>
+		
+	<!-- utilizator action for menu -->
+		
+		<action name="gotoAllBook" class="user.GotoAllBook">
+			<result>/pages/user/allBook.jsp</result>
+		</action>
+		
+		<action name="gotoRecentlyBooks" class="user.GotoRecentBook">
+			<result>/pages/user/allBook.jsp</result>
+		</action>
+		
+		<action name="gotoAllArticle" class="user.GotoAllArticle">
+			<result>/pages/user/allArticle.jsp</result>
+		</action>
+		
+		<action name="gotoRecentlyArticle" class="user.GotoRecentArticle">
+			<result>/pages/user/allArticle.jsp</result>
+		</action>
+		
 	<!-- actiune pentru login -->
 	
 	<action name="goToLogin" class="user.GoToLogin">
@@ -43,6 +64,10 @@
 		<result name="success" type="redirect">firstPageAdmin</result>
 		<result name="input">/pages/login/changePassword.jsp</result>
 		<result name="cancel" type="redirect">firstPageAdmin</result>
+	</action>
+	
+	<action name="resetPassword" class="login.ResetPassword">
+		<result type="redirect">goToLogin</result>
 	</action>
 	
 	<!-- first page admin -->

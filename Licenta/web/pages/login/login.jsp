@@ -19,36 +19,42 @@
 				<div id="username_input">
 					<div id="username_inputleft"></div>
 					<div id="username_inputmiddle">
-						<s:textfield id="url" name="user" placeholder='"User Name"'/>
+						<s:textfield id="url" name="user" placeholder='"User Name"' />
 						<img id="url_user" alt=""
 							src="./stile/pictures/login/mailicon.png">
 					</div>
-					<div id="username_inputright"></div>
-					<s:fielderror>
-						<s:param>user</s:param>
-					</s:fielderror>
+					<div id="username_inputright">
+						<s:fielderror>
+							<s:param>user</s:param>
+						</s:fielderror>
+					</div>
 				</div>
 				<div id="password_input">
 					<div id="password_inputleft"></div>
 					<div id="password_inputmiddle">
-						<s:password name="password" id="url" placeholder='"Password"'/>
+						<s:password name="password" id="url" placeholder='"Password"' />
 						<img id="url_password" alt=""
 							src="./stile/pictures/login/passicon.png">
 					</div>
-					<div id="password_inputright"></div>
+					<div id="password_inputright">
+						<s:fielderror>
+							<s:param>password</s:param>
+						</s:fielderror>
+					</div>
 				</div>
 				<div id="submit">
 					<s:submit value="Login" id="submit1" type="image"
 						src="./stile/pictures/login/submit_hover.png" style="opacity: 1;" />
 				</div>
 				<s:submit value="Cancel" method="cancel" type="image"
-					src="./stile/pictures/login/submit_hover.png"
+					src="./stile/pictures/login/cancel_hover.png"
 					style="opacity: 1; margin-left: 25px;" />
 
 				<div id="links_left">
-					<a href="#">Forgot your Password?Click here to reset it</a>
+					<a href="resetPassword">Forgot your Password?Click here to reset it</a>
 				</div>
 			</div>
+			<div id="wrapperbottom"></div>
 			<div id="wrapperbottom"></div>
 		</div>
 	</s:form>

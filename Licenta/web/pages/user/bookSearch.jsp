@@ -2,18 +2,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <s:if test="%{book.size()>0}">
 	<s:iterator status="ipart" value="book">
-		<div
-			style="position: absolute; zoom: 1; margin: 30px 0 0 -80px; text-align: right; font-size: 18px; color: #ddd; font-style: italic;">
+		<div id="displayBookIndex">
 			#
 			<s:property value="%{#ipart.index+1}" />
 		</div>
 		<div style="float: left; width: 500px;margin-top: 30px;">
 			<span>Title:</span> <s:property value="title" />
 			<ul>
-				<li><span>Year/Month: </span> <s:property value="year" /> <s:if
-						test="month != '' || !month.isEmpty()">
+				<li><span>Year/Month: </span>  <s:if
+						test="%{!month.isEmpty()}">
 						<s:property value="month" />
-					</s:if></li>
+					</s:if><s:property value="year" /></li>
 				<li><span>Publisher: </span> <s:property value="publisher" />,
 					<s:property value="country" /> <s:property value="city" /></li>
 				<li><span>Author(s): </span> <s:iterator value="autors"
@@ -31,13 +30,13 @@
 				<s:if test="%{volume != 0}">
 					<li><span>Volume: </span> <s:property value="volume" /></li>
 				</s:if>
-				<s:if test="%{series!='' || !series.isEmpty()}">
+				<s:if test="%{!series.isEmpty()}">
 					<li><span>Series: </span> <s:property value="series" /></li>
 				</s:if>
-				<s:if test="%{edition!='' || !edition.isEmpty()}">
+				<s:if test="%{!edition.isEmpty()}">
 					<li><span>Edition: </span> <s:property value="edition" /></li>
 				</s:if>
-				<s:if test="%{note != '' || !note.isEmpty()}">
+				<s:if test="%{!note.isEmpty()}">
 					<li><span>Note: </span> <s:property value="note" /></li>
 				</s:if>
 			</ul>
@@ -47,8 +46,6 @@
 		</div>
 		<div
 			style="zoom: 1; border-top: 1px solid #ddd; overflow: hidden; font-size: 1px; margin: 0; padding: 0; width: 100%;"></div>
-
-
 	</s:iterator>
 
 </s:if>

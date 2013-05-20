@@ -17,7 +17,7 @@ public class LoginValidate {
 	
 	public boolean validateUser(String user){
 		if(!verify.getUser().equals(user)){
-			message = "User is wrong!!!";
+			message = "Invalid User";
 			return false;
 		}
 		return true;
@@ -25,7 +25,7 @@ public class LoginValidate {
 	
 	public boolean validatePassword(String password){
 		if(!verify.getPassword().equals(codif.md5(password))){
-			message = "Password incorect!!!";
+			message = "Invalid Password";
 			return false;
 		}
 		return true;
