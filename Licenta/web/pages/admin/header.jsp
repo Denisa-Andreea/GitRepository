@@ -9,9 +9,13 @@
 <link rel="stylesheet" type="text/css"
 	href="<s:url value="/stile/pagination.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/stileCss.css"/>">
+	href="<s:url value="/stile/headerMenu.css"/>">
 <link rel="stylesheet" type="text/css"
-	href="<s:url value="/stile/header&Footer.css"/>">
+	href="<s:url value="/stile/firstPageAdminStyle.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<s:url value="/stile/table.css"/>">
+<link rel="stylesheet" type="text/css"
+	href="<s:url value="/stile/formularStyle.css"/>">
 <script type="text/javascript" src="functionJS/fildsAuthor.js"></script>
 <script type="text/javascript" src="functionJS/delete.js"></script>
 <script type="text/javascript" src="functionJS/selectAll.js"></script>
@@ -20,7 +24,35 @@
 </head>
 <body>
 	<div id="header">
-		<form action="login">
-			<s:submit value="Logout" method="back"/>
-		</form>
+		<div id="colorText">
+			<div style="font-size: 26px;">
+				<a id="logoText" style="text-decoration: none;"
+					href="firstPageAdmin"> <span class="color1">Book</span><span
+					class="color2"> &amp; Article</span>
+				</a>
+			</div>
+		</div>
+		<ul id="topAdditionaMenu" class="dropdown dropdown-horizontal">
+			<li><span class="dir">Books </span>
+				<ul>
+					<li><a href="fetchBooks">View Books</a></li>
+					<li><a href="fetchPublisher">Insert book</a></li>
+				</ul></li>
+			<li><span class="dir">Publisher</span>
+				<ul>
+					<li><a href="viewPublisher">View Publisher</a></li>
+					<li><a href="PublisherFields">Insert publisher</a></li>
+				</ul></li>
+			<li><span class="dir">Article</span>
+				<ul>
+					<li><a href="fetchArticle">View Article</a></li>
+					<li><a href="fetchJournal">Insert article</a></li>
+				</ul></li>
+			<li><span class="dir">Journal</span>
+				<ul>
+					<li><a href="viewJournal">View Journal</a></li>
+					<li><a href="JournalFields">Insert journal</a></li>
+				</ul></li>
+			<li><a href="logout">Logout</a>
+		</ul>
 	</div>

@@ -72,6 +72,7 @@ public class GetArticleForEdit extends ActionSupport {
 		setSessionEdit(sessionEdit);
 
 		sessionEdit.put("edit", true);
+		sessionEdit.put("title", articleList.get(0).getTitle());
 		sessionEdit.put("authorList", articleList.get(0).getAutors());
 		sessionEdit.put("size", articleList.get(0).getAutors().size());
 		return sessionEdit;

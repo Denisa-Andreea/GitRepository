@@ -38,7 +38,14 @@ public class GetPublisherForEdit extends ActionSupport{
 		setState(function.countryCode(publisher.getCountry()));
 		publisher.setId_publisher(id);
 		cityList = functionCountry.fetchCity(state);
+		setSessionEdit();
 		return "edit";
+	}
+	
+	public void setSessionEdit(){
+		sessionBook.put("name", publisher.getName());
+		sessionBook.put("country", state);
+		sessionBook.put("city", publisher.getCity());
 	}
 
 	public String getName() {

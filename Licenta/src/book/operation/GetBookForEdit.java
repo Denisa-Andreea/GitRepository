@@ -73,7 +73,7 @@ public class GetBookForEdit extends ActionSupport {
 		sessionEdit.put("edit", true);
 		// sessionEdit.put("id", bookList.get(0).getIdBook());
 		// sessionEdit.put("publisher", bookList.get(0).getId_publisher());
-		// sessionEdit.put("title", bookList.get(0).getTitle());
+		 sessionEdit.put("title", bookList.get(0).getTitle());
 		// sessionEdit.put("year", bookList.get(0).getYear());
 		// sessionEdit.put("volume", bookList.get(0).getVolume());
 		sessionEdit.put("authorList", bookList.get(0).getAutors());

@@ -1,11 +1,10 @@
 <%@include file="header.jsp"%>
 <div class="view">
 	<s:if test="sessionLogin.get('login') == true">
-		<span class="text">Tabel of publishers</span>
-		<div>
+		<span class="color1">Publishers</span>
 			<s:if test="%{listPublisher.size()>0}">
-				<div class="publisher">
-					<table>
+				<center>
+					<table id="tablePublisher">
 						<thead>
 							<tr>
 								<th>Name <s:if test="%{column != 'name'}">
@@ -92,10 +91,10 @@
 								</s:if>
 								<s:else>
 									<tr class="impar">
-										<td><s:property value="name" /></td>
-										<td><s:property value="country" /></td>
-										<td><s:property value="city" /></td>
-										<td><a
+										<td class="title"><s:property value="name" /></td>
+										<td class="publisher"><s:property value="country" /></td>
+										<td class="publisher"><s:property value="city" /></td>
+										<td class="year"><a
 											href="editPublisher?id=<s:property value='id_publisher'/>">
 												<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
 										</a></td>
@@ -104,7 +103,7 @@
 							</s:iterator>
 						</tbody>
 					</table>
-				</div>
+					</center>
 			</s:if>
 			<%@include file="paginationPublisher.jsp"%>
 			<div class="notFound">
@@ -112,10 +111,11 @@
 					<p>No Publishers Found</p>
 				</s:else>
 			</div>
-			<div class="buttonsPublisher">
-				<a href="PublisherFields"><img src="stile/pictures/edit_delete3.png"/><span class="butonText">Insert</span></a>
-				<a href="firstPageAdmin"><img src="stile/pictures/back.png"><span class="butonText">Back</span></a>
-			</div>
+		<div id="buttonPublisher">
+			<a href="PublisherFields"><img
+				src="stile/pictures/edit_delete3.png" /><span class="butonText">Insert</span></a>
+			<a href="firstPageAdmin"><img src="stile/pictures/back.png"><span
+				class="butonText">Back</span></a>
 		</div>
 	</s:if>
 </div>

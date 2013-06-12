@@ -41,15 +41,6 @@ public class Login extends ActionSupport {
 		return "login";
 	}
 	
-	public String back(){
-		logoutSession();
-		return "logout";
-	}
-	
-	public String browse(){
-		return "changePassword";
-	}
-	
 	public String cancel(){
 		return "cancel";
 	}

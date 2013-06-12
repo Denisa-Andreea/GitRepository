@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionArticle;
+import functions.FuntionToUse;
 
 @SuppressWarnings("serial")
 public class ViewArticle extends ActionSupport {
@@ -19,7 +20,8 @@ public class ViewArticle extends ActionSupport {
 	private String column;
 	private String sort = "NON";
 
-	FunctionArticle function =  new FunctionArticle();
+	FunctionArticle function = new FunctionArticle();
+	FuntionToUse clear =  new FuntionToUse();
 	ArrayList<ArticleAuthor> listOfArticles = new ArrayList<ArticleAuthor>();
 	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
 
@@ -27,24 +29,28 @@ public class ViewArticle extends ActionSupport {
 		if (sessionLogin.get("login") == null) {
 			return "noUser";
 		}
-		int recordsPerPage = 5;
+		clear.clearSession(sessionLogin);
+		int recordsPerPage = 7;
 		if (sort.equals("NON") || sort.isEmpty()) {
 			listOfArticles = function.fetchAtricle((page - 1) * recordsPerPage,
 					recordsPerPage);
 			setSizeTabel(listOfArticles.size());
-		}else{
-			if(column.isEmpty()){
-				 column = "id_articol";
+		} else {
+			if (column.isEmpty()) {
+				column = "id_articol";
 			}
-			listOfArticles = function.sortArticle((page - 1) * recordsPerPage, recordsPerPage,column , sort);
+			listOfArticles = function.sortArticle((page - 1) * recordsPerPage,
+					recordsPerPage, column, sort);
 			setSizeTabel(listOfArticles.size());
 		}
-		
+
 		int numberOfRecords = function.getNumberOfRecords();
 		setNumberOfPages((int) Math
 				.ceil(numberOfRecords * 1.0 / recordsPerPage));
 		return SUCCESS;
 	}
+
+	
 
 	public int getPage() {
 		return page;
@@ -85,11 +91,10 @@ public class ViewArticle extends ActionSupport {
 	public void setSort(String sort) {
 		this.sort = sort;
 	}
-	
+
 	public Map<String, Object> getSessionLogin() {
 		return sessionLogin;
 	}
-
 
 	public void setSessionLogin(Map<String, Object> sessionLogin) {
 		this.sessionLogin = sessionLogin;

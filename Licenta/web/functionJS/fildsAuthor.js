@@ -40,12 +40,14 @@ function addFildsAuthors(divName,counter,id){
 	newFN.id = id;
 	var newLabelLN = document.getElementById('authorLNLabel').cloneNode(true);
 	var newLN = document.getElementById('authorLN').cloneNode(true);
-
 	newLN.value = "";
 	newLN.id = "authorLN"+id;
 	newdiv.appendChild(newLabelFN);
-	newdiv.appendChild(newFN);
+	newdiv.appendChild(document.createTextNode("  "));
+	newdiv.appendChild(newFN);	
+	newdiv.appendChild(document.createTextNode("  "));
 	newdiv.appendChild(newLabelLN);
+	newdiv.appendChild(document.createTextNode("  "));
 	newdiv.appendChild(newLN);
 	document.getElementById(divName).appendChild(newdiv);
 	document.getElementById(id).focus();

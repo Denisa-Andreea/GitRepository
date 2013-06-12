@@ -9,11 +9,13 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionPublisher;
+import functions.FuntionToUse;
 
 public class ViewPublisher extends ActionSupport {
 	private static final long serialVersionUID = 1L;
 
 	FunctionPublisher publisherFetch = new FunctionPublisher();
+	FuntionToUse clear =  new FuntionToUse();
 	Publisher publisher;
 	ArrayList<Publisher> listPublisher;
 	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
@@ -28,6 +30,7 @@ public class ViewPublisher extends ActionSupport {
 		if(sessionLogin.get("login") == null){
 			return "noUser";
 		}
+		clear.clearSession(sessionLogin);
 		int recordsPerPage = 5;
 		if (sort.equals("NON") || sort.isEmpty()) {
 			column = "id_publisher";

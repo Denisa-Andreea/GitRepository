@@ -38,13 +38,13 @@ public class FunctionForUpdatePublisherJournal {
 		}
 	}
 	
-	public void editJournal(int idJournal, String name, String description) {
+	public void editJournal(int id,String name, String description) {
 		PreparedStatement statement;
 		try {
 			statement = con
 					.prepareStatement("UPDATE journal SET journal.name = '"
 							+ name + "', journal.description = '" + description
-							+ "' where journal.id_journal=" + idJournal);
+							+ "' where journal.id_journal='" + id+"'");
 			statement.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();

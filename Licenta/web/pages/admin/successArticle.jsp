@@ -1,14 +1,12 @@
 <%@include file="header.jsp"%>
 <div class="view">
 	<s:if test="sessionLogin.get('login') == true">
-		<span class="text">Article</span>
-		<div>
+		<span class="color1">Article</span>
 			<s:if test="%{listOfArticles.size() > 0}">
-				<div class="books">
-					<table>
+					<table id="table">
 						<thead>
 							<tr>
-								<th><s:checkbox id="checkeAll"
+								<th class="check"><s:checkbox id="checkeAll"
 									onclick="selectAll();" name="checkeAll" /></th>
 								<th>Title
 									 <s:if test="%{column != 'title'}">
@@ -79,21 +77,21 @@
 							<s:iterator value="listOfArticles" var="articleAuthor" status="part">
 								<s:if test="%{#part.index% 2 == 0}">
 									<tr class="par">
-										<td><s:checkbox fieldValue="%{idArticle}" id="checkbox"
+										<td class="check"><s:checkbox fieldValue="%{idArticle}" id="checkbox"
 											name="checkbox" /></td>
-										<td><s:property value="title" /></td>
-										<td><s:property value="autors" /></td>
-										<td><s:property value="journal" /></td>
-										<td><s:property value="year" /></td>
-										<td><s:if test="%{volume != 0}">
+										<td class="title"><s:property value="title" /></td>
+										<td class="author"><s:property value="autors" /></td>
+										<td class="publisher"><s:property value="journal" /></td>
+										<td class="year"><s:property value="year" /></td>
+										<td class="volume"><s:if test="%{volume != 0}">
 												<s:property value="volume" />
 										</s:if></td>
-										<td><s:if test="%{number != 0}">
+										<td class="volume"><s:if test="%{number != 0}">
 												<s:property value="number" />
 										</s:if></td>
-										<td><s:property value="month" /></td>
-										<td><s:property value="note" /></td>
-										<td><a
+										<td class="month"><s:property value="month" /></td>
+										<td class="note"><s:property value="note" /></td>
+										<td class="year"><a
 										href="editArticle?id=<s:property value='idArticle'/>&&action=edit">
 											<img src="stile/pictures/paint_brush_plus.png" alt="edit"  />
 										</a> <a
@@ -105,19 +103,19 @@
 								</s:if>
 								<s:else>
 									<tr class="impar">
-										<td><s:checkbox fieldValue="%{idArticle}" name="checkbox" /></td>
-										<td><s:property value="title" /></td>
-										<td><s:property value="autors" /></td>
-										<td><s:property value="journal" /></td>
-										<td><s:property value="year" /></td>
-										<td><s:if test="%{volume != 0}">
+										<td class="check"><s:checkbox fieldValue="%{idArticle}" name="checkbox" /></td>
+										<td class="title"><s:property value="title" /></td>
+										<td class="author"><s:property value="autors" /></td>
+										<td class="publisher"><s:property value="journal" /></td>
+										<td class="year"><s:property value="year" /></td>
+										<td class="volume"><s:if test="%{volume != 0}">
 												<s:property value="volume" />
 											</s:if></td>
-										<td><s:if test="%{number != 0}">
+										<td class="volume"><s:if test="%{number != 0}">
 												<s:property value="number" />
 											</s:if></td>
-										<td><s:property value="month" /></td>
-										<td><s:property value="note" /></td>
+										<td class="month"><s:property value="month" /></td>
+										<td class="note"><s:property value="note" /></td>
 										<td><a
 											href="editArticle?id=<s:property value='idArticle'/>&&action=edit">
 												<img src="stile/pictures/paint_brush_plus.png" alt="edit" />
@@ -131,16 +129,14 @@
 							</s:iterator>
 						</tbody>
 					</table>
-				</div>
 				<%@include file="paginationArticle.jsp"%>
 			</s:if>
 			<div class="notFound">
 				<s:else>
-					<p>No Article Found</p>
+					<span class="color1">No Article Found</span>
 				</s:else>
 			</div>
-		</div>
-		<div class="buttonsBook">
+		<div id="button">
 			<a href="fetchJournal"><img
 				src="stile/pictures/edit_delete3.png" /><span class="butonText">Insert</span></a>
 			<a

@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 
 import functions.FunctionBookAuthor;
+import functions.FuntionToUse;
 
 @SuppressWarnings("serial")
 public class ViewBooks extends ActionSupport {
@@ -22,6 +23,7 @@ public class ViewBooks extends ActionSupport {
 	
 	
 	FunctionBookAuthor books = new FunctionBookAuthor();
+	FuntionToUse clear =  new FuntionToUse();
 	Books bookAuthor;
 	ArrayList<BookAuthor> listBook;
 	Map<String, Object> sessionLogin = ActionContext.getContext().getSession();
@@ -31,7 +33,8 @@ public class ViewBooks extends ActionSupport {
 		if(sessionLogin.get("login") == null){
 			return "noUser";
 		}
-		int recordsPerPage = 5;
+		clear.clearSession(sessionLogin);
+		int recordsPerPage = 7;
 		if (sort.equals("NON") || sort.isEmpty()) {
 			listBook = books.fetchBooks((page - 1) * recordsPerPage,
 					recordsPerPage);

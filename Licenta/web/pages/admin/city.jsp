@@ -2,7 +2,6 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<s:label>Publisher City*:</s:label>
 <select id="city" name="city">
 	<s:if test="cityList.isEmpty()"><option>-First select the Country-</option></s:if>
 	<s:else>

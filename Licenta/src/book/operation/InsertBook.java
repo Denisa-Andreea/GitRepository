@@ -90,7 +90,7 @@ public class InsertBook extends ActionSupport {
 		}else if (validation.littleFirstLetter(getTitle())) {
 			setTitle(title.substring(0, 1).toUpperCase() + title.substring(1));
 		}
-		if (validation.alreadyExistTitle(getTitle())) {
+		if (validation.alreadyExistTitle(getTitle(),"carti")) {
 			addFieldError("title", "Already exist!!!");
 		}
 		

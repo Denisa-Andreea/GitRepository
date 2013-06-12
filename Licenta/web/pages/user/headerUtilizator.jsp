@@ -39,5 +39,6 @@
 					<li><a href="gotoRecentlyArticle">Recently Added</a></li>
 					<li><a href="gotoAllArticle">All article</a></li>
 				</ul></li>
+			<li><a href="goToAdvSearch">Advance Search</a>
 		</ul>
 	</div>

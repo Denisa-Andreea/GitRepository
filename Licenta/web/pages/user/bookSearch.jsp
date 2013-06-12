@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <s:if test="%{book.size()>0}">
 	<s:iterator status="ipart" value="book">
-		<div id="displayBookIndex">
+		<div id="displayIndex">
 			#
 			<s:property value="%{#ipart.index+1}" />
 		</div>

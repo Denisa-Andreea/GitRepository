@@ -50,10 +50,12 @@
 		<result>/pages/login/login.jsp</result>
 	</action>
 	
+	<action name="logout" class="login.Logout">
+		<result name="logout" type="redirect">user</result>
+	</action>
+	
 	<action name="login" class="login.Login">
 		<result name="login" type="redirect">firstPageAdmin</result>
-		<result name="logout" type="redirect">user</result>
-		<result name="changePassword" type="redirect">/pages/login/changePassword.jsp</result>
 		<result name="input">/pages/login/login.jsp</result>
 		<result name="cancel" type="redirect">user</result>
 	</action>
@@ -68,6 +70,10 @@
 	
 	<action name="resetPassword" class="login.ResetPassword">
 		<result type="redirect">goToLogin</result>
+	</action>
+	
+	<action name="gotoChangePass" class="login.GotoChangePass">
+		<result>/pages/login/changePassword.jsp</result>
 	</action>
 	
 	<!-- first page admin -->
@@ -210,12 +216,12 @@
  		
  		<!-- actiune pentru advance search -->
  		
- 		<action name="advanceSearch" class="admin.AdvanceSearch">
- 			<result>/pages/admin/resultAdvSearch.jsp</result>
+ 		<action name="advanceSearch" class="user.AdvanceSearch">
+ 			<result>/pages/user/resultAdvSearch.jsp</result>
  		</action>
  		
- 		<action name="goToAdvSearch" class="admin.GoToAdvSearch">
- 			<result>/pages/admin/advanceSearch.jsp</result>
+ 		<action name="goToAdvSearch" class="user.GoToAdvSearch">
+ 			<result>/pages/user/advanceSearch.jsp</result>
  		</action>
 	</package>
 </struts>

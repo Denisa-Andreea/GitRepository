@@ -29,8 +29,15 @@ public class BookValidation {
 		return false;
 	}
 	
-	public boolean alreadyExistTitle(String value){
-		if(bdVerify.titleVerify(value).equals("exista")){
+	public boolean alreadyExistTitle(String value,String table){
+		if(bdVerify.titleVerify(value,table).equals("exista")){
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean alreadyExistTitleCondition(String value,String table,String valAnterioara){
+		if(bdVerify.titleVerifyConditionat(value, table, valAnterioara).equals("exista")){
 			return true;
 		}
 		return false;

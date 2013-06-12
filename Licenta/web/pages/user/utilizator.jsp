@@ -3,7 +3,7 @@
 	<div class="rootBox" id="bodyUtilizator" style="text-align: center;">
 		<div style="font-size: 52px; padding: 15px 15px 0px 15px;">
 			<a id="logoText" style="text-decoration: none;" href="user"> <span
-				class="color1">Book</span><span class="color2">OS</span>
+				class="color1">Book</span><span class="color2"> &amp; Article</span>
 			</a>
 		</div>
 		<div class="color4"
